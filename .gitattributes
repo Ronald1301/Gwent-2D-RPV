@@ -2,5 +2,7 @@
 * text=auto
 * text=auto eol=lf
 *.cs text eol=lf
-Assets/Sounds/ filter=lfs diff=lfs merge=lfs -text
+Unity Gwent-Pro-2D-RPV/Assets/Sounds/* filter=lfs diff=lfs merge=lfs -text
 *.ogg filter=lfs diff=lfs merge=lfs -text
+Library/* filter=lfs diff=lfs merge=lfs -text
+#Unity[[:space:]]Gwent-Pro-2D-RPV/Assets/Sounds/Best_Songs_PIRATAS_DEL_CARIBE_SAGA_Full_Soundtrack_Mejores_Canciones filter=lfs diff=lfs merge=lfs -text
