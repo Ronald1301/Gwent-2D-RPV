@@ -1,0 +1,43 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/UI%20Toolkit/Menu%20Information/StyleMenuInformation.uss?fileID=7433441132597879392&amp;guid=28e6e6d3c5d1c0a488646d95509d6e64&amp;type=3#StyleMenuInformation" />
+    <ui:VisualElement name="Container" class="Container" style="flex-grow: 1;">
+        <ui:Label text="Rules" name="Rules" class="TextRules" />
+        <ui:VisualElement name="Down" class="Down" style="flex-grow: 1;">
+            <ui:VisualElement name="Box" class="Box" style="flex-grow: 1;">
+                <ui:VisualElement name="DeckCards" class="SmallBox" style="flex-grow: 1;">
+                    <ui:Label text="The Deck" name="Subtitle1" class="Caption" />
+                    <ui:Label text="A Gwent deck contains the following:&#10;1. A letter from a leader. Each leader has a specific skill.&#10;2. A minimum of 25 total cards.&#10;3. Each card has a faction. All cards in the deck must match with the leader&apos;s faction or be neutral.&#10;4. Two types of unit cards, silver and gold (heroes). The silver cards have a deck limit of three copies, while the gold ones&#10;They can have only one.&#10;5. Weather, surge, clearance and decoy charts." name="Text1" class="Treeview Text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="StartoftheGame" class="SmallBox" style="flex-grow: 1;">
+                    <ui:Label text="Start of the Game" name="Subtitle2" class="Caption" />
+                    <ui:Label text="At the start of a game, each player draws 10 cards from their deck. Before the battle starts, players can choose up to 2 cards&#10;to return them to the deck and draw the same amount. The maximum amount&#10;number of cards you can have in your hand is 10, any card that is drawn (by some effect during the game) while you are at this limit will be&#10;discarded (sent to the cemetery).&#10;1. The player who wins the previous round will be the one who starts the next one.&#10;2. At the beginning of the second round, each player draws two cards.&#10;3. If the game reaches a third round, each player also draws two&#10;letters before starting it." name="Text2" usage-hints="None" class="Treeview Text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TheBoard" class="SmallBox" style="flex-grow: 1;">
+                    <ui:Label text="The Board" name="Subtitle3" class="Caption" />
+                    <ui:Label text="Label" name="Text3" class="Treeview Text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="UnitCards" class="SmallBox" style="flex-grow: 1;">
+                    <ui:Label text="Unit Cards" name="Subtitle4" class="Caption" />
+                    <ui:Label text="Label" name="Text4" class="Treeview Text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="SpecialCards" class="SmallBox" style="flex-grow: 1;">
+                    <ui:Label text="Special Cards" name="Subtitle5" class="Caption" />
+                    <ui:Label text="Label" name="Text5" class="Treeview Text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Leaders" class="SmallBox" style="flex-grow: 1;">
+                    <ui:Label text="Leaders" name="Subtitle6" class="Caption" />
+                    <ui:Label text="Label" name="Text6" class="Treeview Text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TheGame" style="flex-grow: 1;">
+                    <ui:Label text="The Game" name="Subtitle7" class="Caption" />
+                    <ui:Label text="Label" name="Text7" class="Treeview Text" />
+                </ui:VisualElement>
+                <ui:ScrollView name="ScrollView" class="Scrollview" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Image" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Images/barbosa5.png?fileID=-4130627582016167435&amp;guid=3b6182ad11556d0488f164ee3b9c1790&amp;type=3#barbosa5_0&apos;); width: 50%; height: 100%; align-self: center; justify-content: flex-end; align-items: stretch;">
+                <ui:Button text="Back" name="Back" class="ButtonBack" />
+            </ui:VisualElement>
+            <ui:TreeView />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

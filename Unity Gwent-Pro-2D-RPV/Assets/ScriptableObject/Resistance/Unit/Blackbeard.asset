@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b052960f44e0ad0478b8779bc224d034, type: 3}
+  m_Name: Blackbeard
+  m_EditorClassIdentifier: 
+  cardName: Captain Blackbeard
+  faction: 1
+  type: 0
+  description: Eliminate the card with the  most power from the field  (your own
+    or your opponent's)
+  cardImageForehead: {fileID: 21300000, guid: 32ffab5de66f467488c64d904547f83d, type: 3}
+  cardImageback: {fileID: 21300000, guid: 36a13220b2b24b14995f2b202dc94f38, type: 3}
+  startPower: 8
+  power: 8
+  typeField: 77
+  typeUnitCard: 2
+  typeSpecialCard: 0

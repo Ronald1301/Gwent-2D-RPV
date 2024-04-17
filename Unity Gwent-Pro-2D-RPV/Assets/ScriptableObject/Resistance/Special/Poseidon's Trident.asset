@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b052960f44e0ad0478b8779bc224d034, type: 3}
+  m_Name: Poseidon's Trident
+  m_EditorClassIdentifier: 
+  cardName: Poseidon's Trident
+  faction: 1
+  type: 1
+  description: ' Destroy all activated  weather cards on the field'
+  cardImageForehead: {fileID: 21300000, guid: 3289518ad32bdb04ea8d83bdfb78e7e2, type: 3}
+  cardImageback: {fileID: 21300000, guid: 36a13220b2b24b14995f2b202dc94f38, type: 3}
+  startPower: 0
+  power: 0
+  typeField: 0
+  typeUnitCard: 0
+  typeSpecialCard: 3
