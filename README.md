@@ -1,3 +1,2 @@
-# Gwent-2D-RPV
-Juego de cartas Gwent en 2D
- 
+# Gwent-Pro-2D-RPV
+ First Year Programming Project (Gwent card game in 2D)
