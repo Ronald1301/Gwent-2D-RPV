@@ -8,9 +8,14 @@ using UnityEngine.SceneManagement;
 public class ScrpiptSelectDecks : MonoBehaviour
 {
     UIDocument SelectDecks;
-   // public GameObject StartMenu;
+    GameObject GameManager;
     GameObject DeckPirates;
     GameObject DeckResistance;
+    GameObject Board1;
+    GameObject Board2;
+    GameObject Hand1;
+    GameObject Hand2;
+    GameObject Game;
 
     private Button deck1;
     private Button deck2;
@@ -18,8 +23,14 @@ public class ScrpiptSelectDecks : MonoBehaviour
 
     private void Start()
     {
-        DeckPirates = GameObject.Find("Deck Pirates");
+        GameManager = GameObject.Find("GameManager");
+        DeckPirates = GameObject.FindGameObjectWithTag("Deck Pirates");
         DeckResistance = GameObject.FindGameObjectWithTag("Deck Resistance");
+        Board1 = GameObject.FindGameObjectWithTag("SubBoard1");
+        Board2 = GameObject.FindGameObjectWithTag("SubBoard2");
+        Hand1 = GameObject.FindGameObjectWithTag("Hand1");
+        Hand2 = GameObject.FindGameObjectWithTag("Hand2");
+        Game = GameObject.FindGameObjectWithTag("GameController");
     }
 
     private void OnEnable()
@@ -33,14 +44,24 @@ public class ScrpiptSelectDecks : MonoBehaviour
         back = root.Q<Button>("Back");
 
         //Callbacks
-        deck1.RegisterCallback<ClickEvent>(OpenGame);
-        deck2.RegisterCallback<ClickEvent>(OpenGame);
+        deck1.RegisterCallback<ClickEvent>(OpenGameDeck1);
+        deck2.RegisterCallback<ClickEvent>(OpenGameDeck2);
         back.RegisterCallback<ClickEvent>(BackToStartMenu);
     }
 
-    private void OpenGame(ClickEvent evt)
+    private void OpenGameDeck1(ClickEvent evt)
     {
-        throw new NotImplementedException();
+        GetComponent<GameManager>().player1 = new Player(DeckPirates.GetComponent<Decks>(),Board1.GetComponent<SubBoard>(),Hand1.GetComponent<Hand>());
+        GetComponent<GameManager>().player2 = new Player(DeckResistance.GetComponent<Decks>(), Board2.GetComponent<SubBoard>(), Hand2.GetComponent<Hand>());
+        gameObject.SetActive(false);
+        Game.SetActive(true);
+    }
+    private void OpenGameDeck2(ClickEvent evt)
+    {
+        GetComponent<GameManager>().player1 = new Player(DeckResistance.GetComponent<Decks>(), Board1.GetComponent<SubBoard>(), Hand1.GetComponent<Hand>());
+        GetComponent<GameManager>().player2 = new Player(DeckPirates.GetComponent<Decks>(), Board2.GetComponent<SubBoard>(), Hand2.GetComponent<Hand>());
+        gameObject.SetActive(false);
+        Game.SetActive(true);
     }
 
     private void BackToStartMenu(ClickEvent evt)

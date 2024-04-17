@@ -17,16 +17,4 @@ public class Decks : MonoBehaviour
         get => deck[index];
         set => deck[index] = value;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //deck = new List<GameObject>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

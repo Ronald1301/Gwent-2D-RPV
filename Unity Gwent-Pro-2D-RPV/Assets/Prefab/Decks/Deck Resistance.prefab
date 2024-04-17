@@ -4474,7 +4474,6 @@ GameObject:
   - component: {fileID: 6557331302893621524}
   - component: {fileID: 380989181396789444}
   - component: {fileID: 947295858028500625}
-  - component: {fileID: 1378491544809394793}
   m_Layer: 0
   m_Name: Lord Beckett
   m_TagString: Untagged
@@ -4611,22 +4610,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 11400000, guid: bff11ae62004b7d41828e27b079e4644, type: 2}
   gameObject: {fileID: 0}
---- !u!114 &1378491544809394793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7540280182803712645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29eafcc53b3d5e489270e06280ca320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inTheField: 0
-  isOverDropZone: 0
-  meleeZone: {fileID: 0}
-  startPosition: {x: 0, y: 0}
 --- !u!1 &7679903611122143722
 GameObject:
   m_ObjectHideFlags: 0

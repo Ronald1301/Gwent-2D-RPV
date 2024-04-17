@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CementeryCards : MonoBehaviour
-{    public List<GameObject> cementeryCards { get; set; }
+{
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +13,6 @@ public class CementeryCards : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //GetComponent<SpriteRenderer>().sprite = cementeryCards[cementeryCards.Count - 1].GetComponent<SpriteRenderer>().sprite;
+        
     }
 }

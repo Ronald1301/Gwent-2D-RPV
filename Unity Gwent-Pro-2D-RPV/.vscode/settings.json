@@ -59,6 +59,9 @@
     "dotnet.defaultSolution": "Unity Gwent-Pro-2D-RPV.sln",
     "cSpell.words": [
         "Behaviour",
-        "fullscreen"
+        "deckref",
+        "fullscreen",
+        "Listo",
+        "newcard"
     ]
 }

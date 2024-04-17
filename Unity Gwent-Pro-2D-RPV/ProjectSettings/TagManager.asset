@@ -7,12 +7,12 @@ TagManager:
   - UI Card Description
   - Deck Pirates
   - Deck Resistance
-  - Boss Player1
-  - Boss Player2
-  - Cementery Player1
-  - Cementery Player2
   - Camera Player1
   - CameraPlayer2
+  - SubBoard1
+  - SubBoard2
+  - Hand1
+  - Hand2
   layers:
   - Default
   - TransparentFX
