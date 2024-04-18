@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class ScriptUIRuntime : MonoBehaviour
 {
     UIDocument UIRuntime;
+    GameObject GameManager;
 
     private Label currentRound;
     private Label playerTurn;
@@ -43,35 +44,35 @@ public class ScriptUIRuntime : MonoBehaviour
 
     }
 
-    private void Start()
+    public void UIUpdate()
     {
-        /*
-        currentRound.text = GameManager.currentRound.ToString();
-        playerTurn.text = GameManager.currentPlayer.ToString();
-        powerPlayer1.text = GameManager.player1.Power.ToString();
-        roundsWonPlayer1.value = GameManager.player1.RoundsWon;
-        powerPlayer2.text = GameManager.player2.Power.ToString();
-        roundsWonPlayer2.value = GameManager.player2.RoundsWon;
-        */
-    }
+        currentRound.text = GameManager.GetComponent<GameManager>().currentRound.ToString();
 
-    public void Update()
-    {
-        /*
-        //currentRound.text = GameManager.currentRound.ToString();
-        //playerTurn.text = GameManager.currentPlayer.ToString();
-        //powerPlayer1.text = GameManager.player1.Power.ToString();
-        //roundsWonPlayer1.value = GameManager.player1.RoundsWon;
-        //powerPlayer2.text = GameManager.player2.Power.ToString();
-        //roundsWonPlayer2.value = GameManager.player2.RoundsWon;
-        */
-    }
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying) playerTurn.text = "Player 1";
+        else playerTurn.text = "Player 2";
+        
+        powerPlayer1.text = GameManager.GetComponent<GameManager>().player1.Points_for_round[GameManager.GetComponent<GameManager>().currentRound-1].ToString();
+        roundsWonPlayer1.value = GameManager.GetComponent<GameManager>().player1.RoundsWon;
 
+        powerPlayer2.text = GameManager.GetComponent<GameManager>().player2.Points_for_round[GameManager.GetComponent<GameManager>().currentRound-1].ToString();
+        roundsWonPlayer2.value = GameManager.GetComponent<GameManager>().player2.RoundsWon;
+
+    }
 
     private void ChangeTurn(ClickEvent evt)
     {
-        //GameManager.ChangeTurn();
         Debug.Log("Change Turn");
+
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying)
+        {
+            GameManager.GetComponent<GameManager>().player1.passTurn = true;
+        }
+        else
+        {
+            GameManager.GetComponent<GameManager>().player2.passTurn = true;
+        }
+
+        GameManager.GetComponent<GameManager>().ChangeTurn();
     }
 
     private void ExitToStartMenu(ClickEvent evt)

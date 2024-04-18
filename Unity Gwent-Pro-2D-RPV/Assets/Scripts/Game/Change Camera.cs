@@ -34,12 +34,16 @@ public class ChangeCamera : MonoBehaviour
 
     public void OnClick()
     {
-        if (mainCamera == camera1)
+        if (mainCamera == camera1 )
         {
+            GameManager.GetComponentInParent<GameManager>().player1.isPlaying = false;
+            GameManager.GetComponentInParent<GameManager>().player2.isPlaying = true;
             mainCamera = camera2;
         }
         else
         {
+            GameManager.GetComponentInParent<GameManager>().player2.isPlaying = false;
+            GameManager.GetComponentInParent<GameManager>().player1.isPlaying = true;
             mainCamera = camera1;
         }
     }

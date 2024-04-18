@@ -23,7 +23,7 @@ public class CardDisplay : MonoBehaviour
        var newposition = new Vector3(transform.position.x+1, transform.position.y, transform.position.z - 1);
         gameObject.transform.position = newposition;
         gameObject.gameObject.SetActive(true);
-        gameObject.UIUpdate(card);
+        gameObject.UIUpdateCardDescription(card);
     }
     public void OnMouseExit()
     {
@@ -31,7 +31,7 @@ public class CardDisplay : MonoBehaviour
         //UI.SendMessageUpwards("UIUpdate", null);
         
         gameObject.gameObject.SetActive(false);
-        gameObject.UIUpdate(null);
+        gameObject.UIUpdateCardDescription(null);
     }
 
    

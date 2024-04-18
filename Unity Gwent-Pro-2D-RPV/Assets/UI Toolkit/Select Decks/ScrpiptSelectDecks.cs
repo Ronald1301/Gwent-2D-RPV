@@ -16,6 +16,7 @@ public class ScrpiptSelectDecks : MonoBehaviour
     GameObject Hand1;
     GameObject Hand2;
     GameObject Game;
+    GameObject UIRuntime;
 
     private Button deck1;
     private Button deck2;
@@ -31,6 +32,7 @@ public class ScrpiptSelectDecks : MonoBehaviour
         Hand1 = GameObject.FindGameObjectWithTag("Hand1");
         Hand2 = GameObject.FindGameObjectWithTag("Hand2");
         Game = GameObject.FindGameObjectWithTag("GameController");
+        UIRuntime= GameObject.Find("UIRuntime");
     }
 
     private void OnEnable()
@@ -62,6 +64,7 @@ public class ScrpiptSelectDecks : MonoBehaviour
         GetComponent<GameManager>().player2 = new Player(DeckPirates.GetComponent<Decks>(), Board2.GetComponent<SubBoard>(), Hand2.GetComponent<Hand>());
         gameObject.SetActive(false);
         Game.SetActive(true);
+        UIRuntime.SetActive(true);
     }
 
     private void BackToStartMenu(ClickEvent evt)

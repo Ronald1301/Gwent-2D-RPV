@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class Hand : MonoBehaviour
     public GameObject deck;
     public List<GameObject> CardsInHand;
     public List<GameObject> CardsInDeck;
+
+
     void Start()
     {
         CardsInHand = new List<GameObject>();
@@ -26,6 +29,11 @@ public class Hand : MonoBehaviour
         CardsInDeck.RemoveAt(indexCard);
         }
         
+    }
+    internal bool CheckHand()
+    {
+        if (CardsInHand.Count == 0) return true;
+        return false;
     }
 
     // Update is called once per frame

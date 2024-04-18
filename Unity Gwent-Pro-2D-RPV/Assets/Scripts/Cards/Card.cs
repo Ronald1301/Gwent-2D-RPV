@@ -31,7 +31,7 @@ public class Card : ScriptableObject
     //UnitCards
 
     public int StartPower { get => startPower;}
-    public int Power { get => power; }
+    public int Power { get => power; set=> power=value; }
 
     //public readonly char[] TypeField = { 'M', 'R', 'S' };
    // public readonly bool[] MRS = new bool[3];
