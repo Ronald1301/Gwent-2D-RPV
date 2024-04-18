@@ -5,13 +5,13 @@ using UnityEngine;
 public class SubBoard : MonoBehaviour
 {
     //public Decks deck;
-    public Hand Hand;
-    public List<GameObject> Cemetery;
-    public List<GameObject> M;
-    public List<GameObject> R;
-    public List<GameObject> S;
-    public GameObject[] Increase;
+    public GameObject Hand;
+    public GameObject M;
+    public GameObject R;
+    public GameObject S;
+    public GameObject Increase;
     public GameObject Climate;
+    public GameObject Cementery;
 
     //public Card Leader { get; set; }
     /*
@@ -27,7 +27,7 @@ public class SubBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

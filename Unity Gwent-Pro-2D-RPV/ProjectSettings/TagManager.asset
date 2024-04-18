@@ -13,6 +13,21 @@ TagManager:
   - SubBoard2
   - Hand1
   - Hand2
+  - Camera1
+  - Camera2
+  - Melee Zone1
+  - Remote Zone1
+  - Remote Zone2
+  - Siege Zone1
+  - Siege Zone2
+  - Increase Zone1
+  - Increase Zone2
+  - Melee Zone2
+  - Cementery Zone1
+  - Cementery Zone2
+  - Climate Zone1
+  - Climate Zone2
+  - UI Runtime
   layers:
   - Default
   - TransparentFX

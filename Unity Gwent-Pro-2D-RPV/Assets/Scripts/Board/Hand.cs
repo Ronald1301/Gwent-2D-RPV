@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     public GameObject deck;
-    private List<GameObject> CardsInHand { get; set; }
+    public List<GameObject> CardsInHand;
     public List<GameObject> CardsInDeck;
     void Start()
     {
@@ -21,11 +21,9 @@ public class Hand : MonoBehaviour
         //int indexCard= Random.Range(1, CardsInDeck.Count-1);
         GameObject drawCard = Instantiate(CardsInDeck[indexCard], new Vector3(i-4.5f, 0, 0), Quaternion.identity);
         //GameObject drawCard = CardsInDeck[indexCard];
-      //Debug.Log("Card " + drawCard.name);
         drawCard.transform.SetParent(this.transform, false);
         CardsInHand.Add(drawCard);
         CardsInDeck.RemoveAt(indexCard);
-        Debug.Log(CardsInDeck.Count);    
         }
         
     }

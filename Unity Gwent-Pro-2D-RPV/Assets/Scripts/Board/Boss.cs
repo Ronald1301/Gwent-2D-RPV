@@ -14,7 +14,7 @@ public class Boss : MonoBehaviour
 
         GameObject newcard = Instantiate(deck.GetComponent<Decks>().deck[0], new Vector3(0, 0, 0), Quaternion.identity);
        newcard.transform.SetParent(this.transform, false);
-        Debug.Log("Listo");
+        //Debug.Log("Listo");
     }
 
     void Update()
