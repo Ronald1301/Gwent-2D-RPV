@@ -24,3 +24,5 @@ MonoBehaviour:
   typeField: 0
   typeUnitCard: 0
   typeSpecialCard: 4
+  effects: 12
+  stayintheField: 0

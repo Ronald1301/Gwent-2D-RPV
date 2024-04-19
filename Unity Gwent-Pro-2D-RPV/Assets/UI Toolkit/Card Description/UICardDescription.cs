@@ -69,6 +69,7 @@ public class UICardDescription : MonoBehaviour
 
     public void UIUpdateCardDescription(Card newcard)
     {
+        //if(cardImage.style.backgroundImage == newcard.CardImageBack.texture) return;
         cardImage.style.backgroundImage = newcard.CardImageForehead.texture;
         cardName.text = newcard.CardName;
         cardType.text = newcard.Type.ToString();

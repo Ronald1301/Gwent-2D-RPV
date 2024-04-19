@@ -20,6 +20,8 @@ MonoBehaviour:
   cardImageback: {fileID: 21300000, guid: 36a13220b2b24b14995f2b202dc94f38, type: 3}
   startPower: 6
   power: 6
-  typeField: 77
+  typeField: 115
   typeUnitCard: 2
   typeSpecialCard: 0
+  effects: 4
+  stayintheField: 0

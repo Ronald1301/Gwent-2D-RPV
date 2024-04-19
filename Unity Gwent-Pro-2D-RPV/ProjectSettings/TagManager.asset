@@ -29,6 +29,9 @@ TagManager:
   - Climate Zone2
   - UI Runtime
   - GameManager
+  - MainBoard
+  - Deck Player1
+  - Boss Zone1
   layers:
   - Default
   - TransparentFX

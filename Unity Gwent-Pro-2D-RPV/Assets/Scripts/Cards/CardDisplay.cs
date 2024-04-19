@@ -20,8 +20,8 @@ public class CardDisplay : MonoBehaviour
     {  
         //UI.SetActive(true);
        // UI.SendMessageUpwards("UIUpdate", card);   
-       var newposition = new Vector3(transform.position.x+1, transform.position.y, transform.position.z - 1);
-        gameObject.transform.position = newposition;
+       //var newposition = new Vector3(transform.position.x+1, transform.position.y, transform.position.z - 1);
+        //gameObject.transform.position = newposition;
         gameObject.gameObject.SetActive(true);
         gameObject.UIUpdateCardDescription(card);
     }
@@ -31,7 +31,7 @@ public class CardDisplay : MonoBehaviour
         //UI.SendMessageUpwards("UIUpdate", null);
         
         gameObject.gameObject.SetActive(false);
-        gameObject.UIUpdateCardDescription(null);
+        //gameObject.UIUpdateCardDescription(null);
     }
 
    

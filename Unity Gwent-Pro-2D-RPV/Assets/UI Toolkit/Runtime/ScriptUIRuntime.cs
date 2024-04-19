@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class ScriptUIRuntime : MonoBehaviour
 {
     UIDocument UIRuntime;
-    GameObject GameManager;
+    [SerializeField] GameObject GameManager;
 
     private Label currentRound;
     private Label playerTurn;
@@ -53,9 +53,11 @@ public class ScriptUIRuntime : MonoBehaviour
         
         powerPlayer1.text = GameManager.GetComponent<GameManager>().player1.Points_for_round[GameManager.GetComponent<GameManager>().currentRound-1].ToString();
         roundsWonPlayer1.value = GameManager.GetComponent<GameManager>().player1.RoundsWon;
+        roundsWonPlayer1.title = GameManager.GetComponent<GameManager>().player1.RoundsWon.ToString();
 
         powerPlayer2.text = GameManager.GetComponent<GameManager>().player2.Points_for_round[GameManager.GetComponent<GameManager>().currentRound-1].ToString();
         roundsWonPlayer2.value = GameManager.GetComponent<GameManager>().player2.RoundsWon;
+        roundsWonPlayer2.title = GameManager.GetComponent<GameManager>().player2.RoundsWon.ToString();
 
     }
 
@@ -66,10 +68,15 @@ public class ScriptUIRuntime : MonoBehaviour
         if (GameManager.GetComponent<GameManager>().player1.isPlaying)
         {
             GameManager.GetComponent<GameManager>().player1.passTurn = true;
+            Debug.Log("Player 1 pass turn");
+            // GameManager.GetComponent<GameManager>().ChangeTurn();
+             //Debug.Log("Change Turn");
         }
         else
         {
             GameManager.GetComponent<GameManager>().player2.passTurn = true;
+            Debug.Log("Player 2 pass turn");
+            // GameManager.GetComponent<GameManager>().ChangeTurn();
         }
 
         GameManager.GetComponent<GameManager>().ChangeTurn();

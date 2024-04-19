@@ -2,29 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player 
+public class Player : MonoBehaviour
 {
     public Decks deck;
-    public SubBoard board;
+    public SubBoard board ;
     public Hand hand;
     public int Points_for_game;
-    public int[] Points_for_round ;
-    public int RoundsWon;
+    public int[] Points_for_round;
+    public int RoundsWon ;
     public bool[] RoundsWon_for_game;
     public bool isPlaying;
     public bool passTurn ;
 
-    public Player(Decks deck,SubBoard board,Hand hand)
+    public Player(Decks deck,SubBoard subBoard,Hand hand)
     {
         this.deck = deck;
-        this.board = board;
-        this.hand = hand;
+      this.board = subBoard;
+        this.hand =hand;
+        
         Points_for_game = 0;
         Points_for_round = new int[3];
         RoundsWon =0;
         RoundsWon_for_game = new bool[3];
         isPlaying = false;
         passTurn = false;
+        
     }
     // Start is called before the first frame update
     void Start()

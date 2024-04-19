@@ -58,10 +58,23 @@
     },
     "dotnet.defaultSolution": "Unity Gwent-Pro-2D-RPV.sln",
     "cSpell.words": [
+        "activeboss",
+        "Afectedfor",
         "Behaviour",
+        "Cardsin",
+        "Changecards",
+        "clickcount",
+        "clicklure",
         "deckref",
         "fullscreen",
+        "Imageback",
+        "indextype",
         "Listo",
-        "newcard"
-    ]
+        "newcard",
+        "newposition",
+        "Raycast",
+        "Scriptable",
+        "Stayinthe"
+    ],
+    "dotnet.preferCSharpExtension": true
 }

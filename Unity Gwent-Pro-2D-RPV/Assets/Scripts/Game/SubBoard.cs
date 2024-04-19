@@ -6,24 +6,26 @@ using UnityEngine;
 
 public class SubBoard : MonoBehaviour
 {
-    //public Decks deck;
+    public GameObject Boss;
+    public GameObject deckfield;
     public GameObject Hand;
     public GameObject M;
     public GameObject R;
     public GameObject S;
     public GameObject Increase;
     public GameObject Climate;
-    public GameObject Cementery;
+    public GameObject Cemetery;
 
     internal int UpdatePoints()
     {
+        
         if (M.GetComponent<MeleeZone>().melee.Count == 0 ||
             R.GetComponent<RangedZone>().ranged.Count == 0 ||
             GetComponent<SiegeZone>().siege.Count == 0)
         {
             return 0;
         }
-
+        
         int points = 0;
         for (int i = 0; i < M.GetComponent<MeleeZone>().melee.Count; i++)
         {
