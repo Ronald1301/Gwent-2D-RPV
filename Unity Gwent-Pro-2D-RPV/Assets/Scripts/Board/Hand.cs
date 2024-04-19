@@ -7,7 +7,7 @@ public class Hand : MonoBehaviour
 {
     public GameObject deck;
     public List<GameObject> CardsInHand;
-   // public bool[] Mask = new bool[15];
+    // public bool[] Mask = new bool[15];
     //public GameObject[] HandPosition = new GameObject[15];
     public List<GameObject> CardsInDeck;
 
@@ -31,7 +31,23 @@ public class Hand : MonoBehaviour
             CardsInHand.Add(drawCard);
             CardsInDeck.RemoveAt(indexCard);
         }
+    }
 
+    public void DrawCard(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            System.Random index = new System.Random();
+            int indexCard = index.Next(1, CardsInDeck.Count);
+            //int indexCard= Random.Range(1, CardsInDeck.Count-1);
+            GameObject drawCard = Instantiate(CardsInDeck[indexCard], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
+            //Mask[i] = true;
+            drawCard.transform.localScale = new Vector3(0.4f, 0.6f, 0);
+            //GameObject drawCard = CardsInDeck[indexCard];
+            drawCard.transform.SetParent(this.transform, false);
+            CardsInHand.Add(drawCard);
+            CardsInDeck.RemoveAt(indexCard);
+        }
     }
     internal bool CheckHand()
     {

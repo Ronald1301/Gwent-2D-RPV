@@ -16,6 +16,7 @@ public class SubBoard : MonoBehaviour
     public GameObject Climate;
     public GameObject Cemetery;
 
+
     internal int UpdatePoints()
     {
         

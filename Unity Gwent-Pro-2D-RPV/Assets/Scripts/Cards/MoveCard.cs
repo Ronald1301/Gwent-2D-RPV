@@ -13,16 +13,13 @@ public class MoveCard : MonoBehaviour
     private bool isClicked = false;
     private bool clickLure = false;
 
-
-
     void Start()
     {
-        StartCoroutine(WaitForClick());
-        // StartCoroutine(WaitForClick());
+//        StartCoroutine(WaitForClick());
         //GameManager = GameObject.Find("GameManager");
         //UIRuntime = GameObject.Find("UI Runtime").GetComponent<ScriptUIRuntime>();
 
-        /*
+        
                 if (GameManager.GetComponent<GameManager>().player1.isPlaying)
                 {
                     subBoard = GameObject.FindGameObjectWithTag("SubBoard1");
@@ -32,9 +29,9 @@ public class MoveCard : MonoBehaviour
                 {
                     subBoard = GameObject.FindGameObjectWithTag("SubBoard2");
                 }
-                */
+                
 
-        subBoard = GameObject.FindGameObjectWithTag("SubBoard1");
+       // subBoard = GameObject.FindGameObjectWithTag("SubBoard1");
 
     }
     void Update()
@@ -42,6 +39,7 @@ public class MoveCard : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             isClicked = true;
+            clickLure = true;
         }
     }
 
@@ -78,8 +76,8 @@ public class MoveCard : MonoBehaviour
                 }
             }
         }
-        isClicked = false; 
-        clickLure = true;
+        isClicked = false;
+        clickLure = false;
     }
 
     public void Move()
@@ -149,10 +147,34 @@ public class MoveCard : MonoBehaviour
             }
             else if (gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Lure)
             {
-                while (!clickLure)
+                if (subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count == 0)
                 {
-                    //yield return null;
+                    int indextype = UnityEngine.Random.Range(1, 3);
+                    if (indextype == 1)
+                    {
+                        MoveToM();
+                        Debug.Log("Move to M card lure");
+                    }
+                    else if (indextype == 2)
+                    {
+                        MoveToR();
+                        Debug.Log("Move to R card lure");
+                    }
+                    else if (indextype == 3)
+                    {
+                        MoveToS();
+                        Debug.Log("Move to S card lure");
+                    }
                 }
+                else
+                {
+                    while (!clickLure)
+                    {
+                        StartCoroutine(WaitForClick());
+                        return;
+                    }
+                }
+                /*
                 GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
                 GameManager.GetComponent<GameManager>().player2.board.UpdatePoints();
                 GameManager.GetComponent<GameManager>().UpdatePoints();
@@ -161,6 +183,7 @@ public class MoveCard : MonoBehaviour
                 UIRuntime.UIUpdate();
 
                 GameManager.GetComponent<GameManager>().ChangeTurn();
+                */
             }
         }
         subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
@@ -168,24 +191,28 @@ public class MoveCard : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //Move card
-        Move();
-        if (GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying && GameManager.GetComponent<GameManager>().player1.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject)
+            || GameManager.GetComponent<GameManager>().player2.isPlaying && GameManager.GetComponent<GameManager>().player2.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject))
         {
-            //Activate effect
+            Move();
             Effects.ActivateEffect(gameObject);
-            //Update points
+            GameManager.GetComponent<GameManager>().UpdatePoints(gameObject.GetComponent<CardDisplay>().card);
+
+            /*
             GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
             GameManager.GetComponent<GameManager>().player2.board.UpdatePoints();
             GameManager.GetComponent<GameManager>().UpdatePoints();
-
+            UIRuntime.UIUpdate();
+            //Update points
+            GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
+            GameManager.GetComponent<GameManager>().player2.board.UpdatePoints();
             //Update UI
+            */
             UIRuntime.UIUpdate();
 
             GameManager.GetComponent<GameManager>().ChangeTurn();
         }
     }
-
     public void MoveToM()
     {
         subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Add(this.gameObject);

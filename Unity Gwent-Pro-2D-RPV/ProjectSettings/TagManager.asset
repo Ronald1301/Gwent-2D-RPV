@@ -32,6 +32,9 @@ TagManager:
   - MainBoard
   - Deck Player1
   - Boss Zone1
+  - Boss Zone2
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX

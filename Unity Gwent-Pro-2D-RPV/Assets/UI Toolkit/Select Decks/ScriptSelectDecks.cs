@@ -46,8 +46,8 @@ public class ScriptSelectDecks : MonoBehaviour
         back = root.Q<Button>("Back");
 
         //Callbacks
-        deck1.RegisterCallback<ClickEvent>(OpenGame);
-        deck2.RegisterCallback<ClickEvent>(OpenGame);
+        deck1.RegisterCallback<ClickEvent>(OpenGameDeck1);
+        deck2.RegisterCallback<ClickEvent>(OpenGameDeck2);
         back.RegisterCallback<ClickEvent>(BackToStartMenu);
     }
 
@@ -69,9 +69,10 @@ public class ScriptSelectDecks : MonoBehaviour
         GetComponent<GameManager>().player2.deck= DeckResistance.GetComponent<Decks>();
         GetComponent<GameManager>().player2.board = Board2.GetComponent<SubBoard>();
         GetComponent<GameManager>().player2.hand = Hand2.GetComponent<Hand>();
-        gameObject.SetActive(false);
+        
         Game.SetActive(true);
         UIRuntime.SetActive(true);
+        gameObject.SetActive(false);
     }
     private void OpenGameDeck2(ClickEvent evt)
     {
@@ -82,11 +83,14 @@ public class ScriptSelectDecks : MonoBehaviour
         GetComponent<GameManager>().player2.deck = DeckPirates.GetComponent<Decks>();
         GetComponent<GameManager>().player2.board = Board2.GetComponent<SubBoard>();
         GetComponent<GameManager>().player2.hand= Hand2.GetComponent<Hand>();
+        /*
          GameManager.GetComponent<GameManager>().player1 = gameObject.AddComponent<Player>();
         GameManager.GetComponent<GameManager>().player2 = gameObject.AddComponent<Player>();
-        gameObject.SetActive(false);
+        */
+        
         Game.SetActive(true);
         UIRuntime.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     private void BackToStartMenu(ClickEvent evt)

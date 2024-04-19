@@ -14,7 +14,7 @@ public class Boss : MonoBehaviour
         {
             deck = GameManager.GetComponent<GameManager>().player1.deck.gameObject;
         }
-        else
+        else if(gameObject.tag == "Boss Zone2")
         {
             deck = GameManager.GetComponent<GameManager>().player2.deck.gameObject;
         }
@@ -30,13 +30,13 @@ public class Boss : MonoBehaviour
     void OnMouseDown()
     {
         Effects.ActivateEffect(gameObject);
-        if (GameObject.Find("GameManager").GetComponent<GameManager>().player1.isPlaying)
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying)
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().activeboss1 = true;
+            GameManager.GetComponent<GameManager>().activeboss1 = true;
         }
         else
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().activeboss2 = true;
+            GameManager.GetComponent<GameManager>().activeboss2 = true;
         }
 
     }
