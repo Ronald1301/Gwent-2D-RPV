@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public bool Changecards1;
     public bool Changecards2;
 
+public bool endgamebool;
     private int clickcount;
     [SerializeField] ScriptUIRuntime UIRuntime;
 
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UIRuntime.gameObject.SetActive(true);
+        //UIRuntime.gameObject.SetActive(true);
         UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
         //StartGame();
     }
@@ -380,6 +381,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Tied Game");
         }
+        endgamebool = true;
+        UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
         //if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(1)) ResetGame();
         if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
         if (Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("StartMenuScene");

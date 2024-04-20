@@ -14,7 +14,12 @@
             </ui:VisualElement>
             <ui:Button text="Exit" name="Exit" class="ButtonExit" />
         </ui:VisualElement>
-        <ui:VisualElement name="Board" class="Board" style="flex-grow: 1;" />
+        <ui:VisualElement name="Board" class="Board" style="flex-grow: 1;">
+            <ui:VisualElement name="Winners" class="boxWinner" style="flex-grow: 1;">
+                <ui:Label text="Player 1" name="Text2" class="textwinner" />
+                <ui:VisualElement name="winnerchild" class="winnerChild" style="flex-grow: 1;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
         <ui:VisualElement name="Right" class="Right" style="flex-grow: 1;">
             <ui:VisualElement name="BoxPlayer1" class="BoxPlayers" style="flex-grow: 1;">
                 <ui:Label text="Player 1" name="Player1" class="TextPlayer" />

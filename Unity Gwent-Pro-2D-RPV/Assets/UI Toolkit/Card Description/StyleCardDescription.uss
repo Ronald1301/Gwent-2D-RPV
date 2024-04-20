@@ -30,6 +30,7 @@ VisualElement {
     align-self: center;
     align-items: stretch;
     left: 2%;
+    top: 1%;
 }
 
 .Image {
@@ -88,7 +89,7 @@ VisualElement {
 }
 
 .Text {
-    font-size: 15px;
+    font-size: 19px;
     justify-content: flex-start;
     -unity-font-definition: url('project://database/Library/unity%20default%20resources?fileID=10102&guid=0000000000000000e000000000000000&type=0#LegacyRuntime');
     -unity-font-style: bold-and-italic;

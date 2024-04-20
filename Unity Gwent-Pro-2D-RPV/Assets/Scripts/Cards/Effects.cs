@@ -75,6 +75,7 @@ public class Effects : MonoBehaviour
                 if (GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Increase)
                 {
                     GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck[i].GetComponent<MoveCard>().Move();
+                    break;
                 }
             }
         }
@@ -104,6 +105,7 @@ public class Effects : MonoBehaviour
                 if (GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Climate)
                 {
                     GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck[i].GetComponent<MoveCard>().Move();
+                    break;
                 }
             }
         }
@@ -115,6 +117,7 @@ public class Effects : MonoBehaviour
                 if (GameManager.GetComponent<GameManager>().player2.hand.CardsInDeck[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Climate)
                 {
                     GameManager.GetComponent<GameManager>().player2.hand.CardsInDeck[i].GetComponent<MoveCard>().Move();
+                    break;
                 }
             }
         }
@@ -513,6 +516,7 @@ public class Effects : MonoBehaviour
         {
             if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate != null)
             {
+                Effects.DisableEffectClimate();
                 GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery();
             }
             gameObject.transform.position = GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.transform.position;
@@ -521,6 +525,7 @@ public class Effects : MonoBehaviour
         {
             if (GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate != null)
             {
+                Effects.DisableEffectClimate();
                 GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery();
             }
             gameObject.transform.position = GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.transform.position;

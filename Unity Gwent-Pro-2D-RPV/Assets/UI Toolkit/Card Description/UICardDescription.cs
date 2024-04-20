@@ -70,30 +70,48 @@ public class UICardDescription : MonoBehaviour
     public void UIUpdateCardDescription(Card newcard)
     {
         cardImage.style.backgroundImage = newcard.CardImageForehead.texture;
-        //if (cardImage.style.backgroundImage == newcard.CardImageBack.texture) return;
-        cardName.text = newcard.CardName;
-        cardType.text = newcard.Type.ToString();
-        cardFaction.text = newcard.Faction.ToString();
-        cardDescription.text = newcard.Description;
-        //Power.text = "";
+        if (cardImage.style.backgroundImage
+            ==newcard.CardImageBack.texture)
+        {
+            cardName.text = "Hidden";
+            cardType.text = "Hidden";
+            cardFaction.text = "Hidden";
+            cardDescription.text = "Hidden";
 
-        if (newcard.Type == Card.CardType.Unit)
-        {
-            Power.text = newcard.Power.ToString();
+            Power.text = "Hidden";
             Symbol1.style.display = DisplayStyle.Flex;
-            SubType.text = newcard.TypeUnitCard.ToString();
+            SubType.text = "Hidden";
             Symbol2.style.display = DisplayStyle.Flex;
-            TypeField.text = newcard.TypeField.ToString();
+            TypeField.text = "Hidden";
         }
-        else if (newcard.Type == Card.CardType.Special)
+        else
         {
-            if (newcard.TypeSpecialCard == Card.SubTypeSpecialCard.Lure)
+
+
+            cardName.text = newcard.CardName;
+            cardType.text = newcard.Type.ToString();
+            cardFaction.text = newcard.Faction.ToString();
+            cardDescription.text = newcard.Description;
+            //Power.text = "";
+
+            if (newcard.Type == Card.CardType.Unit)
             {
-               Power.text= newcard.Power.ToString();
+                Power.text = newcard.Power.ToString();
+                Symbol1.style.display = DisplayStyle.Flex;
+                SubType.text = newcard.TypeUnitCard.ToString();
+                Symbol2.style.display = DisplayStyle.Flex;
+                TypeField.text = newcard.TypeField.ToString();
             }
-            Symbol1.style.display = DisplayStyle.Flex;
-            SubType.text = newcard.TypeSpecialCard.ToString();
-            TypeField.text = "";
+            else if (newcard.Type == Card.CardType.Special)
+            {
+                if (newcard.TypeSpecialCard == Card.SubTypeSpecialCard.Lure)
+                {
+                    Power.text = newcard.Power.ToString();
+                }
+                Symbol1.style.display = DisplayStyle.Flex;
+                SubType.text = newcard.TypeSpecialCard.ToString();
+                TypeField.text = "";
+            }
         }
     }
 

@@ -123,7 +123,7 @@ VisualElement {
 }
 
 .TextResult {
-    font-size: 20px;
+    font-size: 26px;
     -unity-font-style: bold-and-italic;
     -unity-font-definition: url('project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Fonts/Electronic%20Highway%20Sign.TTF?fileID=12800000&guid=8a2b9e2a607dd2143b58c44bc32410b4&type=3#Electronic Highway Sign');
     align-self: center;
@@ -176,4 +176,43 @@ VisualElement {
     scale: 1.1 1.1;
     background-color: rgb(52, 74, 122);
     opacity: 1;
+}
+
+.boxWinner {
+    background-image: url('project://database/Assets/Images/winner%20image%202.jpeg?fileID=21300000&guid=881ba5d4ecc67b14696113f7547ca154&type=3#winner image 2');
+    align-self: stretch;
+    justify-content: space-between;
+    align-items: stretch;
+    display: none;
+}
+
+.textwinner {
+    width: 40%;
+    height: 30%;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    -unity-font-style: bold-and-italic;
+    font-size: 60px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-center;
+    -unity-font-definition: url('project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Fonts/Bangers.ttf?fileID=12800000&guid=5dd49b3eacc540408c98eee0de38e0f1&type=3#Bangers');
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(255, 26, 26);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    top: 5%;
+}
+
+.winnerChild {
+    background-image: url('project://database/Assets/Images/winner%20image.jpeg?fileID=21300000&guid=6d567412c200a304bae15c5ce4829f2d&type=3#winner image');
+    height: 30%;
+    max-height: 30%;
+    width: 40%;
+    justify-content: center;
+    align-self: center;
+    align-items: flex-start;
+    border-top-right-radius: 15%;
+    border-top-left-radius: 15%;
+    border-bottom-left-radius: 15%;
+    border-bottom-right-radius: 15%;
 }

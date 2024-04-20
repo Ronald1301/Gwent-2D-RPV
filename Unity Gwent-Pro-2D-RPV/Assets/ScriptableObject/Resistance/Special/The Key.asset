@@ -18,7 +18,7 @@ MonoBehaviour:
   description: ' Select a card from the field  to return to the hand and  be replaced
     by this card'
   cardImageForehead: {fileID: 21300000, guid: 53d2aa4be04e3c14183d247a0897a896, type: 3}
-  cardImageback: {fileID: 0}
+  cardImageback: {fileID: 21300000, guid: 36a13220b2b24b14995f2b202dc94f38, type: 3}
   startPower: 0
   power: 0
   typeField: 0

@@ -51,43 +51,18 @@ public class ScriptSelectDecks : MonoBehaviour
         back.RegisterCallback<ClickEvent>(BackToStartMenu);
     }
 
-    private void OpenGame(ClickEvent evt)
-    {
-        GameManager.GetComponent<GameManager>().player1 = gameObject.AddComponent<Player>();
-        GameManager.GetComponent<GameManager>().player2 = gameObject.AddComponent<Player>();
-        
-        Game.SetActive(true);
-        UIRuntime.SetActive(true);
-        gameObject.SetActive(false);
-    }
-
     private void OpenGameDeck1(ClickEvent evt)
     {
-        GetComponent<GameManager>().player1.deck = DeckPirates.GetComponent<Decks>();
-        GetComponent<GameManager>().player1.board = Board1.GetComponent<SubBoard>();
-        GetComponent<GameManager>().player1.hand =  Hand1.GetComponent<Hand>();
-        GetComponent<GameManager>().player2.deck= DeckResistance.GetComponent<Decks>();
-        GetComponent<GameManager>().player2.board = Board2.GetComponent<SubBoard>();
-        GetComponent<GameManager>().player2.hand = Hand2.GetComponent<Hand>();
-        
+        GameManager.GetComponent<GameManager>().player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
+        GameManager.GetComponent<GameManager>().player2 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>();
         Game.SetActive(true);
         UIRuntime.SetActive(true);
         gameObject.SetActive(false);
     }
     private void OpenGameDeck2(ClickEvent evt)
     {
-       
-        GetComponent<GameManager>().player1.deck = DeckResistance.GetComponent<Decks>();
-        GetComponent<GameManager>().player1.board = Board1.GetComponent<SubBoard>();
-        GetComponent<GameManager>().player1.hand= Hand1.GetComponent<Hand>();
-        GetComponent<GameManager>().player2.deck = DeckPirates.GetComponent<Decks>();
-        GetComponent<GameManager>().player2.board = Board2.GetComponent<SubBoard>();
-        GetComponent<GameManager>().player2.hand= Hand2.GetComponent<Hand>();
-        /*
-         GameManager.GetComponent<GameManager>().player1 = gameObject.AddComponent<Player>();
-        GameManager.GetComponent<GameManager>().player2 = gameObject.AddComponent<Player>();
-        */
-        
+        GameManager.GetComponent<GameManager>().player1 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>();
+        GameManager.GetComponent<GameManager>().player2 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
         Game.SetActive(true);
         UIRuntime.SetActive(true);
         gameObject.SetActive(false);

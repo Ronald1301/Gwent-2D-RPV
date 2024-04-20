@@ -66,6 +66,7 @@
         "clickcount",
         "clicklure",
         "deckref",
+        "endgamebool",
         "fullscreen",
         "Imageback",
         "indextype",

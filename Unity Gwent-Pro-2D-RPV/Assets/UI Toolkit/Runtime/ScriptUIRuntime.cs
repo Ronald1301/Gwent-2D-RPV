@@ -15,8 +15,13 @@ public class ScriptUIRuntime : MonoBehaviour
 
     private Label powerPlayer1;
     private ProgressBar roundsWonPlayer1;
-     private Label powerPlayer2;
+    private Label powerPlayer2;
     private ProgressBar roundsWonPlayer2;
+
+    private Label TextWinner;
+    private VisualElement Winner;
+    private VisualElement Right;
+    private VisualElement Left;
 
     private Button changeTurn;
     private Button exit;
@@ -35,6 +40,11 @@ public class ScriptUIRuntime : MonoBehaviour
         powerPlayer2 = root.Q<Label>("Power2");
         roundsWonPlayer2 = root.Q<ProgressBar>("RoundsWon2");
 
+        TextWinner = root.Q<Label>("Text2");
+        Winner = root.Q<VisualElement>("Winners");
+        Right = root.Q<VisualElement>("Right");
+        Left = root.Q<VisualElement>("Left");
+
         changeTurn = root.Q<Button>("ChangeTurn");
         exit = root.Q<Button>("Exit");
 
@@ -50,14 +60,35 @@ public class ScriptUIRuntime : MonoBehaviour
 
         if (GameManager.GetComponent<GameManager>().player1.isPlaying) playerTurn.text = "Player 1";
         else playerTurn.text = "Player 2";
-        
+
         powerPlayer1.text = GameManager.GetComponent<GameManager>().player1.Points_for_round.ToString();
         roundsWonPlayer1.value = GameManager.GetComponent<GameManager>().player1.RoundsWon;
         roundsWonPlayer1.title = GameManager.GetComponent<GameManager>().player1.RoundsWon.ToString();
 
-       powerPlayer2.text = GameManager.GetComponent<GameManager>().player2.Points_for_round.ToString();
+        powerPlayer2.text = GameManager.GetComponent<GameManager>().player2.Points_for_round.ToString();
         roundsWonPlayer2.value = GameManager.GetComponent<GameManager>().player2.RoundsWon;
         roundsWonPlayer2.title = GameManager.GetComponent<GameManager>().player2.RoundsWon.ToString();
+
+        if (GameManager.GetComponent<GameManager>().endgamebool) { ShowWinner(); }
+
+    }
+
+    private void ShowWinner()
+    {
+        if (GameManager.GetComponent<GameManager>().player1.RoundsWon == 2)
+        {
+            TextWinner.text = "Player 1 Wins!";
+            Left.style.display = DisplayStyle.None;
+            Right.style.display = DisplayStyle.None;
+            Winner.style.display = DisplayStyle.Flex;
+        }
+        else if (GameManager.GetComponent<GameManager>().player2.RoundsWon == 2)
+        {
+            TextWinner.text = "Player 2 Wins!";
+            Left.style.display = DisplayStyle.None;
+            Right.style.display = DisplayStyle.None;
+            Winner.style.display = DisplayStyle.Flex;
+        }
     }
 
     private void ChangeTurn(ClickEvent evt)
@@ -66,8 +97,8 @@ public class ScriptUIRuntime : MonoBehaviour
         {
             GameManager.GetComponent<GameManager>().player1.passTurn = true;
             Debug.Log("Player 1 pass turn");
-             //GameManager.GetComponent<GameManager>().ChangeTurn();
-             //Debug.Log("Change Turn");
+            //GameManager.GetComponent<GameManager>().ChangeTurn();
+            //Debug.Log("Change Turn");
         }
         else
         {
