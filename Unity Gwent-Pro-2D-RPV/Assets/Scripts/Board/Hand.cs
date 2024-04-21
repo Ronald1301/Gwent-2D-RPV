@@ -10,10 +10,29 @@ public class Hand : MonoBehaviour
     // public bool[] Mask = new bool[15];
     //public GameObject[] HandPosition = new GameObject[15];
     public List<GameObject> CardsInDeck;
+    public GameObject GameManager;
 
 
     void Start()
     {
+
+        if (this.gameObject.CompareTag("Hand1") && ((GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>())))
+        {
+            deck = GameObject.FindGameObjectWithTag("Deck Pirates");
+        }
+        else if (this.gameObject.CompareTag("Hand1") && ((GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player3").GetComponent<Player>())))
+        {
+            deck = GameObject.FindGameObjectWithTag("Deck Resistance");
+        }
+        else if (this.gameObject.CompareTag("Hand2") && ((GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player3").GetComponent<Player>())))
+        {
+            deck = GameObject.FindGameObjectWithTag("Deck Resistance");
+        }
+        else //if (this.gameObject.CompareTag("Hand2") && ((GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>())))
+        {
+            deck = GameObject.FindGameObjectWithTag("Deck Pirates");
+        }
+
         CardsInHand = new List<GameObject>();
         //deck= GameObject.FindGameObjectWithTag("Deck Pirates");
         CardsInDeck = deck.GetComponent<Decks>().deck;
@@ -49,9 +68,16 @@ public class Hand : MonoBehaviour
             CardsInDeck.RemoveAt(indexCard);
         }
     }
+
     internal bool CheckHand()
     {
         if (CardsInHand.Count == 0) return true;
+        /*
+        for(int i = 0; i < CardsInHand.Count; i++)
+        {
+            if (CardsInHand[i] == null) return false;
+        }
+        */
         return false;
     }
 

@@ -10,21 +10,32 @@ public class DeckField : MonoBehaviour
     void Start()
     {
         /*
-        if (this.gameObject.tag == "Deck Player1")
+        if (this.gameObject.CompareTag("Hand1") && ((GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>())))
         {
-            deckref = GameManager.GetComponent<GameManager>().player1.hand.deck;
+            deckref = GameObject.FindGameObjectWithTag("Deck Pirates");
+            
         }
-        else
+        else if (this.gameObject.CompareTag("Hand1") && ((GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player3").GetComponent<Player>())))
         {
-            deckref = GameManager.GetComponent<GameManager>().player2.hand.deck;
+            deckref = GameObject.FindGameObjectWithTag("Deck Resistance");
+            
         }
-        GetComponent<SpriteRenderer>().sprite = deckref.GetComponent<SpriteRenderer>().sprite;
-        */
+        else if (this.gameObject.CompareTag("Hand2") && ((GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player3").GetComponent<Player>())))
+        {
+            deckref = GameObject.FindGameObjectWithTag("Deck Resistance");
+            
+        }
+        else if (this.gameObject.CompareTag("Hand2") && ((GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>())))
+        {
+            deckref = GameObject.FindGameObjectWithTag("Deck Pirates");
+        }
+        //GetComponent<SpriteRenderer>().sprite = deckref.GetComponent<SpriteRenderer>().sprite;
+*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //GetComponent<SpriteRenderer>().sprite = deckref.GetComponent<SpriteRenderer>().sprite;
     }
 }

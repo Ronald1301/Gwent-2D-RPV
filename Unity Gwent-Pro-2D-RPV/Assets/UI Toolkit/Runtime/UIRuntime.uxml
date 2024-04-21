@@ -5,7 +5,7 @@
             <ui:VisualElement name="Round" class="Round" style="flex-grow: 1;">
                 <ui:VisualElement name="Box1" style="flex-grow: 1;">
                     <ui:Label text="Current &#10;    Round" name="CurrentRound" class="TextMenu" style="padding-right: 3px; padding-left: 3px;" />
-                    <ui:Label text="0" name="NumCurrentRound" class="TextResult" style="color: rgb(255, 0, 0);" />
+                    <ui:Label text="1" name="NumCurrentRound" class="TextResult" style="color: rgb(255, 0, 0);" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Box2" style="flex-grow: 1;">
                     <ui:Label text="Player &#10;    Turn" name="Playing" class="TextMenu" />

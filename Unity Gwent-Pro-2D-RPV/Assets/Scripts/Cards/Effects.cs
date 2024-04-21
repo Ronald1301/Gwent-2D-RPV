@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Effects : MonoBehaviour
 {
+    //Active Effects
     public static void ActivateEffect(GameObject gameObject)
     {
         switch (gameObject.GetComponent<CardDisplay>().card.Effect)
@@ -465,6 +466,10 @@ public class Effects : MonoBehaviour
         Debug.Log("Decreases_one_Point Effect");
 
         int indextype = Random.Range(1, 3);
+        while (IsRowEMpty(indextype))
+        {
+            indextype = Random.Range(1, 3);
+        }
 
         if (GameManager.GetComponent<GameManager>().player1.isPlaying)
         {
@@ -473,12 +478,12 @@ public class Effects : MonoBehaviour
                 int index = Random.Range(1, GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count - 1);
                 GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[index].GetComponent<CardDisplay>().card.Power--;
             }
-            else if (indextype == 2)
+            if (indextype == 2)
             {
                 int index = Random.Range(1, GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count - 1);
                 GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[index].GetComponent<CardDisplay>().card.Power--;
             }
-            else
+            if (indextype == 3)
             {
                 int index = Random.Range(1, GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count - 1);
                 GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[index].GetComponent<CardDisplay>().card.Power--;
@@ -490,14 +495,13 @@ public class Effects : MonoBehaviour
             {
                 int index = Random.Range(1, GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count - 1);
                 GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[index].GetComponent<CardDisplay>().card.Power--;
-
             }
-            else if (indextype == 2)
+            if (indextype == 2)
             {
                 int index = Random.Range(1, GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count - 1);
                 GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[index].GetComponent<CardDisplay>().card.Power--;
             }
-            else
+            if (indextype == 3)
             {
                 int index = Random.Range(1, GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count - 1);
                 GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[index].GetComponent<CardDisplay>().card.Power--;
@@ -590,7 +594,6 @@ public class Effects : MonoBehaviour
             }
         }
     }
-
     public static void Increase(GameObject gameObject)
     {
         GameObject GameManager = GameObject.Find("GameManager");
@@ -782,6 +785,69 @@ public class Effects : MonoBehaviour
             return false;
         }
     }
+
+    public static bool IsRowEMpty(int n)
+    {
+        GameObject GameManager = GameObject.FindGameObjectWithTag("GameManager");
+
+        //Debug.Log("IsRowEMpty");
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying)
+        {
+            if (n == 1)
+            {
+                if (GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count == 0)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else if (n == 2)
+            {
+                if (GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count == 0)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else
+            {
+                if (GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count == 0)
+                {
+                    return true;
+                }
+                else return false;
+            }
+        }
+        else
+        {
+            if (n == 1)
+            {
+                if (GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count == 0)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else if (n == 2)
+            {
+                if (GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count == 0)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else
+            {
+                if (GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count == 0)
+                {
+                    return true;
+                }
+                else return false;
+            }
+        }
+
+    }
+
 
 
     #region 

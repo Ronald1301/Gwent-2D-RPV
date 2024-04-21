@@ -16,18 +16,21 @@ public class MoveCard : MonoBehaviour
     void Start()
     {
 //        StartCoroutine(WaitForClick());
-        //GameManager = GameObject.Find("GameManager");
-        //UIRuntime = GameObject.Find("UI Runtime").GetComponent<ScriptUIRuntime>();
+        GameManager = GameObject.Find("GameManager");
+        //UIRuntime = GameObject.FindGameObjectWithTag("UI Runtime").GetComponent<ScriptUIRuntime>();
 
         
                 if (GameManager.GetComponent<GameManager>().player1.isPlaying)
                 {
-                    subBoard = GameObject.FindGameObjectWithTag("SubBoard1");
+                   // subBoard = GameObject.FindGameObjectWithTag("SubBoard1");
+                   subBoard=GameManager.GetComponent<GameManager>().player1.board.gameObject;
                     Debug.Log("SubBoard1");
                 }
                 else
                 {
-                    subBoard = GameObject.FindGameObjectWithTag("SubBoard2");
+                    //subBoard = GameObject.FindGameObjectWithTag("SubBoard2");
+                    subBoard=GameManager.GetComponent<GameManager>().player2.board.gameObject;
+                    Debug.Log("SubBoard2");
                 }
                 
 

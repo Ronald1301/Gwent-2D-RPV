@@ -31,8 +31,8 @@ public class ScriptSelectDecks : MonoBehaviour
         Board2 = GameObject.FindGameObjectWithTag("SubBoard2");
         Hand1 = GameObject.FindGameObjectWithTag("Hand1");
         Hand2 = GameObject.FindGameObjectWithTag("Hand2");
-       Game = GameObject.FindGameObjectWithTag("Game");
-        UIRuntime= GameObject.FindGameObjectWithTag("UIRuntime");
+        Game = GameObject.FindGameObjectWithTag("Game");
+        UIRuntime = GameObject.FindGameObjectWithTag("UIRuntime");
     }
 
     private void OnEnable()
@@ -61,8 +61,8 @@ public class ScriptSelectDecks : MonoBehaviour
     }
     private void OpenGameDeck2(ClickEvent evt)
     {
-        GameManager.GetComponent<GameManager>().player1 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>();
-        GameManager.GetComponent<GameManager>().player2 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
+        GameManager.GetComponent<GameManager>().player1 = GameObject.FindGameObjectWithTag("Player3").GetComponent<Player>();
+        GameManager.GetComponent<GameManager>().player2 = GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>();
         Game.SetActive(true);
         UIRuntime.SetActive(true);
         gameObject.SetActive(false);
@@ -71,7 +71,7 @@ public class ScriptSelectDecks : MonoBehaviour
     private void BackToStartMenu(ClickEvent evt)
     {
         SceneManager.LoadScene("StartMenuScene");
-       //StartMenu.SetActive(true);
-       //gameObject.SetActive(false);
+        //StartMenu.SetActive(true);
+        //gameObject.SetActive(false);
     }
 }

@@ -49,14 +49,13 @@ public class ScriptUIRuntime : MonoBehaviour
         exit = root.Q<Button>("Exit");
 
         //Callbacks
-        changeTurn.RegisterCallback<ClickEvent>(ChangeTurn);
+        changeTurn.RegisterCallback<ClickEvent>(ChangeTurnButton);
         exit.RegisterCallback<ClickEvent>(ExitToStartMenu);
-
     }
 
     public void UIUpdate()
-    {
-        currentRound.text = GameManager.GetComponent<GameManager>().currentRound.ToString();
+    { 
+       currentRound.text = GameManager.GetComponent<GameManager>().currentRound.ToString();
 
         if (GameManager.GetComponent<GameManager>().player1.isPlaying) playerTurn.text = "Player 1";
         else playerTurn.text = "Player 2";
@@ -75,39 +74,45 @@ public class ScriptUIRuntime : MonoBehaviour
 
     private void ShowWinner()
     {
-        if (GameManager.GetComponent<GameManager>().player1.RoundsWon == 2)
+        if (GameManager.GetComponent<GameManager>().player1.youWin)
         {
             TextWinner.text = "Player 1 Wins!";
             Left.style.display = DisplayStyle.None;
             Right.style.display = DisplayStyle.None;
             Winner.style.display = DisplayStyle.Flex;
         }
-        else if (GameManager.GetComponent<GameManager>().player2.RoundsWon == 2)
+        else if (GameManager.GetComponent<GameManager>().player2.youWin)
         {
             TextWinner.text = "Player 2 Wins!";
             Left.style.display = DisplayStyle.None;
             Right.style.display = DisplayStyle.None;
             Winner.style.display = DisplayStyle.Flex;
         }
+        else
+        {
+            TextWinner.text = "It's a tie!";
+            Left.style.display = DisplayStyle.None;
+            Right.style.display = DisplayStyle.None;
+            Winner.style.display = DisplayStyle.Flex;
+        }
     }
 
-    private void ChangeTurn(ClickEvent evt)
+    private void ChangeTurnButton(ClickEvent evt)
     {
         if (GameManager.GetComponent<GameManager>().player1.isPlaying)
         {
             GameManager.GetComponent<GameManager>().player1.passTurn = true;
             Debug.Log("Player 1 pass turn");
-            //GameManager.GetComponent<GameManager>().ChangeTurn();
+            GameManager.GetComponent<GameManager>().ChangeTurn();
             //Debug.Log("Change Turn");
         }
         else
         {
             GameManager.GetComponent<GameManager>().player2.passTurn = true;
             Debug.Log("Player 2 pass turn");
+            GameManager.GetComponent<GameManager>().ChangeTurn();
         }
-        GameManager.GetComponent<GameManager>().ChangeTurn();
-
-        GameManager.GetComponent<GameManager>().ChangeTurn();
+        //GameManager.GetComponent<GameManager>().ChangeTurn();
     }
 
     private void ExitToStartMenu(ClickEvent evt)

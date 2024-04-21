@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public Player player1;
     public Player player2;
-    public int currentRound;
+    public int currentRound=1;
 
     public bool activeboss1;
     public bool activeboss2;
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public bool Changecards1;
     public bool Changecards2;
 
-public bool endgamebool;
+    public bool endgamebool;
     private int clickcount;
     [SerializeField] ScriptUIRuntime UIRuntime;
 
@@ -26,9 +26,8 @@ public bool endgamebool;
 
     void Start()
     {
-        //UIRuntime.gameObject.SetActive(true);
-        UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
-        //StartGame();
+        StartGame();
+        //UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
     }
 
     // Update is called once per frame
@@ -51,11 +50,12 @@ public bool endgamebool;
                 }
             }
         }
-        ChangeImageCardsinHand();
+        //ChangeImageCardsinHand();
 
         UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
         UpdatePoints();
-        EndRound2();
+        CheckEndRound();
+        UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
         LateUpdate();
     }
 
@@ -71,63 +71,69 @@ public bool endgamebool;
         }
     }
 
-    public void ChangeImageCardsinHand()
-    {
-        if (player1.isPlaying)
-        {
-            for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
-            {
-                player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
-            }
-            for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
-            {
-                player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
-            {
-                player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
-            }
-            for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
-            {
-                player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
-            }
-        }
-    }
     /*
+        public void ChangeImageCardsinHand()
+        {
+            if (player1.isPlaying)
+            {
+                for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
+                {
+                    player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
+                }
+                for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
+                {
+                    player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
+                {
+                    player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
+                }
+                for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
+                {
+                    player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
+                }
+            }
+        }
+        */
+
     public void StartGame()
     {
-        
-        player1 = gameObject.AddComponent<Player>();
-        player2 = gameObject.AddComponent<Player>();
-        
-        
-        player1 = new Player(GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>(),
-            GameObject.FindGameObjectWithTag("SubBoard1").GetComponent<SubBoard>(),
-            GameObject.FindGameObjectWithTag("Hand1").GetComponent<Hand>());
-        player2 = new Player(GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>(),
-            GameObject.FindGameObjectWithTag("SubBoard2").GetComponent<SubBoard>(),
-            GameObject.FindGameObjectWithTag("Hand2").GetComponent<Hand>());
-
-        player1 = new Player();
-        player2 = new Player();
-
-        player1.deck = GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>();
-        player1.board = GameObject.FindGameObjectWithTag("SubBoard1").GetComponent<SubBoard>();
-        player1.hand = GameObject.FindGameObjectWithTag("Hand1").GetComponent<Hand>();
-        player2.deck = GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>();
-        player2.board = GameObject.FindGameObjectWithTag("SubBoard2").GetComponent<SubBoard>();
-        player2.hand = GameObject.FindGameObjectWithTag("Hand2").GetComponent<Hand>();
-
         currentRound = 1;
         player1.isPlaying = true;
-
+        activeboss1 = false;
+        activeboss2 = false;
+        Changecards1 = false;
+        Changecards2 = false;
+        endgamebool = false;
+        clickcount = 0;
     }
-    */
-
-
+    public void ChangeTurn()
+    {
+        clickcount = 0;
+        if (player1.isPlaying && !player2.passTurn)
+        {
+            Changecards1 = true;
+            player1.isPlaying = false;
+            player2.isPlaying = true;
+            MainBoard.transform.Rotate(0, 0, 180);
+        }
+        else if (player2.isPlaying && !player1.passTurn)
+        {
+            Changecards2 = true;
+            player2.isPlaying = false;
+            player1.isPlaying = true;
+            MainBoard.transform.Rotate(0, 0, 180);
+        }
+        // MainBoard.transform.Rotate(0, 0, 180);
+    }
+    public void UpdatePoints()
+    {
+        player1.Points_for_round = player1.board.UpdatePoints();
+        player2.Points_for_round = player2.board.UpdatePoints();
+    }
     public void UpdatePoints(Card card)
     {
         if (player1.isPlaying)
@@ -139,37 +145,24 @@ public bool endgamebool;
             player2.Points_for_round += card.Power;
         }
     }
-
-    public void UpdatePoints()
+    public void CheckEndRound()
     {
-        //player1.Points_for_round[currentRound - 1] = player1.board.UpdatePoints();
-        //player2.Points_for_round[currentRound - 1] = player2.board.UpdatePoints();
-    }
-
-
-    public void ChangeTurn()
-    {
-        clickcount = 0;
-        if (player1.isPlaying)
+        if (player1.hand.CheckHand())
         {
-            Changecards1 = true;
-            player1.isPlaying = false;
-            player2.isPlaying = true;
+            player1.passTurn = true;
+            //StartRound();
         }
-        else
+        if (player2.hand.CheckHand())
         {
-            Changecards2 = true;
-            player2.isPlaying = false;
-            player1.isPlaying = true;
+            player2.passTurn = true;
+            //StartRound();
         }
-        MainBoard.transform.Rotate(0, 0, 180);
     }
-
     public void EndRound()
     {
         if (player1.Points_for_round > player2.Points_for_round)
         {
-            player1.RoundsWon_for_game[currentRound - 1] = true;
+            // player1.RoundsWon_for_game[currentRound - 1] = true;
             player1.RoundsWon++;
             currentRound++;
 
@@ -187,12 +180,15 @@ public bool endgamebool;
         }
         else if (player1.Points_for_round < player2.Points_for_round)
         {
-            player2.RoundsWon_for_game[currentRound - 1] = true;
+            // player2.RoundsWon_for_game[currentRound - 1] = true;
             player2.RoundsWon++;
             currentRound++;
 
             player1.Points_for_game += player1.Points_for_round;
             player2.Points_for_game += player2.Points_for_round;
+
+            player1.Points_for_round = 0;
+            player2.Points_for_round = 0;
 
             player2.isPlaying = true;
             player2.passTurn = false;
@@ -202,14 +198,17 @@ public bool endgamebool;
         }
         else
         {
-            player1.RoundsWon_for_game[currentRound - 1] = true;
+            // player1.RoundsWon_for_game[currentRound - 1] = true;
             player1.RoundsWon++;
-            player2.RoundsWon_for_game[currentRound - 1] = true;
+            //player2.RoundsWon_for_game[currentRound - 1] = true;
             player2.RoundsWon++;
             currentRound++;
 
             player1.Points_for_game += player1.Points_for_round;
             player2.Points_for_game += player2.Points_for_round;
+
+            player1.Points_for_round = 0;
+            player2.Points_for_round = 0;
 
             int index = Random.Range(1, 2);
             if (index == 1) player1.isPlaying = true;
@@ -226,7 +225,6 @@ public bool endgamebool;
         StartRound();
 
     }
-
     private void ClearField()
     {
         if (player1.deck.tag == "Deck Pirates")
@@ -314,21 +312,6 @@ public bool endgamebool;
 
         }
     }
-    public void EndRound2()
-    {
-        if (player1.hand.CheckHand())
-        {
-            player1.passTurn = true;
-            StartRound();
-        }
-        if (player2.hand.CheckHand())
-        {
-            player2.passTurn = true;
-            StartRound();
-        }
-
-
-    }
     public void StartRound()
     {
         player1.passTurn = false;
@@ -365,17 +348,19 @@ public bool endgamebool;
         }
 
 
-    }
 
+    }
     public void EndGame()
     {
-        if (player1.RoundsWon == 2)
+        if (player1.RoundsWon >= 2 && player2.RoundsWon < 2)
         {
             Debug.Log("Player 1 Wins");
+            player1.youWin = true;
         }
-        else if (player2.RoundsWon == 2)
+        else if (player2.RoundsWon >= 2 && player1.RoundsWon < 2)
         {
             Debug.Log("Player 2 Wins");
+            player2.youWin = true;
         }
         else
         {

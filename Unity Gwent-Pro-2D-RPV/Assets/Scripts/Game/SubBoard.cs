@@ -19,26 +19,27 @@ public class SubBoard : MonoBehaviour
 
     internal int UpdatePoints()
     {
-        
-        if (M.GetComponent<MeleeZone>().melee.Count == 0 ||
-            R.GetComponent<RangedZone>().ranged.Count == 0 ||
-            GetComponent<SiegeZone>().siege.Count == 0)
-        {
-            return 0;
-        }
-        
         int points = 0;
-        for (int i = 0; i < M.GetComponent<MeleeZone>().melee.Count; i++)
+        if (!Effects.IsRowEMpty(1))
         {
-            points += M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power;
+            for (int i = 0; i < M.GetComponent<MeleeZone>().melee.Count; i++)
+            {
+                points += M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power;
+            }
         }
-        for (int i = 0; i < R.GetComponent<RangedZone>().ranged.Count; i++)
+        if (!Effects.IsRowEMpty(2))
         {
-            points += R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power;
+            for (int i = 0; i < R.GetComponent<RangedZone>().ranged.Count; i++)
+            {
+                points += R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power;
+            }
         }
-        for (int i = 0; i < S.GetComponent<SiegeZone>().siege.Count; i++)
+        if (!Effects.IsRowEMpty(3))
         {
-            points += S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power;
+            for (int i = 0; i < S.GetComponent<SiegeZone>().siege.Count; i++)
+            {
+                points += S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power;
+            }
         }
         return points;
     }

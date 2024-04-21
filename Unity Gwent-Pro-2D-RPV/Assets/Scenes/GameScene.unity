@@ -1266,6 +1266,7 @@ MonoBehaviour:
   RoundsWon_for_game: 
   isPlaying: 1
   passTurn: 0
+  youWin: 0
 --- !u!4 &111212642
 Transform:
   m_ObjectHideFlags: 0
@@ -5224,6 +5225,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1692678851}
     - target: {fileID: 9144635409288913754, guid: cc71b7428f1eb2c4080cef69a1f1bc52, type: 3}
+      propertyPath: GameManager
+      value: 
+      objectReference: {fileID: 863512123}
+    - target: {fileID: 9144635409288913754, guid: cc71b7428f1eb2c4080cef69a1f1bc52, type: 3}
       propertyPath: 'HandPosition.Array.data[0]'
       value: 
       objectReference: {fileID: 964263854}
@@ -5561,6 +5566,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca289b0cbd2dd2f4499b5b9d824049dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &617122318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 617122320}
+  - component: {fileID: 617122319}
+  m_Layer: 0
+  m_Name: Player 4
+  m_TagString: Player4
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &617122319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617122318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90560eb6eda9404fb58070a44d7f9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck: {fileID: 907380673}
+  board: {fileID: 918103285}
+  hand: {fileID: 1187814968}
+  Points_for_game: 0
+  Points_for_round: 0
+  RoundsWon: 0
+  RoundsWon_for_game: 
+  isPlaying: 0
+  passTurn: 0
+  youWin: 0
+--- !u!4 &617122320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617122318}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.133128, y: -2.421111, z: 0.7689009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &621982023
 GameObject:
   m_ObjectHideFlags: 0
@@ -6577,6 +6636,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca289b0cbd2dd2f4499b5b9d824049dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &846941838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 846941840}
+  - component: {fileID: 846941839}
+  m_Layer: 0
+  m_Name: Player 3
+  m_TagString: Player3
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &846941839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846941838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90560eb6eda9404fb58070a44d7f9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck: {fileID: 1692678853}
+  board: {fileID: 1428132040}
+  hand: {fileID: 817236384}
+  Points_for_game: 0
+  Points_for_round: 0
+  RoundsWon: 0
+  RoundsWon_for_game: 
+  isPlaying: 0
+  passTurn: 0
+  youWin: 0
+--- !u!4 &846941840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846941838}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.133128, y: -2.421111, z: 0.7689009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &849367960
 GameObject:
   m_ObjectHideFlags: 0
@@ -6859,6 +6972,7 @@ MonoBehaviour:
   activeboss2: 0
   Changecards1: 0
   Changecards2: 0
+  endgamebool: 0
   UIRuntime: {fileID: 1964604399}
   MainBoard: {fileID: 1670654984}
 --- !u!4 &863512125
@@ -8375,11 +8489,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3277068551467758412, guid: 1fd58f302c7d59a4fbefb399e4069016, type: 3}
       propertyPath: m_Size.x
-      value: 15
+      value: 1.3636335
       objectReference: {fileID: 0}
     - target: {fileID: 3277068551467758412, guid: 1fd58f302c7d59a4fbefb399e4069016, type: 3}
       propertyPath: m_Size.y
-      value: 20
+      value: 1.9100001
       objectReference: {fileID: 0}
     - target: {fileID: 3277068551467758412, guid: 1fd58f302c7d59a4fbefb399e4069016, type: 3}
       propertyPath: m_Sprite
@@ -12456,7 +12570,7 @@ Transform:
   m_GameObject: {fileID: 1772852671}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3482708, y: 1.6756712, z: -65.87457}
+  m_LocalPosition: {x: -15, y: 1.6756712, z: -46.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13544,6 +13658,7 @@ MonoBehaviour:
   RoundsWon_for_game: 
   isPlaying: 0
   passTurn: 0
+  youWin: 0
 --- !u!4 &1895478972
 Transform:
   m_ObjectHideFlags: 0
@@ -17597,6 +17712,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 571582155}
     - target: {fileID: 5370565886905059289, guid: 0421ea415145aa64f964475e207b6823, type: 3}
+      propertyPath: GameManager
+      value: 
+      objectReference: {fileID: 863512123}
+    - target: {fileID: 5370565886905059289, guid: 0421ea415145aa64f964475e207b6823, type: 3}
       propertyPath: 'HandPosition.Array.data[0]'
       value: 
       objectReference: {fileID: 1755159028}
@@ -18987,6 +19106,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 863512125}
   - {fileID: 1950686005}
+  - {fileID: 1964604401}
   - {fileID: 111212642}
   - {fileID: 1895478972}
-  - {fileID: 1964604401}
+  - {fileID: 846941840}
+  - {fileID: 617122320}

@@ -10,9 +10,10 @@ public class Player : MonoBehaviour
   public int Points_for_game;
   public int Points_for_round;
   public int RoundsWon;
-  public bool[] RoundsWon_for_game;
+ // public bool[] RoundsWon_for_game;
   public bool isPlaying;
   public bool passTurn;
+  public bool youWin;
 
   public Player(Decks decks, SubBoard board, Hand hand)
   {
@@ -22,8 +23,9 @@ public class Player : MonoBehaviour
     Points_for_game = 0;
     Points_for_round = 0;
     RoundsWon = 0;
-    RoundsWon_for_game = new bool[3];
+   // RoundsWon_for_game = new bool[3];
     isPlaying = false;
     passTurn = false;
+    youWin = false;
   }
 }

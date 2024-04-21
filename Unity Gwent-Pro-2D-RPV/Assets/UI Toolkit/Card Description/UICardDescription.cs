@@ -70,6 +70,7 @@ public class UICardDescription : MonoBehaviour
     public void UIUpdateCardDescription(Card newcard)
     {
         cardImage.style.backgroundImage = newcard.CardImageForehead.texture;
+        /*
         if (cardImage.style.backgroundImage
             ==newcard.CardImageBack.texture)
         {
@@ -85,6 +86,7 @@ public class UICardDescription : MonoBehaviour
             TypeField.text = "Hidden";
         }
         else
+        */
         {
 
 
