@@ -7,14 +7,10 @@ TagManager:
   - UI Card Description
   - Deck Pirates
   - Deck Resistance
-  - Camera Player1
-  - CameraPlayer2
   - SubBoard1
   - SubBoard2
   - Hand1
   - Hand2
-  - Camera1
-  - Camera2
   - Melee Zone1
   - Remote Zone1
   - Remote Zone2
@@ -37,6 +33,9 @@ TagManager:
   - Player2
   - Player3
   - Player4
+  - Game
+  - ClimateCard
+  - Deck Player2
   layers:
   - Default
   - TransparentFX
