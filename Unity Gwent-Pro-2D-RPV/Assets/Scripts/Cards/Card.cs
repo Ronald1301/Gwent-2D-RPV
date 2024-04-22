@@ -22,6 +22,7 @@ public class Card : ScriptableObject
     [SerializeField] private TypeEffects effects;
 
     public bool stayintheField = false;
+    public bool inTheField = false;
 
 
     //Card

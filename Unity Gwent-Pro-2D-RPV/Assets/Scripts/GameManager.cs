@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public Player player1;
     public Player player2;
-    public int currentRound=1;
+    public int currentRound = 1;
 
     public bool activeboss1;
     public bool activeboss2;
@@ -23,14 +23,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject MainBoard;
 
-
     void Start()
     {
         StartGame();
         //UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
@@ -50,15 +47,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        //ChangeImageCardsinHand();
-
-        UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
         UpdatePoints();
         CheckEndRound();
-        UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
         LateUpdate();
     }
-
     public void LateUpdate()
     {
         if (player1.passTurn && player2.passTurn)
@@ -70,35 +62,6 @@ public class GameManager : MonoBehaviour
             EndGame();
         }
     }
-
-    /*
-        public void ChangeImageCardsinHand()
-        {
-            if (player1.isPlaying)
-            {
-                for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
-                {
-                    player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
-                }
-                for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
-                {
-                    player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
-                }
-            }
-            else
-            {
-                for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
-                {
-                    player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
-                }
-                for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
-                {
-                    player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
-                }
-            }
-        }
-        */
-
     public void StartGame()
     {
         currentRound = 1;
@@ -139,10 +102,12 @@ public class GameManager : MonoBehaviour
         if (player1.isPlaying)
         {
             player1.Points_for_round += card.Power;
+            Debug.Log("Puntos Agregados player 1");
         }
-        else
+        else if (player2.isPlaying)
         {
             player2.Points_for_round += card.Power;
+            Debug.Log("Puntos Agregados player 2");
         }
     }
     public void CheckEndRound()
@@ -229,14 +194,13 @@ public class GameManager : MonoBehaviour
     {
         if (player1.deck.tag == "Deck Pirates")
         {
-
             for (int i = 0; i < player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count; i++)
             {
                 if (activeboss1)
                 {
                     if (!player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.stayintheField)
                     {
-                        player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery();
+                        player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i], player1.board.GetComponent<SubBoard>().Cemetery);
                     }
                 }
                 else { player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Clear(); }
@@ -247,7 +211,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (!player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.stayintheField)
                     {
-                        player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery();
+                        player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i], player1.board.GetComponent<SubBoard>().Cemetery);
                     }
                 }
                 else { player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Clear(); }
@@ -258,7 +222,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (!player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.stayintheField)
                     {
-                        player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery();
+                        player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i], player1.board.GetComponent<SubBoard>().Cemetery);
                     }
                 }
                 else { player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Clear(); }
@@ -275,7 +239,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (!player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.stayintheField)
                     {
-                        player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery();
+                        player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i], player2.board.GetComponent<SubBoard>().Cemetery);
                     }
                 }
                 else { player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Clear(); }
@@ -286,13 +250,10 @@ public class GameManager : MonoBehaviour
                 {
                     if (!player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.stayintheField)
                     {
-                        player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery();
+                        player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i], player2.board.GetComponent<SubBoard>().Cemetery);
                     }
                 }
-                else
-                {
-                    player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Clear();
-                }
+                else { player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Clear(); }
 
             }
             for (int i = 0; i < player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Count; i++)
@@ -301,7 +262,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (!player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.stayintheField)
                     {
-                        player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery();
+                        player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i], player2.board.GetComponent<SubBoard>().Cemetery);
                     }
                 }
                 else { player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Clear(); }
@@ -346,9 +307,6 @@ public class GameManager : MonoBehaviour
                 player2.hand.DrawCard(2);
             }
         }
-
-
-
     }
     public void EndGame()
     {
@@ -384,6 +342,35 @@ public class GameManager : MonoBehaviour
             player1.isPlaying = true;
         }
         */
+
+
+    
+        public void ChangeImageCardsinHand()
+        {
+            if (player1.isPlaying)
+            {
+                for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
+                {
+                    player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
+                }
+                for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
+                {
+                    player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
+                {
+                    player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
+                }
+                for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
+                {
+                    player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
+                }
+            }
+        }
+        
 
 
 }

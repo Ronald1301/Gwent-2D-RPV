@@ -18,22 +18,22 @@ public class Effects : MonoBehaviour
                 Put_Climate();
                 break;
             case Card.TypeEffects.Delete_Card_with_Max_Power_on_the_field:
-                Delete_Card_with_Max_Power_on_the_field();
+                Delete_Card_with_Max_Power_on_the_field(gameObject);
                 break;
             case Card.TypeEffects.Delete_Card_with_Min_Power_on_the_field:
-                Delete_Card_with_Min_Power_on_the_field_opponent();
+                Delete_Card_with_Min_Power_on_the_field_opponent(gameObject);
                 break;
             case Card.TypeEffects.Draw_Card_from_Deck:
                 Draw_Card_from_Deck();
                 break;
             case Card.TypeEffects.Clear_file:
-                Clear_the_row_with_fewer_cards_on_the_field();
+                Clear_the_row_with_fewer_cards_on_the_field(gameObject);
                 break;
             case Card.TypeEffects.Average_Power_on_the_field:
                 Average_Power_on_the_field(gameObject);
                 break;
             case Card.TypeEffects.Decreases_one_Point:
-                Decreases_one_Point();
+                Decreases_one_Point(gameObject);
                 break;
 
             //Special effects
@@ -71,25 +71,28 @@ public class Effects : MonoBehaviour
         //player 1
         if (GameManager.GetComponent<GameManager>().player1.isPlaying)
         {
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck.Count; i++)
+            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.hand.CardsInHand.Count; i++)
             {
-                if (GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Increase)
+                if (GameManager.GetComponent<GameManager>().player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Increase)
                 {
-                    GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck[i].GetComponent<MoveCard>().Move();
+                    GameManager.GetComponent<GameManager>().player1.hand.CardsInHand[i].GetComponent<MoveCard>().Move();
                     break;
                 }
             }
+            return;
         }
         //player 2
         else
         {
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.hand.CardsInDeck.Count; i++)
+            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.hand.CardsInHand.Count; i++)
             {
-                if (GameManager.GetComponent<GameManager>().player2.hand.CardsInDeck[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Increase)
+                if (GameManager.GetComponent<GameManager>().player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Increase)
                 {
-                    GameManager.GetComponent<GameManager>().player2.hand.CardsInDeck[i].GetComponent<MoveCard>().Move();
+                    GameManager.GetComponent<GameManager>().player2.hand.CardsInHand[i].GetComponent<MoveCard>().Move();
+                    break;
                 }
             }
+            return;
         }
     }
     public static void Put_Climate()
@@ -101,37 +104,39 @@ public class Effects : MonoBehaviour
         //player 1
         if (GameManager.GetComponent<GameManager>().player1.isPlaying)
         {
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck.Count; i++)
+            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.hand.CardsInHand.Count; i++)
             {
-                if (GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Climate)
+                if (GameManager.GetComponent<GameManager>().player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Climate)
                 {
-                    GameManager.GetComponent<GameManager>().player1.hand.CardsInDeck[i].GetComponent<MoveCard>().Move();
+                    GameManager.GetComponent<GameManager>().player1.hand.CardsInHand[i].GetComponent<MoveCard>().Move();
                     break;
                 }
             }
+            return;
         }
         //player 2
         else
         {
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.hand.CardsInDeck.Count; i++)
+            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.hand.CardsInHand.Count; i++)
             {
-                if (GameManager.GetComponent<GameManager>().player2.hand.CardsInDeck[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Climate)
+                if (GameManager.GetComponent<GameManager>().player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Climate)
                 {
-                    GameManager.GetComponent<GameManager>().player2.hand.CardsInDeck[i].GetComponent<MoveCard>().Move();
+                    GameManager.GetComponent<GameManager>().player2.hand.CardsInHand[i].GetComponent<MoveCard>().Move();
                     break;
                 }
             }
+            return;
         }
     }
-    public static void Delete_Card_with_Max_Power_on_the_field()
+    public static void Delete_Card_with_Max_Power_on_the_field(GameObject gameObject)
     {
-        if (Effects.IsEmptyField()) return;
+        if (IsEmptyField(gameObject)) return;
 
         GameObject GameManager = GameObject.Find("GameManager");
 
         Debug.Log("Delete_Card_with_Max_Power_on_the_field Effect");
-
-        GameObject cardTarget = new();
+        _ = new
+        GameObject();
 
         //player 1
         // if (GameManager.GetComponent<GameManager>().player1.isPlaying)
@@ -151,84 +156,90 @@ public class Effects : MonoBehaviour
                                     return;
                                 }
                                 else
-                                    cardTarget = GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[0];
+                                    _ = GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[0];
                             }
                             else
-                                cardTarget = GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[0];
+                                _ = GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[0];
                         }
                     }
                     else
-                        cardTarget = GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[0];
+                        _ = GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[0];
                 }
                 else
-                    cardTarget = GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[0];
+                    _ = GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[0];
             }
-            cardTarget = GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[0];
 
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+            else
             {
-                if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power)
+                GameObject cardTarget = GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[0];
+
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count; i++)
                 {
-                    cardTarget = GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i];
+                    if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power)
+                    {
+                        cardTarget = GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i];
+                    }
                 }
-            }
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count; i++)
-            {
-                if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power)
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count; i++)
                 {
-                    cardTarget = GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i];
+                    if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power)
+                    {
+                        cardTarget = GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i];
+                    }
                 }
-            }
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count; i++)
-            {
-                if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power)
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count; i++)
                 {
-                    cardTarget = GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[i];
+                    if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power)
+                    {
+                        cardTarget = GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[i];
+                    }
                 }
+
+
+                //player 2
+                // else
+                {
+                    //cardTarget = GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[0];
+
+                    for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+                    {
+                        if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power)
+                        {
+                            cardTarget = GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i];
+                        }
+                    }
+                    for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+                    {
+                        if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power)
+                        {
+                            cardTarget = GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i];
+                        }
+                    }
+                    for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count; i++)
+                    {
+                        if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power)
+                        {
+                            cardTarget = GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[i];
+                        }
+                    }
+                }
+                cardTarget.GetComponent<MoveCard>().MoveToCemetery();
             }
+            //cardTarget.GetComponent<MoveCard>().MoveToCemetery();
         }
-        //player 2
-        // else
-        {
-            ///cardTarget = GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[0];
-
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count; i++)
-            {
-                if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power)
-                {
-                    cardTarget = GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i];
-                }
-            }
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count; i++)
-            {
-                if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power)
-                {
-                    cardTarget = GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i];
-                }
-            }
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count; i++)
-            {
-                if (cardTarget.GetComponent<CardDisplay>().card.Power < GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power)
-                {
-                    cardTarget = GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[i];
-                }
-            }
-        }
-
-        cardTarget.GetComponent<MoveCard>().MoveToCemetery();
     }
-    public static void Delete_Card_with_Min_Power_on_the_field_opponent()
+    public static void Delete_Card_with_Min_Power_on_the_field_opponent(GameObject gameObject)
     {
-        if (Effects.IsEmptyField()) return;
+        if (IsEmptyField(gameObject)) return;
 
         GameObject GameManager = GameObject.Find("GameManager");
 
         Debug.Log("Delete_Card_with_Min_Power_on_the_field Effect");
-
-        GameObject cardTarget = new();
-
+        _ = new
+        GameObject();
+        GameObject cardTarget;
         //player 1
-        if (GameManager.GetComponent<GameManager>().player2.isPlaying)
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying)
         {
             if (GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count == 0)
             {
@@ -244,8 +255,10 @@ public class Effects : MonoBehaviour
                 else
                     cardTarget = GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[0];
             }
-
-            cardTarget = GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[0];
+            else
+            {
+                cardTarget = GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[0];
+            }
 
             for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count; i++)
             {
@@ -287,8 +300,10 @@ public class Effects : MonoBehaviour
                 else
                     cardTarget = GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[0];
             }
-
-            cardTarget = GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[0];
+            else
+            {
+                cardTarget = GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[0];
+            }
 
             for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count; i++)
             {
@@ -338,9 +353,9 @@ public class Effects : MonoBehaviour
             GameManager.GetComponent<GameManager>().player2.hand.CardsInDeck.RemoveAt(indexCard);
         }
     }
-    public static void Clear_the_row_with_fewer_cards_on_the_field()
+    public static void Clear_the_row_with_fewer_cards_on_the_field(GameObject gameObject)
     {
-        if (Effects.IsEmptyField()) return;
+        if (IsEmptyField(gameObject)) return;
 
         GameObject GameManager = GameObject.Find("GameManager");
         int countM = int.MaxValue;
@@ -414,7 +429,7 @@ public class Effects : MonoBehaviour
     }
     public static void Average_Power_on_the_field(GameObject gameObject)
     {
-        if (Effects.IsEmptyField()) return;
+        if (Effects.IsEmptyField(gameObject)) return;
 
         GameObject GameManager = GameObject.Find("GameManager");
 
@@ -457,79 +472,105 @@ public class Effects : MonoBehaviour
 
         gameObject.GetComponent<CardDisplay>().card.Power = average;
     }
-    public static void Decreases_one_Point()
+    public static void Decreases_one_Point(GameObject gameObject)
     {
-        if (Effects.IsEmptyField()) return;
+        if (IsEmptyField(gameObject)) return;
 
         GameObject GameManager = GameObject.Find("GameManager");
 
         Debug.Log("Decreases_one_Point Effect");
 
         int indextype = Random.Range(1, 3);
-        while (IsRowEMpty(indextype))
+        // if (!IsEmptyField(gameObject))
         {
-            indextype = Random.Range(1, 3);
-        }
+            while (IsRowEMpty(indextype))
+            {
+                indextype = Random.Range(1, 3);
+            }
 
-        if (GameManager.GetComponent<GameManager>().player1.isPlaying)
-        {
-            if (indextype == 1)
+            if (GameManager.GetComponent<GameManager>().player1.isPlaying)
             {
-                int index = Random.Range(1, GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count - 1);
-                GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[index].GetComponent<CardDisplay>().card.Power--;
+                if (indextype == 1)
+                {
+                    int index = Random.Range(0, GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count - 1);
+                    if (GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[index] != null)
+                    {
+                        GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[index].GetComponent<CardDisplay>().card.Power--;
+                    }
+                }
+                if (indextype == 2)
+                {
+                    int index = Random.Range(0, GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count - 1);
+                    if (GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[index] != null)
+                    {
+                        GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[index].GetComponent<CardDisplay>().card.Power--;
+                    }
+                }
+                if (indextype == 3)
+                {
+                    int index = Random.Range(0, GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count - 1);
+                    if (GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[index] != null)
+                    {
+                        GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[index].GetComponent<CardDisplay>().card.Power--;
+                    }
+                }
             }
-            if (indextype == 2)
+            else
             {
-                int index = Random.Range(1, GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count - 1);
-                GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[index].GetComponent<CardDisplay>().card.Power--;
-            }
-            if (indextype == 3)
-            {
-                int index = Random.Range(1, GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count - 1);
-                GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[index].GetComponent<CardDisplay>().card.Power--;
+                if (indextype == 1)
+                {
+                    int index = Random.Range(0, GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count - 1);
+                    if (GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[index] != null)
+                    {
+                        GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[index].GetComponent<CardDisplay>().card.Power--;
+                    }
+                }
+                if (indextype == 2)
+                {
+                    int index = Random.Range(0, GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count - 1);
+                    if (GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[index] != null)
+                    {
+                        GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[index].GetComponent<CardDisplay>().card.Power--;
+                    }
+
+                }
+                if (indextype == 3)
+                {
+                    int index = Random.Range(0, GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count - 1);
+                    if (GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[index] != null)
+                    {
+                        GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[index].GetComponent<CardDisplay>().card.Power--;
+                    }
+
+                }
             }
         }
-        else
-        {
-            if (indextype == 1)
-            {
-                int index = Random.Range(1, GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count - 1);
-                GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[index].GetComponent<CardDisplay>().card.Power--;
-            }
-            if (indextype == 2)
-            {
-                int index = Random.Range(1, GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count - 1);
-                GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[index].GetComponent<CardDisplay>().card.Power--;
-            }
-            if (indextype == 3)
-            {
-                int index = Random.Range(1, GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count - 1);
-                GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[index].GetComponent<CardDisplay>().card.Power--;
-            }
-        }
+        // else return;
+
     }
 
     //Special effects
     public static void Clearance(GameObject gameObject)
     {
         GameObject GameManager = GameObject.Find("GameManager");
+        GameObject climateCard = GameObject.FindWithTag("ClimateCard");
 
         Debug.Log("Clearance Effect");
 
         if (GameManager.GetComponent<GameManager>().player1.isPlaying)
         {
-            if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate != null)
+            if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
             {
-                Effects.DisableEffectClimate();
+                DisableEffectClimate(GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate);
                 GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery();
             }
             gameObject.transform.position = GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.transform.position;
         }
         else
         {
-            if (GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate != null)
+            if (GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
             {
-                Effects.DisableEffectClimate();
+                DisableEffectClimate(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate);
                 GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery();
             }
             gameObject.transform.position = GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.transform.position;
@@ -683,17 +724,17 @@ public class Effects : MonoBehaviour
 
         if (indextype == 1)
         {
-            int index = Random.Range(1, GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count - 1);
+            int index = Random.Range(0, GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count - 1);
             GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[index].GetComponent<CardDisplay>().card.stayintheField = true;
         }
         else if (indextype == 2)
         {
-            int index = Random.Range(1, GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count - 1);
+            int index = Random.Range(0, GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count - 1);
             GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[index].GetComponent<CardDisplay>().card.stayintheField = true;
         }
         else
         {
-            int index = Random.Range(1, GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count - 1);
+            int index = Random.Range(0, GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count - 1);
             GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[index].GetComponent<CardDisplay>().card.stayintheField = true;
         }
     }
@@ -702,80 +743,159 @@ public class Effects : MonoBehaviour
     public static void None()
     {
         Debug.Log("No effect");
+        return;
     }
 
     // Path: Assets/Scripts/Cards/Effects.cs
     //Aux effects
-    public static void DisableEffectClimate()
+    public static void DisableEffectClimate(GameObject gameObject)
     {
         GameObject GameManager = GameObject.FindGameObjectWithTag("GameManager");
 
         Debug.Log("DisableEffectClimate");
-        if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<CardDisplay>().card.TypeField == 'M')
+
+        if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate == gameObject)
         {
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+            if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<CardDisplay>().card.TypeField == 'M')
             {
-                GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.StartPower;
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.StartPower;
+                }
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.StartPower;
+                }
             }
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+            else if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<CardDisplay>().card.TypeField == 'R')
             {
-                GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.StartPower;
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.StartPower;
+                }
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.StartPower;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power++;
+                }
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power++;
+                }
             }
         }
-        else if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<CardDisplay>().card.TypeField == 'R')
+
+        else if(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate == gameObject)
         {
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+            if (GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<CardDisplay>().card.TypeField == 'M')
             {
-                GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.StartPower;
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.StartPower;
+                }
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.StartPower;
+                }
             }
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+            else if (GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<CardDisplay>().card.TypeField == 'R')
             {
-                GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.StartPower;
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.StartPower;
+                }
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.StartPower;
+                }
             }
-        }
-        else
-        {
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count; i++)
+            else
             {
-                GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power++;
-            }
-            for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count; i++)
-            {
-                GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power++;
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power++;
+                }
+                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count; i++)
+                {
+                    GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power++;
+                }
             }
         }
     }
 
-    public static bool IsEmptyField()
+    public static bool IsEmptyField(GameObject gameObject)
     {
         GameObject GameManager = GameObject.FindGameObjectWithTag("GameManager");
 
         Debug.Log("IsEmptyField");
         int count = 6;
-        if (GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count == 0)
+        if (GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count != 0)
         {
-            count--;
+            if (GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[0] == gameObject)
+            {
+                count--;
+            }
         }
-        if (GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count == 0)
+        else
+            count--;
+
+        if (GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count != 0)
         {
-            count--;
+            if (GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[0] == gameObject)
+            {
+                count--;
+            }
         }
-        if (GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count == 0)
+        else
+            count--;
+
+        if (GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count != 0)
         {
-            count--;
+            if (GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[0] == gameObject)
+            {
+                count--;
+            }
         }
-        if (GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count == 0)
+        else
+            count--;
+
+        if (GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count != 0)
         {
-            count--;
+            if (GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[0] == gameObject)
+            {
+                count--;
+            }
         }
-        if (GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count == 0)
+        else
+            count--;
+
+        if (GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count != 0)
         {
-            count--;
+            if (GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[0] == gameObject)
+            {
+                count--;
+            }
         }
-        if (GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count == 0)
+        else
+            count--;
+
+        if (GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count != 0)
         {
-            count--;
+            if (GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[0] == gameObject)
+            {
+                count--;
+            }
         }
+        else
+            count--;
+
+
         if (count == 0)
         {
             return true;
@@ -818,7 +938,7 @@ public class Effects : MonoBehaviour
                 else return false;
             }
         }
-        else
+        else if (GameManager.GetComponent<GameManager>().player2.isPlaying)
         {
             if (n == 1)
             {
@@ -845,67 +965,68 @@ public class Effects : MonoBehaviour
                 else return false;
             }
         }
+        return false;
 
     }
 
 
-
-    #region 
-    public static void Lure(GameObject gameObject)
-    {
-        GameObject GameManager = GameObject.Find("GameManager");
-
-        Debug.Log("Lure Effect");
-
-        if (GameManager.GetComponent<GameManager>().player1.isPlaying)
+    /*
+        #region 
+        public static void Lure(GameObject gameObject)
         {
-            if (gameObject.GetComponent<CardDisplay>().card.TypeField == 'M')
+            GameObject GameManager = GameObject.Find("GameManager");
+
+            Debug.Log("Lure Effect");
+
+            if (GameManager.GetComponent<GameManager>().player1.isPlaying)
             {
-                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+                if (gameObject.GetComponent<CardDisplay>().card.TypeField == 'M')
                 {
-                    GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = 0;
+                    for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+                    {
+                        GameManager.GetComponent<GameManager>().player2.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = 0;
+                    }
                 }
-            }
-            else if (gameObject.GetComponent<CardDisplay>().card.TypeField == 'R')
-            {
-                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+                else if (gameObject.GetComponent<CardDisplay>().card.TypeField == 'R')
                 {
-                    GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = 0;
+                    for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+                    {
+                        GameManager.GetComponent<GameManager>().player2.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = 0;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count; i++)
+                    {
+                        GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power = 0;
+                    }
                 }
             }
             else
             {
-                for (int i = 0; i < GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege.Count; i++)
+                if (gameObject.GetComponent<CardDisplay>().card.TypeField == 'M')
                 {
-                    GameManager.GetComponent<GameManager>().player2.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power = 0;
+                    for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count; i++)
+                    {
+                        GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = 0;
+                    }
+                }
+                else if (gameObject.GetComponent<CardDisplay>().card.TypeField == 'R')
+                {
+                    for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count; i++)
+                    {
+                        GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = 0;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count; i++)
+                    {
+                        GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power = 0;
+                    }
                 }
             }
         }
-        else
-        {
-            if (gameObject.GetComponent<CardDisplay>().card.TypeField == 'M')
-            {
-                for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee.Count; i++)
-                {
-                    GameManager.GetComponent<GameManager>().player1.board.M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power = 0;
-                }
-            }
-            else if (gameObject.GetComponent<CardDisplay>().card.TypeField == 'R')
-            {
-                for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged.Count; i++)
-                {
-                    GameManager.GetComponent<GameManager>().player1.board.R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power = 0;
-                }
-            }
-            else
-            {
-                for (int i = 0; i < GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege.Count; i++)
-                {
-                    GameManager.GetComponent<GameManager>().player1.board.S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power = 0;
-                }
-            }
-        }
-    }
-    #endregion
-
+        #endregion
+    */
 }

@@ -9,7 +9,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="Box2" style="flex-grow: 1;">
                     <ui:Label text="Player &#10;    Turn" name="Playing" class="TextMenu" />
-                    <ui:Label text="0" name="PlayerTurn" class="TextResult" style="color: rgb(255, 0, 0);" />
+                    <ui:Label text="Player 1" name="PlayerTurn" class="TextResult" style="color: rgb(255, 0, 0);" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Button text="Exit" name="Exit" class="ButtonExit" />

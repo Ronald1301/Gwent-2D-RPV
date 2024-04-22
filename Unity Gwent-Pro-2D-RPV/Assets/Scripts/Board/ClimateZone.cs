@@ -5,4 +5,9 @@ using UnityEngine;
 public class ClimateZone : MonoBehaviour
 {
     public GameObject climate;
+
+    void Star()
+    {
+        //climate = new GameObject();
+    }
 }
