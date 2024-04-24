@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartGame();
-        //UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
+        UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
     }
     void Update()
     {
@@ -47,9 +47,12 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        ChangeImageCardsinHand();
+        UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
         UpdatePoints();
         CheckEndRound();
         LateUpdate();
+        UIRuntime.GetComponent<ScriptUIRuntime>().UIUpdate();
     }
     public void LateUpdate()
     {
@@ -65,13 +68,17 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         currentRound = 1;
+        /*
         player1.isPlaying = true;
+        player2.isPlaying = false;
+        */
         activeboss1 = false;
         activeboss2 = false;
         Changecards1 = false;
         Changecards2 = false;
         endgamebool = false;
         clickcount = 0;
+        UpdateCards();
     }
     public void ChangeTurn()
     {
@@ -142,6 +149,8 @@ public class GameManager : MonoBehaviour
 
             player1.passTurn = false;
             player2.passTurn = false;
+
+            MainBoard.transform.rotation = Quaternion.identity;
         }
         else if (player1.Points_for_round < player2.Points_for_round)
         {
@@ -160,6 +169,9 @@ public class GameManager : MonoBehaviour
 
             player1.passTurn = false;
             player2.passTurn = false;
+
+            MainBoard.transform.rotation = Quaternion.identity;
+            MainBoard.transform.Rotate(0, 0, 180);
         }
         else
         {
@@ -176,8 +188,18 @@ public class GameManager : MonoBehaviour
             player2.Points_for_round = 0;
 
             int index = Random.Range(1, 2);
-            if (index == 1) player1.isPlaying = true;
-            else player2.isPlaying = true;
+            if (index == 1)
+            {
+                player1.isPlaying = true;
+                MainBoard.transform.rotation = Quaternion.identity;
+            }
+            else
+            {
+                player2.isPlaying = true;
+                MainBoard.transform.rotation = Quaternion.identity;
+                MainBoard.transform.Rotate(0, 0, 180);
+
+            }
 
             player1.passTurn = false;
             player2.passTurn = false;
@@ -192,94 +214,133 @@ public class GameManager : MonoBehaviour
     }
     private void ClearField()
     {
-        if (player1.deck.tag == "Deck Pirates")
+        for (int i = 0; i < player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count; i++)
         {
-            for (int i = 0; i < player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count; i++)
+            if (!player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.stayintheField)
             {
-                if (activeboss1)
-                {
-                    if (!player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.stayintheField)
-                    {
-                        player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i], player1.board.GetComponent<SubBoard>().Cemetery);
-                    }
-                }
-                else { player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Clear(); }
+                player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i], player1.board.GetComponent<SubBoard>().Cemetery);
             }
-            for (int i = 0; i < player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Count; i++)
+            /*
+            else
             {
-                if (activeboss1)
-                {
-                    if (!player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.stayintheField)
-                    {
-                        player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i], player1.board.GetComponent<SubBoard>().Cemetery);
-                    }
-                }
-                else { player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Clear(); }
+                player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i], player1.board.GetComponent<SubBoard>().Cemetery);
             }
-            for (int i = 0; i < player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Count; i++)
-            {
-                if (activeboss1)
-                {
-                    if (!player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.stayintheField)
-                    {
-                        player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i], player1.board.GetComponent<SubBoard>().Cemetery);
-                    }
-                }
-                else { player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Clear(); }
-            }
-            player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Clear();
-            player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Clear();
-            player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Clear();
+            */
         }
-        else
+        for (int i = 0; i < player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Count; i++)
         {
-            for (int i = 0; i < player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count; i++)
-            {
-                if (activeboss2)
-                {
-                    if (!player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.stayintheField)
-                    {
-                        player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i], player2.board.GetComponent<SubBoard>().Cemetery);
-                    }
-                }
-                else { player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Clear(); }
-            }
-            for (int i = 0; i < player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Count; i++)
-            {
-                if (activeboss2)
-                {
-                    if (!player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.stayintheField)
-                    {
-                        player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i], player2.board.GetComponent<SubBoard>().Cemetery);
-                    }
-                }
-                else { player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Clear(); }
 
-            }
-            for (int i = 0; i < player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Count; i++)
+            if (!player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.stayintheField)
             {
-                if (activeboss2)
-                {
-                    if (!player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.stayintheField)
-                    {
-                        player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i], player2.board.GetComponent<SubBoard>().Cemetery);
-                    }
-                }
-                else { player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Clear(); }
+                player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i], player1.board.GetComponent<SubBoard>().Cemetery);
             }
-            player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Clear();
-            player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Clear();
-            player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Clear();
-
+            /*
+            else
+            {
+                player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i], player1.board.GetComponent<SubBoard>().Cemetery);
+            }
+            */
         }
+        for (int i = 0; i < player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Count; i++)
+        {
+
+            if (!player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.stayintheField)
+            {
+                player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i], player1.board.GetComponent<SubBoard>().Cemetery);
+            }
+            /*
+            else
+            {
+                player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery(player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i], player1.board.GetComponent<SubBoard>().Cemetery);
+            }
+            */
+        }
+        for (int i = 0; i < player1.board.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase.Length; i++)
+        {
+            if (player1.board.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[i] != null)
+            {
+                player1.board.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[i].GetComponent<MoveCard>().MoveToCemetery();
+            }
+        }
+        if (player1.board.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate != GameObject.FindGameObjectWithTag("ClimateCard"))
+        {
+            player1.board.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery();
+        }
+
+        player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Clear();
+        player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Clear();
+        player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Clear();
+        player1.board.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase = new GameObject[3];
+        player1.board.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate = GameObject.FindGameObjectWithTag("ClimateCard");
+
+
+
+        for (int i = 0; i < player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count; i++)
+        {
+
+            if (!player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.stayintheField)
+            {
+                player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i], player2.board.GetComponent<SubBoard>().Cemetery);
+            }
+            /*
+            else
+            {
+                player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[i], player2.board.GetComponent<SubBoard>().Cemetery);
+            }
+            */
+        }
+        for (int i = 0; i < player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Count; i++)
+        {
+
+            if (!player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.stayintheField)
+            {
+                player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i], player2.board.GetComponent<SubBoard>().Cemetery);
+            }
+            /*
+            else
+            {
+                player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[i], player2.board.GetComponent<SubBoard>().Cemetery);
+            }
+            */
+        }
+        for (int i = 0; i < player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Count; i++)
+        {
+
+            if (!player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.stayintheField)
+            {
+                player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i], player2.board.GetComponent<SubBoard>().Cemetery);
+            }
+            /*
+            else
+            {
+                player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i].GetComponent<MoveCard>().MoveToCemetery(player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[i], player2.board.GetComponent<SubBoard>().Cemetery);
+            }
+            */
+        }
+        for (int i = 0; i < player2.board.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase.Length; i++)
+        {
+            if (player2.board.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[i] != null)
+            {
+                player2.board.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[i].GetComponent<MoveCard>().MoveToCemetery();
+            }
+        }
+        if (player2.board.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate != GameObject.FindGameObjectWithTag("ClimateCard"))
+        {
+            player2.board.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery();
+        }
+
+        player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Clear();
+        player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Clear();
+        player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Clear();
+        player2.board.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase = new GameObject[3];
+        player2.board.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate = GameObject.FindGameObjectWithTag("ClimateCard");
+
     }
     public void StartRound()
     {
         player1.passTurn = false;
         player2.passTurn = false;
 
-        player1.hand.DrawCard(2);
-        player2.hand.DrawCard(2);
         if (player1.deck.tag == "Deck Resistance")
         {
             if (activeboss1)
@@ -343,35 +404,76 @@ public class GameManager : MonoBehaviour
         }
         */
 
-
-    
-        public void ChangeImageCardsinHand()
+    public void ChangeImageCardsinHand()
+    {
+        if (player1.isPlaying)
         {
-            if (player1.isPlaying)
+            for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
             {
-                for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
+                if (!player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField)
                 {
                     player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
                 }
-                for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
+            }
+            for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
+            {
+                if (!player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField)
                 {
                     player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
                 }
             }
-            else
+        }
+        else
+        {
+            for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
             {
-                for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
+                if (!player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField)
                 {
                     player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
                 }
-                for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
+            }
+            for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
+            {
+                if (!player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField)
                 {
                     player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
                 }
             }
         }
-        
+    }
+    public void UpdateCards()
+    {
+        for (int i = 0; i < GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck.Count; i++)
+        {
+            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.inTheField = false;
+        }
+        for (int i = 0; i < GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck.Count; i++)
+        {
+            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.inTheField = false;
+        }
 
+        /*
+        for (int i = 0; i < player1.hand.CardsInDeck.Count; i++)
+        {
+            player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField = false;
+        }
+        for (int i = 0; i < player2.hand.CardsInDeck.Count; i++)
+        {
+            player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField = false;
+        }
+        */
+        /*
+        for (int i = 0; i < player1.hand.CardsInHand.Count; i++)
+        {
+            player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField = false;
+        }
+        for (int i = 0; i < player2.hand.CardsInHand.Count; i++)
+        {
+            player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField = false;
+        }
+        */
+
+    }
 
 }
 

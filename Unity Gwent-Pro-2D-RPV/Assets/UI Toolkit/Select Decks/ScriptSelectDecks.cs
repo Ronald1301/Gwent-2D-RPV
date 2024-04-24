@@ -24,15 +24,17 @@ public class ScriptSelectDecks : MonoBehaviour
 
     private void Start()
     {
-        //GameManager = GameObject.FindGameObjectWithTag("GameManager");
+        /*
+        GameManager = GameObject.FindGameObjectWithTag("GameManager");
         DeckPirates = GameObject.FindGameObjectWithTag("Deck Pirates");
         DeckResistance = GameObject.FindGameObjectWithTag("Deck Resistance");
         Board1 = GameObject.FindGameObjectWithTag("SubBoard1");
         Board2 = GameObject.FindGameObjectWithTag("SubBoard2");
         Hand1 = GameObject.FindGameObjectWithTag("Hand1");
         Hand2 = GameObject.FindGameObjectWithTag("Hand2");
-        //Game = GameObject.FindGameObjectWithTag("GameController");
-        //UIRuntime = GameObject.FindGameObjectWithTag("UIRuntime");
+        Game = GameObject.FindGameObjectWithTag("GameController");
+        UIRuntime = GameObject.FindGameObjectWithTag("UIRuntime");
+        */
     }
 
     private void OnEnable()
@@ -55,7 +57,10 @@ public class ScriptSelectDecks : MonoBehaviour
     {
         GameManager.GetComponent<GameManager>().player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
         GameManager.GetComponent<GameManager>().player2 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>();
-        //GameManager.SetActive(true);
+
+        GameManager.GetComponent<GameManager>().player1.isPlaying = true;
+        GameManager.GetComponent<GameManager>().player2.isPlaying = false;
+
         Game.SetActive(true);
         UIRuntime.SetActive(true);
         gameObject.SetActive(false);
@@ -64,7 +69,10 @@ public class ScriptSelectDecks : MonoBehaviour
     {
         GameManager.GetComponent<GameManager>().player1 = GameObject.FindGameObjectWithTag("Player3").GetComponent<Player>();
         GameManager.GetComponent<GameManager>().player2 = GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>();
-        //GameManager.SetActive(true);
+
+        GameManager.GetComponent<GameManager>().player1.isPlaying = true;
+        GameManager.GetComponent<GameManager>().player2.isPlaying = false;
+
         Game.SetActive(true);
         UIRuntime.SetActive(true);
         gameObject.SetActive(false);

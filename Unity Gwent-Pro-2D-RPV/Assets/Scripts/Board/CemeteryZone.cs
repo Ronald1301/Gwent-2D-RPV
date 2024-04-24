@@ -17,12 +17,19 @@ public class CemeteryZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < Cemetery.Count; i++)
+        {
+            Cemetery[i].transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        }
+
+        /*
         if (Cemetery.Count > 0)
         {
             //gameObject.GetComponent<SpriteRenderer>().enabled = true;
             Cemetery[Cemetery.Count-1].transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.1f);
-            gameObject.GetComponent<SpriteRenderer>().sprite = Cemetery[Cemetery.Count-1].GetComponent<SpriteRenderer>().sprite;
-
+            gameObject.GetComponent<SpriteRenderer>().sprite = Cemetery[^1].GetComponent<SpriteRenderer>().sprite;
         }
+        */
     }
+
 }

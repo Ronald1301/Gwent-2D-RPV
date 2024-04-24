@@ -7,7 +7,7 @@ using UnityEngine;
 public class SubBoard : MonoBehaviour
 {
     public GameObject Boss;
-    public GameObject deckfield;
+    public GameObject DeckField;
     public GameObject Hand;
     public GameObject M;
     public GameObject R;

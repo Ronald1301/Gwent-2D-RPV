@@ -26,3 +26,4 @@ MonoBehaviour:
   typeSpecialCard: 4
   effects: 12
   stayintheField: 0
+  inTheField: 0

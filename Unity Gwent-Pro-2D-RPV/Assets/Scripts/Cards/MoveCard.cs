@@ -50,7 +50,7 @@ public class MoveCard : MonoBehaviour
             GameManager.GetComponent<GameManager>().player2.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject))
         {
             Move();
-            this.gameObject.GetComponent<Card>().inTheField = true;
+            this.gameObject.GetComponent<CardDisplay>().card.inTheField = true;
         }
     }
 
@@ -114,7 +114,7 @@ public class MoveCard : MonoBehaviour
                 {
                     if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
                     {
-                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player2.board.GetComponent<ClimateZone>().climate);
+                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player2.board.GetComponent<ClimateZone>().climate.gameObject);
                         subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player2.board.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>().Cemetery);
                         Debug.Log("Move to Cemetery card climate");
                     }
@@ -123,7 +123,7 @@ public class MoveCard : MonoBehaviour
                 {
                     if (GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
                     {
-                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate);
+                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.gameObject);
                         subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>().Cemetery);
                         Debug.Log("Move to Cemetery card climate");
                     }
@@ -181,8 +181,14 @@ public class MoveCard : MonoBehaviour
             //Add points from the card to the player
             GameManager.GetComponent<GameManager>().UpdatePoints(this.gameObject.GetComponent<CardDisplay>().card);
 
+
             //Activate card effect
             Effects.ActivateEffect(gameObject);
+
+            GameManager.GetComponent<GameManager>().ChangeTurn();
+
+            //Change Turn
+            // GameManager.GetComponent<GameManager>().ChangeTurn();
 
             //Update points
             GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
@@ -191,9 +197,6 @@ public class MoveCard : MonoBehaviour
 
             //Update UI
             UIRuntime.UIUpdate();
-
-            //Change Turn
-            GameManager.GetComponent<GameManager>().ChangeTurn();
         }
     }
     public void MoveToM()
@@ -227,22 +230,24 @@ public class MoveCard : MonoBehaviour
     {
         subBoard.GetComponent<SubBoard>().Cemetery.GetComponent<CemeteryZone>().Cemetery.Add(this.gameObject);
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().Cemetery.transform, false);
-        this.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.1f);
+        // this.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.1f);
     }
     public void MoveToCemetery(GameObject card, GameObject cemetery)
     {
         cemetery.GetComponent<CemeteryZone>().Cemetery.Add(card);
         card.transform.SetParent(cemetery.transform, false);
-        card.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.1f);
+        // card.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.1f);
     }
     public void MoveToHand()
     {
         subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Add(this.gameObject);
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().Hand.transform, false);
         this.gameObject.transform.localScale = new Vector3(0.4f, 0.6f, 1);
+        this.gameObject.GetComponent<CardDisplay>().card.inTheField = false;
     }
 
     //Card Lure
+    //Arreglar lure, la segunda carta no me coge
     public IEnumerator WaitForClick()
     {
         while (!isClicked)

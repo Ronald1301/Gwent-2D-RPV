@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CardDisplay : MonoBehaviour
 {
     public Card card;
-    //public GameObject UI;
+    //[SerializeField] GameObject GameManager;
     [SerializeField] UICardDescription UI;
 
     // Start is called before the first frame update
@@ -15,30 +15,46 @@ public class CardDisplay : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = card.CardImageForehead;
         //UI = GameObject.FindGameObjectWithTag("UI Card Description");
     }
+    void Update()
+    {
+        /*
+        if (card.inTheField)
+        {
+            GetComponent<SpriteRenderer>().sprite = card.CardImageForehead;
+        }
+        else if (!card.inTheField && GameManager.GetComponent<GameManager>().player1.isPlaying && GetComponent<GameManager>().player2.hand.CardsInHand.Contains(this.gameObject))
+        {
+            GetComponent<SpriteRenderer>().sprite = card.CardImageBack;
+        }
+        else if (!card.inTheField && GameManager.GetComponent<GameManager>().player2.isPlaying && GetComponent<GameManager>().player1.hand.CardsInHand.Contains(this.gameObject))
+        {
+            GetComponent<SpriteRenderer>().sprite = card.CardImageBack;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().sprite = card.CardImageForehead;
+        }
+        */
+    }
 
     public void OnMouseEnter()
     {
-        //if ((GetComponent<GameManager>().player1.isPlaying && GetComponent<GameManager>().player2.hand.CardsInHand.Contains(gameObject)) || (GetComponent<GameManager>().player2.isPlaying && GetComponent<GameManager>().player1.hand.CardsInHand.Contains(gameObject)))
-        
-          //  UI.gameObject.SetActive(false);
-        
-        
-        
-            //UI.SetActive(true);
-            // UI.SendMessageUpwards("UIUpdate", card);   
-            //var newposition = new Vector3(transform.position.x+1, transform.position.y, transform.position.z - 1);
-            //gameObject.transform.position = newposition;
+        if(GetComponent<SpriteRenderer>().sprite != card.CardImageForehead)
+        {
+            UI.gameObject.SetActive(false);
+        }
+        else
+        {
             UI.gameObject.SetActive(true);
             UI.UIUpdateCardDescription(card);
-        
+        }
+
+        //UI.gameObject.SetActive(true);
+        //UI.UIUpdateCardDescription(card);
     }
     public void OnMouseExit()
     {
-        //UI.SetActive(false);
-        //UI.SendMessageUpwards("UIUpdate", null);
-
         UI.gameObject.SetActive(false);
-        //gameObject.UIUpdateCardDescription(null);
     }
 
 

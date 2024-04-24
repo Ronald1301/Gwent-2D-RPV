@@ -10,4 +10,12 @@ public class ClimateZone : MonoBehaviour
     {
         //climate = new GameObject();
     }
+
+    void Update()
+    {
+        if (climate == null || climate == false)
+        {
+            climate = GameObject.FindGameObjectWithTag("ClimateCard");
+        }
+    }
 }

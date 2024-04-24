@@ -54,8 +54,8 @@ public class ScriptUIRuntime : MonoBehaviour
     }
 
     public void UIUpdate()
-    { 
-       currentRound.text = GameManager.GetComponent<GameManager>().currentRound.ToString();
+    {
+        currentRound.text = GameManager.GetComponent<GameManager>().currentRound.ToString();
 
         if (GameManager.GetComponent<GameManager>().player1.isPlaying) playerTurn.text = "Player 1";
         else playerTurn.text = "Player 2";
