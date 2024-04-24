@@ -51,45 +51,45 @@ public class Hand : MonoBehaviour
             CardsInDeck.RemoveAt(indexCard);
         }
     }
-/*
+    /*
+        public void DrawCard(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                //System.Random index = new System.Random();
+                //long indexCard = index.Next(1, CardsInDeck.Count);
+                long indexCard= UnityEngine.Random.Range(1, CardsInDeck.Count-1);
+                GameObject drawCard = Instantiate(CardsInDeck[Convert.ToInt32(indexCard)], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
+                //Mask[i] = true;
+                drawCard.transform.localScale = new Vector3(0.4f, 0.6f, 0);
+                //GameObject drawCard = CardsInDeck[indexCard];
+                drawCard.transform.SetParent(transform, false);
+                CardsInHand.Add(drawCard);
+                CardsInDeck.RemoveAt(Convert.ToInt32(indexCard));
+            }
+        }
+        */
+
     public void DrawCard(int count)
     {
         for (int i = 0; i < count; i++)
         {
-            //System.Random index = new System.Random();
-            //long indexCard = index.Next(1, CardsInDeck.Count);
-            long indexCard= UnityEngine.Random.Range(1, CardsInDeck.Count-1);
-            GameObject drawCard = Instantiate(CardsInDeck[Convert.ToInt32(indexCard)], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
-            //Mask[i] = true;
-            drawCard.transform.localScale = new Vector3(0.4f, 0.6f, 0);
-            //GameObject drawCard = CardsInDeck[indexCard];
-            drawCard.transform.SetParent(transform, false);
-            CardsInHand.Add(drawCard);
-            CardsInDeck.RemoveAt(Convert.ToInt32(indexCard));
+            if (CardsInDeck.Count > 0)
+            {
+                int randomIndex = new System.Random().Next(1, CardsInDeck.Count);
+                GameObject drawCard = Instantiate(CardsInDeck[Convert.ToInt32(randomIndex)], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
+                drawCard.transform.localScale = new Vector3(0.4f, 0.6f, 0);
+                drawCard.transform.SetParent(transform, false);
+                CardsInHand.Add(drawCard);
+                CardsInDeck.RemoveAt(Convert.ToInt32(randomIndex));
+            }
+            else
+            {
+                Debug.Log("El mazo está vacío. No se pueden sacar más cartas.");
+                break;
+            }
         }
     }
-    */
-
-    public void DrawCard(int count)
-{
-    for (int i = 0; i < count; i++)
-    {
-        if(CardsInDeck.Count > 0)
-        {
-            int randomIndex = new System.Random().Next(1, CardsInDeck.Count);
-            GameObject drawCard = Instantiate(CardsInDeck[Convert.ToInt32(randomIndex)], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
-            drawCard.transform.localScale = new Vector3(0.4f, 0.6f, 0);
-            drawCard.transform.SetParent(transform, false);
-            CardsInHand.Add(drawCard);
-            CardsInDeck.RemoveAt(Convert.ToInt32(randomIndex));
-        }
-        else
-        {
-            Debug.Log("El mazo está vacío. No se pueden sacar más cartas.");
-            break;
-        }
-    }
-}
 
 
     internal bool CheckHand()

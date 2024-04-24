@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
   public int RoundsWon;
  // public bool[] RoundsWon_for_game;
   public bool isPlaying;
-  public bool passTurn;
+  public bool PlayedACard;
+  public bool passTurn; 
   public bool youWin;
 
   public Player(Decks decks, SubBoard board, Hand hand)
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     RoundsWon = 0;
    // RoundsWon_for_game = new bool[3];
     isPlaying = false;
+    PlayedACard = false;
     passTurn = false;
     youWin = false;
   }

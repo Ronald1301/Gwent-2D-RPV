@@ -51,6 +51,63 @@ public class MoveCard : MonoBehaviour
         {
             Move();
             this.gameObject.GetComponent<CardDisplay>().card.inTheField = true;
+
+            if (this.gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
+            {
+                GameManager.GetComponent<GameManager>().UpdatePoints();
+                Effects.ActivateEffect(gameObject);
+                UIRuntime.UIUpdate();
+                GameManager.GetComponent<GameManager>().ChangeTurn();
+            }
+
+            /*
+            //Here I activate the effect of the card, 
+            //I add the points of the card if it has them to its corresponding player, 
+            //I update the UI and change the turn
+
+            UIRuntime.UIUpdate();
+            //Add points from the card to the player
+            // GameManager.GetComponent<GameManager>().UpdatePoints(this.gameObject.GetComponent<CardDisplay>().card);
+            GameManager.GetComponent<GameManager>().UpdatePoints();
+            //Activate card effect
+            Effects.ActivateEffect(gameObject);
+            //Update UI
+            UIRuntime.UIUpdate();
+            //Change Turn
+            GameManager.GetComponent<GameManager>().ChangeTurn();
+            */
+
+            /*
+           //Update points
+           GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
+           GameManager.GetComponent<GameManager>().player2.board.UpdatePoints();
+           //GameManager.GetComponent<GameManager>().UpdatePoints();
+            */
+
+
+            if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0)
+            {
+                GameManager.GetComponent<GameManager>().UpdatePoints();
+                UIRuntime.UIUpdate();
+                GameManager.GetComponent<GameManager>().ChangeTurn();
+            }
+            else
+            {
+                GameManager.GetComponent<GameManager>().UpdatePoints();
+                UIRuntime.UIUpdate();
+            }
+
+            /*
+              if (GameManager.GetComponent<GameManager>().player1.PlayedACard || GameManager.GetComponent<GameManager>().player2.PlayedACard)
+              {
+                  GameManager.GetComponent<GameManager>().UpdatePoints();
+                  UIRuntime.UIUpdate();
+                  GameManager.GetComponent<GameManager>().ChangeTurn();
+              }
+            */
+
+
+
         }
     }
 
@@ -84,7 +141,7 @@ public class MoveCard : MonoBehaviour
                 if (subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate != climateCard)
                 {
                     Effects.DisableEffectClimate(subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate);
-                    GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>().Cemetery);
+                    GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
                     //this.gameObject.transform.position = GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.transform.position;
                 }
                 MoveToClimate();
@@ -115,7 +172,7 @@ public class MoveCard : MonoBehaviour
                     if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
                     {
                         Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player2.board.GetComponent<ClimateZone>().climate.gameObject);
-                        subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player2.board.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>().Cemetery);
+                        subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player2.board.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
                         Debug.Log("Move to Cemetery card climate");
                     }
                 }
@@ -124,7 +181,7 @@ public class MoveCard : MonoBehaviour
                     if (GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
                     {
                         Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.gameObject);
-                        subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>().Cemetery);
+                        subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
                         Debug.Log("Move to Cemetery card climate");
                     }
                 }
@@ -170,77 +227,208 @@ public class MoveCard : MonoBehaviour
                 */
             }
         }
+
         subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
 
-        //Here I activate the effect of the card, 
-        //I add the points of the card if it has them to its corresponding player, 
-        //I update the UI and change the turn
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying && this.gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
         {
-            UIRuntime.UIUpdate();
+            GameManager.GetComponent<GameManager>().player1.PlayedACard = true;
+        }
+        else if (GameManager.GetComponent<GameManager>().player2.isPlaying && this.gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
+        {
+            GameManager.GetComponent<GameManager>().player2.PlayedACard = true;
+        }
 
-            //Add points from the card to the player
-            GameManager.GetComponent<GameManager>().UpdatePoints(this.gameObject.GetComponent<CardDisplay>().card);
-
-
-            //Activate card effect
-            Effects.ActivateEffect(gameObject);
-
-            GameManager.GetComponent<GameManager>().ChangeTurn();
-
-            //Change Turn
-            // GameManager.GetComponent<GameManager>().ChangeTurn();
-
-            //Update points
-            GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
-            GameManager.GetComponent<GameManager>().player2.board.UpdatePoints();
+        if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0)
+        {
             GameManager.GetComponent<GameManager>().UpdatePoints();
-
-            //Update UI
+            UIRuntime.UIUpdate();
+            GameManager.GetComponent<GameManager>().ChangeTurn();
+        }
+        else
+        {
+            GameManager.GetComponent<GameManager>().UpdatePoints();
             UIRuntime.UIUpdate();
         }
+
+
+        /*
+       //Here I activate the effect of the card, 
+       //I add the points of the card if it has them to its corresponding player, 
+       //I update the UI and change the turn
+       {
+           UIRuntime.UIUpdate();
+
+           //Add points from the card to the player
+           GameManager.GetComponent<GameManager>().UpdatePoints(this.gameObject.GetComponent<CardDisplay>().card);
+
+
+           //Activate card effect
+           Effects.ActivateEffect(gameObject);
+
+           GameManager.GetComponent<GameManager>().ChangeTurn();
+
+           //Change Turn
+           // GameManager.GetComponent<GameManager>().ChangeTurn();
+
+           //Update points
+           GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
+           GameManager.GetComponent<GameManager>().player2.board.UpdatePoints();
+           //GameManager.GetComponent<GameManager>().UpdatePoints();
+
+           //Update UI
+           UIRuntime.UIUpdate();
+       }
+       */
     }
     public void MoveToM()
     {
         subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Add(this.gameObject);
+        subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().M.transform, false);
     }
     public void MoveToR()
     {
         subBoard.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Add(this.gameObject);
+        subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().R.transform, false);
     }
     public void MoveToS()
     {
         subBoard.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Add(this.gameObject);
+        subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().S.transform, false);
     }
     public void MoveToIncrease(int i)
     {
         subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[i] = this.gameObject;
+        subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
         //subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[i].transform.SetParent(subBoard.GetComponent<SubBoard>().Increase.transform, false);
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().Increase.transform, false);
+        this.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y - 4, transform.position.z);
     }
     public void MoveToClimate()
     {
         subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate = this.gameObject;
+        subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().Climate.transform, false);
         this.gameObject.transform.position = new Vector3(transform.position.x - 7, transform.position.y, transform.position.z - 0.1f);
     }
     public void MoveToCemetery()
     {
         subBoard.GetComponent<SubBoard>().Cemetery.GetComponent<CemeteryZone>().Cemetery.Add(this.gameObject);
+
+        if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[0] == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[0] = null;
+        }
+        else if (subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[1] == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[1] = null;
+        }
+        else if (subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[2] == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[2] = null;
+        }
+        else if (subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate = GameObject.FindGameObjectWithTag("ClimateCard");
+        }
+
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().Cemetery.transform, false);
         // this.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.1f);
     }
-    public void MoveToCemetery(GameObject card, GameObject cemetery)
+    public void MoveToCemetery(GameObject card, SubBoard board)
     {
-        cemetery.GetComponent<CemeteryZone>().Cemetery.Add(card);
-        card.transform.SetParent(cemetery.transform, false);
+        board.Cemetery.GetComponent<CemeteryZone>().Cemetery.Add(card);
+
+        if (board.Hand.GetComponent<Hand>().CardsInHand.Contains(card))
+        {
+            board.Hand.GetComponent<Hand>().CardsInHand.Remove(card);
+        }
+        else if (board.M.GetComponent<MeleeZone>().melee.Contains(card))
+        {
+            board.M.GetComponent<MeleeZone>().melee.Remove(card);
+        }
+        else if (board.R.GetComponent<RangedZone>().ranged.Contains(card))
+        {
+            board.R.GetComponent<RangedZone>().ranged.Remove(card);
+        }
+        else if (board.S.GetComponent<SiegeZone>().siege.Contains(card))
+        {
+            board.S.GetComponent<SiegeZone>().siege.Remove(card);
+        }
+        else if (board.Increase.GetComponent<IncreaseZone>().increase[0] == card)
+        {
+            board.Increase.GetComponent<IncreaseZone>().increase[0] = null;
+        }
+        else if (board.Increase.GetComponent<IncreaseZone>().increase[1] == card)
+        {
+            board.Increase.GetComponent<IncreaseZone>().increase[1] = null;
+        }
+        else if (board.Increase.GetComponent<IncreaseZone>().increase[2] == card)
+        {
+            board.Increase.GetComponent<IncreaseZone>().increase[2] = null;
+        }
+        else if (board.Climate.GetComponent<ClimateZone>().climate == card)
+        {
+            board.Climate.GetComponent<ClimateZone>().climate = GameObject.FindGameObjectWithTag("ClimateCard");
+        }
+
+        card.transform.SetParent(board.GetComponent<SubBoard>().Cemetery.transform, false);
         // card.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.1f);
     }
     public void MoveToHand()
     {
         subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Add(this.gameObject);
+
+        if (subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Remove(this.gameObject);
+        }
+        /*
+        else if (subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[0] == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[0] = null;
+        }
+        else if (subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[1] == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[1] = null;
+        }
+        else if (subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[2] == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[2] = null;
+        }
+        else if (subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate = GameObject.FindGameObjectWithTag("ClimateCard");
+        }
+        */
+
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().Hand.transform, false);
         this.gameObject.transform.localScale = new Vector3(0.4f, 0.6f, 1);
         this.gameObject.GetComponent<CardDisplay>().card.inTheField = false;
@@ -278,11 +466,22 @@ public class MoveCard : MonoBehaviour
                         card.GetComponent<MoveCard>().MoveToHand();
                         MoveToS();
                     }
+
                 }
             }
         }
         isClicked = false;
         clickLure = false;
+
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying)
+        {
+            GameManager.GetComponent<GameManager>().player1.PlayedACard = true;
+        }
+        else if (GameManager.GetComponent<GameManager>().player2.isPlaying)
+        {
+            GameManager.GetComponent<GameManager>().player2.PlayedACard = true;
+        }
+
         GameManager.GetComponent<GameManager>().UpdatePoints();
         UIRuntime.UIUpdate();
         GameManager.GetComponent<GameManager>().ChangeTurn();
