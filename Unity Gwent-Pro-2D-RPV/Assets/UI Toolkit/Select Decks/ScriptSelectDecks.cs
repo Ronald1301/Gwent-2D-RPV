@@ -15,8 +15,8 @@ public class ScriptSelectDecks : MonoBehaviour
     GameObject Board2;
     GameObject Hand1;
     GameObject Hand2;
-    [SerializeField] GameObject Game;
-    [SerializeField] GameObject UIRuntime;
+    /*[SerializeField]*/ public GameObject Game;
+    /*[SerializeField]*/ public GameObject UIRuntime;
 
     private Button deck1;
     private Button deck2;

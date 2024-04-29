@@ -9,6 +9,8 @@ public class ScriptUIRuntime : MonoBehaviour
 {
     UIDocument UIRuntime;
     public GameObject GameManager;
+    public GameObject SelectDecks;
+    public GameObject UICardDescription;
 
     private Label currentRound;
     private Label playerTurn;
@@ -21,9 +23,10 @@ public class ScriptUIRuntime : MonoBehaviour
     private Label TextWinner;
     private VisualElement Winner;
     private VisualElement Right;
-    private VisualElement Left;
+    private VisualElement Round;
 
     private Button changeTurn;
+    private Button reset;
     private Button exit;
 
     private void OnEnable()
@@ -43,18 +46,43 @@ public class ScriptUIRuntime : MonoBehaviour
         TextWinner = root.Q<Label>("Text2");
         Winner = root.Q<VisualElement>("Winners");
         Right = root.Q<VisualElement>("Right");
-        Left = root.Q<VisualElement>("Left");
+        Round = root.Q<VisualElement>("Round");
 
         changeTurn = root.Q<Button>("ChangeTurn");
+        reset = root.Q<Button>("Reset");
         exit = root.Q<Button>("Exit");
 
         //Callbacks
         changeTurn.RegisterCallback<ClickEvent>(ChangeTurnButton);
+        //reset.RegisterCallback<ClickEvent>(ResetGame);
         exit.RegisterCallback<ClickEvent>(ExitToStartMenu);
     }
-
+    private void ResetGame(ClickEvent evt)
+    {
+        SelectDecks.SetActive(true);
+        GameManager.GetComponent<GameManager>().ResetGame();
+        GetComponent<ScriptSelectDecks>().Game.SetActive(false);
+        this.gameObject.SetActive(false);
+    }
     public void UIUpdate()
     {
+        //if (SelectDecks.activeInHierarchy) return;
+
+        if (GameManager.GetComponent<GameManager>().currentRound == 0)
+        {
+            Round.style.visibility = Visibility.Hidden;
+            Right.style.visibility = Visibility.Hidden;
+            Winner.style.visibility = Visibility.Hidden;
+            //reset.style.visibility = Visibility.Hidden;
+        }
+        else
+        {
+            Round.style.visibility = Visibility.Visible;
+            Right.style.visibility = Visibility.Visible;
+            Winner.style.visibility = Visibility.Hidden;
+            //reset.style.visibility = Visibility.Hidden;
+        }
+
         currentRound.text = GameManager.GetComponent<GameManager>().currentRound.ToString();
 
         if (GameManager.GetComponent<GameManager>().player1.isPlaying) playerTurn.text = "Player 1";
@@ -68,35 +96,30 @@ public class ScriptUIRuntime : MonoBehaviour
         roundsWonPlayer2.value = GameManager.GetComponent<GameManager>().player2.RoundsWon;
         roundsWonPlayer2.title = GameManager.GetComponent<GameManager>().player2.RoundsWon.ToString();
 
-        if (GameManager.GetComponent<GameManager>().endgamebool) { ShowWinner(); }
-
+        if (GameManager.GetComponent<GameManager>().endgamebool) ShowWinner();
     }
-
     private void ShowWinner()
     {
+        Round.style.visibility = Visibility.Hidden;
+        Right.style.visibility = Visibility.Hidden;
+        //reset.style.visibility = Visibility.Visible;
+        Winner.style.visibility = Visibility.Visible;
+        GameManager.GetComponent<GameManager>().MainBoard.SetActive(false);
+        UICardDescription.SetActive(false);
+
         if (GameManager.GetComponent<GameManager>().player1.youWin)
         {
             TextWinner.text = "Player 1 Wins!";
-            Left.style.display = DisplayStyle.None;
-            Right.style.display = DisplayStyle.None;
-            Winner.style.display = DisplayStyle.Flex;
         }
         else if (GameManager.GetComponent<GameManager>().player2.youWin)
         {
             TextWinner.text = "Player 2 Wins!";
-            Left.style.display = DisplayStyle.None;
-            Right.style.display = DisplayStyle.None;
-            Winner.style.display = DisplayStyle.Flex;
         }
         else
         {
             TextWinner.text = "It's a tie!";
-            Left.style.display = DisplayStyle.None;
-            Right.style.display = DisplayStyle.None;
-            Winner.style.display = DisplayStyle.Flex;
         }
     }
-
     private void ChangeTurnButton(ClickEvent evt)
     {
         if (GameManager.GetComponent<GameManager>().player1.isPlaying)
@@ -114,7 +137,6 @@ public class ScriptUIRuntime : MonoBehaviour
         }
         //GameManager.GetComponent<GameManager>().ChangeTurn();
     }
-
     private void ExitToStartMenu(ClickEvent evt)
     {
         SceneManager.LoadScene("StartMenuScene");

@@ -5643,7 +5643,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 1.0318002, y: -4.51975}
-  m_SizeDelta: {x: 0.06360006, y: 0.38617858}
+  m_SizeDelta: {x: 0.06360006, y: 0.13207196}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &636395569
 GameObject:
@@ -7421,8 +7421,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1.0318, y: -1.5065833}
-  m_SizeDelta: {x: 0.06360006, y: 0.38617864}
+  m_AnchoredPosition: {x: 1.0318, y: -1.1732501}
+  m_SizeDelta: {x: 0.06360006, y: 0.13207197}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &964263854
 GameObject:
@@ -7716,8 +7716,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1.0318002, y: -1.5065833}
-  m_SizeDelta: {x: 0.06360006, y: 0.38617858}
+  m_AnchoredPosition: {x: 1.0318002, y: -1.1732501}
+  m_SizeDelta: {x: 0.06360006, y: 0.13207196}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1065776377
 GameObject:
@@ -8123,8 +8123,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1.0318, y: -7.532917}
-  m_SizeDelta: {x: 0.06360006, y: 0.38617864}
+  m_AnchoredPosition: {x: 1.0318, y: -7.86625}
+  m_SizeDelta: {x: 0.06360006, y: 0.13207197}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1083546778
 GameObject:
@@ -9147,8 +9147,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1.0318002, y: -7.532917}
-  m_SizeDelta: {x: 0.06360006, y: 0.38617858}
+  m_AnchoredPosition: {x: 1.0318002, y: -7.86625}
+  m_SizeDelta: {x: 0.06360006, y: 0.13207196}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1359840538
 GameObject:
@@ -12627,7 +12627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1772852672
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13782,7 +13782,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 1.0318, y: -4.51975}
-  m_SizeDelta: {x: 0.06360006, y: 0.38617864}
+  m_SizeDelta: {x: 0.06360006, y: 0.13207197}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1895478970
 GameObject:
@@ -14472,6 +14472,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManager: {fileID: 863512123}
+  SelectDecks: {fileID: 1950686002}
+  UICardDescription: {fileID: 1113927859}
 --- !u!114 &1964604400
 MonoBehaviour:
   m_ObjectHideFlags: 0

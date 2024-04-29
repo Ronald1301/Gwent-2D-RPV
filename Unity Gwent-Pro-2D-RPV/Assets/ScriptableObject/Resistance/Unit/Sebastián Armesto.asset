@@ -19,10 +19,13 @@ MonoBehaviour:
     the average  power between them
   cardImageForehead: {fileID: 21300000, guid: 4142baf29704f844a998b2c16cc0dca3, type: 3}
   cardImageback: {fileID: 21300000, guid: 36a13220b2b24b14995f2b202dc94f38, type: 3}
-  startPower: 4
-  power: 4
+  startPower: 3
+  power: 3
   typeField: 77
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 7
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

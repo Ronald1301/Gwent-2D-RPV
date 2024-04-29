@@ -12,7 +12,10 @@
                     <ui:Label text="Player 1" name="PlayerTurn" class="TextResult" style="color: rgb(255, 0, 0);" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Button text="Exit" name="Exit" class="ButtonExit" />
+            <ui:VisualElement name="BoxButton" class="BoxButton" style="flex-grow: 1;">
+                <ui:Button text="Reset" name="Reset" class="Button" style="visibility: hidden;" />
+                <ui:Button text="Exit" name="Exit" class="ButtonExit Button" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Board" class="Board" style="flex-grow: 1;">
             <ui:VisualElement name="Winners" class="boxWinner" style="flex-grow: 1;">

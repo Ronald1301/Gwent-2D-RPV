@@ -23,6 +23,8 @@ public class Card : ScriptableObject
 
     public bool stayintheField = false;
     public bool inTheField = false;
+    public bool affectedByClimate= false;
+    public bool affectedByIncrease= false;
 
 
     //Card

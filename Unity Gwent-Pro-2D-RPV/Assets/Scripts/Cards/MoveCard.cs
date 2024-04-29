@@ -44,10 +44,10 @@ public class MoveCard : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (GameManager.GetComponent<GameManager>().player1.isPlaying &&
-        GameManager.GetComponent<GameManager>().player1.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject)
-            || GameManager.GetComponent<GameManager>().player2.isPlaying &&
-            GameManager.GetComponent<GameManager>().player2.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject))
+        if ((GameManager.GetComponent<GameManager>().player1.isPlaying &&
+        GameManager.GetComponent<GameManager>().player1.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject))
+            || (GameManager.GetComponent<GameManager>().player2.isPlaying &&
+            GameManager.GetComponent<GameManager>().player2.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject)))
         {
             Move();
             this.gameObject.GetComponent<CardDisplay>().card.inTheField = true;
@@ -55,6 +55,7 @@ public class MoveCard : MonoBehaviour
             if (this.gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
             {
                 GameManager.GetComponent<GameManager>().UpdatePoints();
+                GameManager.GetComponent<GameManager>().UpdatePoints(this.gameObject.GetComponent<CardDisplay>().card);
                 Effects.ActivateEffect(gameObject);
                 UIRuntime.UIUpdate();
                 GameManager.GetComponent<GameManager>().ChangeTurn();
@@ -84,7 +85,6 @@ public class MoveCard : MonoBehaviour
            //GameManager.GetComponent<GameManager>().UpdatePoints();
             */
 
-
             if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0)
             {
                 GameManager.GetComponent<GameManager>().UpdatePoints();
@@ -105,12 +105,8 @@ public class MoveCard : MonoBehaviour
                   GameManager.GetComponent<GameManager>().ChangeTurn();
               }
             */
-
-
-
         }
     }
-
     public void Move()
     {
         gameObject.transform.localScale = new Vector3(1, 1, 1);
@@ -141,7 +137,7 @@ public class MoveCard : MonoBehaviour
                 if (subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate != climateCard)
                 {
                     Effects.DisableEffectClimate(subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate);
-                    GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
+                    subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
                     //this.gameObject.transform.position = GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.transform.position;
                 }
                 MoveToClimate();
@@ -171,17 +167,17 @@ public class MoveCard : MonoBehaviour
                 {
                     if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
                     {
-                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player2.board.GetComponent<ClimateZone>().climate.gameObject);
-                        subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player2.board.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
+                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate);
+                        GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
                         Debug.Log("Move to Cemetery card climate");
                     }
                 }
-                else if (subBoard == GameManager.GetComponent<GameManager>().player2.board.gameObject)
+                else /*if (subBoard == GameManager.GetComponent<GameManager>().player2.board.gameObject)*/
                 {
                     if (GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
                     {
-                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.gameObject);
-                        subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
+                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate);
+                        GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
                         Debug.Log("Move to Cemetery card climate");
                     }
                 }
@@ -190,7 +186,10 @@ public class MoveCard : MonoBehaviour
             }
             else if (gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Lure)
             {
-                if (Effects.IsRowEMpty(1) && Effects.IsRowEMpty(2) && Effects.IsRowEMpty(3))
+                //if (Effects.IsRowEMpty(1) && Effects.IsRowEMpty(2) && Effects.IsRowEMpty(3))
+                if (subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count == 0 &&
+                subBoard.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Count == 0 &&
+                subBoard.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Count == 0)
                 {
                     int indextype = UnityEngine.Random.Range(1, 3);
                     if (indextype == 1)
@@ -486,7 +485,4 @@ public class MoveCard : MonoBehaviour
         UIRuntime.UIUpdate();
         GameManager.GetComponent<GameManager>().ChangeTurn();
     }
-
-
-
 }

@@ -6,27 +6,32 @@ VisualElement {
 }
 
 .Board {
-    width: 50%;
+    width: 60%;
+    flex-shrink: 1;
+    flex-grow: 1;
 }
 
 .Left {
-    width: 17%;
+    width: 19%;
     align-self: flex-start;
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    flex-shrink: 1;
+    flex-grow: 1;
 }
 
 .Right {
     align-items: stretch;
     justify-content: flex-start;
     align-self: stretch;
-    width: 15%;
+    width: 10%;
     flex-direction: column;
     right: auto;
     padding-right: 0.5%;
     height: 100%;
     margin-top: 1%;
+    flex-shrink: 1;
 }
 
 .Round {
@@ -41,8 +46,8 @@ VisualElement {
 
 .ButtonChangeTurn {
     background-image: url('project://database/Assets/Images/logo%20button.png?fileID=21300000&guid=278ebcc13a4866749bceb8cab9d9fcdf&type=3#logo button');
-    width: 45%;
-    height: 16%;
+    width: 75%;
+    height: 18%;
     -unity-font-definition: url('project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Fonts/Electronic%20Highway%20Sign.TTF?fileID=12800000&guid=8a2b9e2a607dd2143b58c44bc32410b4&type=3#Electronic Highway Sign');
     font-size: 25px;
     -unity-font-style: bold-and-italic;
@@ -147,7 +152,16 @@ VisualElement {
     transition-timing-function: ease-in-out;
 }
 
-.ButtonExit {
+.BoxButton {
+    height: 15%;
+    width: 100%;
+    max-height: 15%;
+    justify-content: space-evenly;
+    align-self: center;
+    align-items: center;
+}
+
+.Button {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -161,13 +175,13 @@ VisualElement {
     transition-duration: 0.5s;
     transition-timing-function: ease-out;
     width: 40%;
-    height: 5%;
+    height: 30%;
     margin-top: 0;
     opacity: 0.8;
     bottom: 1%;
 }
 
-.ButtonExit:hover {
+.Button:hover {
     scale: 1.2 1.2;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     color: rgb(232, 187, 12);
@@ -176,7 +190,7 @@ VisualElement {
     opacity: 1;
 }
 
-.ButtonExit:active {
+.Button:active {
     -unity-background-image-tint-color: rgb(211, 211, 211);
     scale: 1.1 1.1;
     background-color: rgb(52, 74, 122);
@@ -188,7 +202,8 @@ VisualElement {
     align-self: stretch;
     justify-content: space-between;
     align-items: stretch;
-    display: none;
+    display: flex;
+    visibility: hidden;
 }
 
 .textwinner {
