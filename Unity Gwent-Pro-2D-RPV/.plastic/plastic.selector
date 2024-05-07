@@ -1,4 +1,0 @@
-repository "Unity Gwent-Pro-2D-RPV@provanceronald@cloud"
-  path "/"
-    br "/main"
-    co "/main"
