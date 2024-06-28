@@ -1,0 +1,12 @@
+VisualElement {
+}
+
+.Container {
+    background-image: url('project://database/Assets/Images/photo_6_2024-04-16_00-12-24.jpg?fileID=21300000&guid=abd48c0a122545e449e682004d1b4328&type=3#photo_6_2024-04-16_00-12-24');
+}
+
+.BoxText {
+}
+
+.BoxButtons {
+}

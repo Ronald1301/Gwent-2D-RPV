@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b052960f44e0ad0478b8779bc224d034, type: 3}
+  m_Name: Galleon
+  m_EditorClassIdentifier: 
+  cardName: Galleon
+  faction: 1
+  type: 1
+  description: Reduce points to 1 of all the cards placed in the siege rows  (own
+    or opponent's)
+  cardImageForehead: {fileID: 21300000, guid: afe06c8918d95d6498192f20e9f05a8e, type: 3}
+  cardImageback: {fileID: 21300000, guid: 36a13220b2b24b14995f2b202dc94f38, type: 3}
+  startPower: 0
+  power: 0
+  typeField: 83
+  typeUnitCard: 0
+  typeSpecialCard: 1
+  effects: 11
+  stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b052960f44e0ad0478b8779bc224d034, type: 3}
+  m_Name: Bill Turner
+  m_EditorClassIdentifier: 
+  cardName: Bill Turner
+  faction: 0
+  type: 0
+  description: Select a weather card  in your hand and  place it on the field
+  cardImageForehead: {fileID: 21300000, guid: a7ee836e3b556274595c6ea0958d3a7b, type: 3}
+  cardImageback: {fileID: 21300000, guid: 3e3a455a6d6bcee40b6420acde15bd53, type: 3}
+  startPower: 3
+  power: 3
+  typeField: 77
+  typeUnitCard: 2
+  typeSpecialCard: 0
+  effects: 2
+  stayintheField: 0
+  inTheField: 0
