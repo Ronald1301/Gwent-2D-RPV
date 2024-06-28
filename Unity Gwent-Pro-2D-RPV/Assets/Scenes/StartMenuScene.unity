@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c90589f05e09349b13c646bd8ab34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartMenu: {fileID: 1393462358}
 --- !u!114 &382256572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0401f2c993995ae42b6e042fe6902272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardCreator: {fileID: 0}
+  CardCreator: {fileID: 382256570}
   Options: {fileID: 970057325}
   Information: {fileID: 659444912}
 --- !u!114 &1393462361

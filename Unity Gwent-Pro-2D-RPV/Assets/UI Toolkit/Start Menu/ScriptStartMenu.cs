@@ -52,7 +52,8 @@ public class ScriptStartMenu : MonoBehaviour
 
     private void OpenCardCreator(ClickEvent evt)
     {
-        throw new NotImplementedException();
+        CardCreator.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     private void OpenOptions(ClickEvent evt)
