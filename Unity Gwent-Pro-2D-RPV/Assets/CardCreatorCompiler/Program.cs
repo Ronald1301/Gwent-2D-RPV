@@ -16,6 +16,20 @@ namespace Gwent
             Code = code;
         }
 
+        public string PrintResult()
+        {
+            string resultString = "";
+            foreach (var item in Additional.cardCompletes)
+            {
+                resultString += "Card :" + item.Name.ToString() + "\n";
+            }
+            foreach (var item in Additional.effectDeclaration)
+            {
+                resultString += "Effect :" + item.Name.ToString() + "\n";
+            }
+            return resultString;
+        }
+
         public void CompileCode()
         {
             /*

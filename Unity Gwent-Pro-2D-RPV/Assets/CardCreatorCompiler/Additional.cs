@@ -13,5 +13,6 @@ namespace Gwent
         public static List<Error> errors = new();
         public static List<DataCardComplete> cardCompletes = new();
         public static List<EffectComplete> effectCompletes = new();
+        public static List<EffectDeclarationExpression> effectDeclaration = new();
     }
 }

@@ -13,6 +13,7 @@ public class ScriptCardCreator : MonoBehaviour
     SaveLoadSystem saveLoadSystem;
 
     private TextField BoxCode;
+    private TextField BoxResult;
     private Button compile;
     private Button import;
     private Button export;
@@ -24,6 +25,7 @@ public class ScriptCardCreator : MonoBehaviour
         VisualElement root = CardCreator.rootVisualElement;
 
         BoxCode = root.Q<TextField>("Code");
+        BoxResult = root.Q<TextField>("BoxResult");
 
         //References to the buttons
         compile = root.Q<Button>("Compile");
@@ -67,6 +69,8 @@ public class ScriptCardCreator : MonoBehaviour
         // this.gameObject.GetComponent<AudioSource>().Play();
         Program program = new Program(BoxCode.value);
         program.CompileCode();
+        BoxResult.value =program.PrintResult();
+        BoxResult.style.visibility = Visibility.Visible;
     }
 
     private void BackToStartMenu(ClickEvent evt)

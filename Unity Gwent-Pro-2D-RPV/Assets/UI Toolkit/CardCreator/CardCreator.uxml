@@ -5,10 +5,11 @@
         <ui:VisualElement name="BoxButtons" class="BoxButtons" style="flex-grow: 1;">
             <ui:VisualElement name="Left" class="Left" style="flex-grow: 1;">
                 <ui:Button text="Import" name="Import" class="BottonMenu" />
+                <ui:Button text="Compile" name="Compile" class="BottonMenu" style="right: 14%; top: 3%;" />
                 <ui:Button text="Export" name="Export" class="BottonMenu" />
             </ui:VisualElement>
             <ui:VisualElement name="Right" class="Right" style="flex-grow: 1;">
-                <ui:Button text="Compile" name="Compile" class="BottonMenu" style="right: 14%; top: 1%;" />
+                <ui:TextField placeholder-text="Cards and effects created" name="BoxResult" vertical-scroller-visibility="Auto" auto-correction="true" multiline="true" class="BoxResult" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="BosText" class="BoxText" style="flex-grow: 1;">
