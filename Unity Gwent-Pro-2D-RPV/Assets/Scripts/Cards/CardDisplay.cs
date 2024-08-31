@@ -6,14 +6,14 @@ using UnityEngine.UIElements;
 
 public class CardDisplay : MonoBehaviour
 {
-    public Card card;
+    public CardData cardData;
     //[SerializeField] GameObject GameManager;
     [SerializeField] UICardDescription UI;
 
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = card.CardImageForehead;
+        GetComponent<SpriteRenderer>().sprite = cardData.CardImageForehead;
         //UI = GameObject.FindGameObjectWithTag("UI Card Description");
     }
     void Update()
@@ -40,14 +40,14 @@ public class CardDisplay : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        if (GetComponent<SpriteRenderer>().sprite != card.CardImageForehead)
+        if (GetComponent<SpriteRenderer>().sprite != cardData.CardImageForehead)
         {
             UI.gameObject.SetActive(false);
         }
         else
         {
             UI.gameObject.SetActive(true);
-            UI.UIUpdateCardDescription(card);
+            UI.UIUpdateCardDescription(cardData);
         }
 
         //UI.gameObject.SetActive(true);

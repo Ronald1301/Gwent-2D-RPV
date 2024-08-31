@@ -24,21 +24,21 @@ public class SubBoard : MonoBehaviour
         {
             for (int i = 0; i < M.GetComponent<MeleeZone>().melee.Count; i++)
             {
-                points += M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().card.Power;
+                points += M.GetComponent<MeleeZone>().melee[i].GetComponent<CardDisplay>().cardData.Power;
             }
         }
         //if (!Effects.IsRowEmpty(2))
         {
             for (int i = 0; i < R.GetComponent<RangedZone>().ranged.Count; i++)
             {
-                points += R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().card.Power;
+                points += R.GetComponent<RangedZone>().ranged[i].GetComponent<CardDisplay>().cardData.Power;
             }
         }
         //if (!Effects.IsRowEmpty(3))
         {
             for (int i = 0; i < S.GetComponent<SiegeZone>().siege.Count; i++)
             {
-                points += S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().card.Power;
+                points += S.GetComponent<SiegeZone>().siege[i].GetComponent<CardDisplay>().cardData.Power;
             }
         }
         return points;

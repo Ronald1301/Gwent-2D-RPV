@@ -1,3 +1,4 @@
+using System.Globalization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,29 +48,34 @@ public class ScriptStartMenu : MonoBehaviour
 
     private void StartGame(ClickEvent evt)
     {
+       // this.gameObject.GetComponent<AudioSource>().Play();
         SceneManager.LoadScene("GameScene");
     }
 
     private void OpenCardCreator(ClickEvent evt)
     {
+       // this.gameObject.GetComponent<AudioSource>().Play();
         CardCreator.SetActive(true);
         gameObject.SetActive(false);
     }
 
     private void OpenOptions(ClickEvent evt)
     {
+       // this.gameObject.GetComponent<AudioSource>().Play();
         Options.SetActive(true);
         gameObject.SetActive(false);
     }
 
     private void OpenInformation(ClickEvent evt)
     {
+        //this.gameObject.GetComponent<AudioSource>().Play();
         Information.SetActive(true);
         gameObject.SetActive(false);
     }
 
     private void ExitGame(ClickEvent evt)
     {
+        //this.gameObject.GetComponent<AudioSource>().Play();
         Debug.Log("Game is exiting");
         Application.Quit();
     }

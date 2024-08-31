@@ -67,7 +67,7 @@ public class UICardDescription : MonoBehaviour
         */
     }
 
-    public void UIUpdateCardDescription(Card newcard)
+    public void UIUpdateCardDescription(CardData newcard)
     {
         cardImage.style.backgroundImage = newcard.CardImageForehead.texture;
         /*
@@ -96,7 +96,7 @@ public class UICardDescription : MonoBehaviour
             cardDescription.text = newcard.Description;
             //Power.text = "";
 
-            if (newcard.Type == Card.CardType.Unit)
+            if (newcard.Type == CardData.CardType.Unit)
             {
                 Power.text = newcard.Power.ToString();
                 Symbol1.style.display = DisplayStyle.Flex;
@@ -104,9 +104,9 @@ public class UICardDescription : MonoBehaviour
                 Symbol2.style.display = DisplayStyle.Flex;
                 TypeField.text = newcard.TypeField.ToString();
             }
-            else if (newcard.Type == Card.CardType.Special)
+            else if (newcard.Type == CardData.CardType.Special)
             {
-                if (newcard.TypeSpecialCard == Card.SubTypeSpecialCard.Lure)
+                if (newcard.TypeSpecialCard == CardData.SubTypeSpecialCard.Lure)
                 {
                     Power.text = newcard.Power.ToString();
                 }

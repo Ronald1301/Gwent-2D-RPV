@@ -54,7 +54,7 @@ public class MoveCard : MonoBehaviour
             Move();
             //this.gameObject.GetComponent<CardDisplay>().card.inTheField = true;
 
-            if (this.gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
+            if (this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
             {
                 //GameManager.GetComponent<GameManager>().UpdatePoints();
                 //GameManager.GetComponent<GameManager>().UpdatePoints(this.gameObject.GetComponent<CardDisplay>().card);
@@ -64,7 +64,7 @@ public class MoveCard : MonoBehaviour
                 GameManager.GetComponent<GameManager>().ChangeTurn();
             }
 
-            if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0 && this.gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
+            if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0 && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
             {
                 GameManager.GetComponent<GameManager>().UpdatePoints();
                 UIRuntime.UIUpdate();
@@ -109,7 +109,7 @@ public class MoveCard : MonoBehaviour
            //GameManager.GetComponent<GameManager>().UpdatePoints();
             */
 
-            if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0 && this.gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
+            if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0 && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
             {
                 GameManager.GetComponent<GameManager>().UpdatePoints();
                 UIRuntime.UIUpdate();
@@ -131,19 +131,19 @@ public class MoveCard : MonoBehaviour
         gameObject.transform.localScale = new Vector3(1, 1, 1);
 
         //Move card to the corresponding zone
-        if (GetComponent<CardDisplay>().card.Type == Card.CardType.Unit)
+        if (GetComponent<CardDisplay>().cardData.Type == CardData.CardType.Unit)
         {
-            if (GetComponent<CardDisplay>().card.TypeField == 'M')
+            if (GetComponent<CardDisplay>().cardData.TypeField == 'M')
             {
                 MoveToM();
                 Debug.Log("Move to M");
             }
-            else if (GetComponent<CardDisplay>().card.TypeField == 'R')
+            else if (GetComponent<CardDisplay>().cardData.TypeField == 'R')
             {
                 MoveToR();
                 Debug.Log("Move to R");
             }
-            else if (GetComponent<CardDisplay>().card.TypeField == 'S')
+            else if (GetComponent<CardDisplay>().cardData.TypeField == 'S')
             {
                 MoveToS();
                 Debug.Log("Move to S");
@@ -151,7 +151,7 @@ public class MoveCard : MonoBehaviour
         }
         else
         {
-            if (gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Climate)
+            if (gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard == CardData.SubTypeSpecialCard.Climate)
             {
                 if (subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate != climateCard)
                 {
@@ -162,25 +162,25 @@ public class MoveCard : MonoBehaviour
                 MoveToClimate();
                 Debug.Log("Move to Climate");
             }
-            else if (gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Increase)
+            else if (gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard == CardData.SubTypeSpecialCard.Increase)
             {
-                if (/*subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[0] == null &&*/ GetComponent<CardDisplay>().card.TypeField == 'M')
+                if (/*subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[0] == null &&*/ GetComponent<CardDisplay>().cardData.TypeField == 'M')
                 {
                     MoveToIncrease(0);
                     Debug.Log("Move to Increase en 0");
                 }
-                else if (/*subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[1] == null && */GetComponent<CardDisplay>().card.TypeField == 'R')
+                else if (/*subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[1] == null && */GetComponent<CardDisplay>().cardData.TypeField == 'R')
                 {
                     MoveToIncrease(1);
                     Debug.Log("Move to Increase en 1");
                 }
-                else if (/*subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[2] == null &&*/ GetComponent<CardDisplay>().card.TypeField == 'S')
+                else if (/*subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[2] == null &&*/ GetComponent<CardDisplay>().cardData.TypeField == 'S')
                 {
                     MoveToIncrease(2);
                     Debug.Log("Move to Increase en 2");
                 }
             }
-            else if (gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Clearance)
+            else if (gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard == CardData.SubTypeSpecialCard.Clearance)
             {
                 if (subBoard == GameManager.GetComponent<GameManager>().player1.board.gameObject)
                 {
@@ -203,7 +203,7 @@ public class MoveCard : MonoBehaviour
                 MoveToClimate();
                 Debug.Log("Move to Climate card clearance");
             }
-            else if (gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard == Card.SubTypeSpecialCard.Lure)
+            else if (gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard == CardData.SubTypeSpecialCard.Lure)
             {
                 //if (Effects.IsRowEMpty(1) && Effects.IsRowEMpty(2) && Effects.IsRowEMpty(3))
                 if (subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count == 0 &&
@@ -247,11 +247,11 @@ public class MoveCard : MonoBehaviour
 
         subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
 
-        if (GameManager.GetComponent<GameManager>().player1.isPlaying && this.gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
         {
             GameManager.GetComponent<GameManager>().player1.PlayedACard = true;
         }
-        else if (GameManager.GetComponent<GameManager>().player2.isPlaying && this.gameObject.GetComponent<CardDisplay>().card.TypeSpecialCard != Card.SubTypeSpecialCard.Lure)
+        else if (GameManager.GetComponent<GameManager>().player2.isPlaying && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
         {
             GameManager.GetComponent<GameManager>().player2.PlayedACard = true;
         }
@@ -462,11 +462,11 @@ public class MoveCard : MonoBehaviour
         */
         this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().Hand.transform, false);
         this.gameObject.transform.localScale = new Vector3(0.4f, 0.6f, 1);
-        this.gameObject.GetComponent<CardDisplay>().card.inTheField = false;
-        this.gameObject.GetComponent<CardDisplay>().card.stayintheField = false;
-        this.gameObject.GetComponent<CardDisplay>().card.affectedByClimate = false;
-        this.gameObject.GetComponent<CardDisplay>().card.affectedByIncrease = false;
-        this.gameObject.GetComponent<CardDisplay>().card.Power = this.gameObject.GetComponent<CardDisplay>().card.StartPower;
+        this.gameObject.GetComponent<CardDisplay>().cardData.inTheField = false;
+        this.gameObject.GetComponent<CardDisplay>().cardData.stayintheField = false;
+        this.gameObject.GetComponent<CardDisplay>().cardData.affectedByClimate = false;
+        this.gameObject.GetComponent<CardDisplay>().cardData.affectedByIncrease = false;
+        this.gameObject.GetComponent<CardDisplay>().cardData.Power = this.gameObject.GetComponent<CardDisplay>().cardData.StartPower;
     }
 
     //Card Lure
@@ -485,19 +485,19 @@ public class MoveCard : MonoBehaviour
                 GameObject card = hit.collider.gameObject;
                 if (CheckCardInBoard(card))
                 {
-                    if (card.GetComponent<CardDisplay>().card.Type == Card.CardType.Unit)
+                    if (card.GetComponent<CardDisplay>().cardData.Type == CardData.CardType.Unit)
                     {
-                        if (card.GetComponent<CardDisplay>().card.TypeField == 'M')
+                        if (card.GetComponent<CardDisplay>().cardData.TypeField == 'M')
                         {
                             card.GetComponent<MoveCard>().MoveToHand();
                             MoveToM();
                         }
-                        else if (card.GetComponent<CardDisplay>().card.TypeField == 'R')
+                        else if (card.GetComponent<CardDisplay>().cardData.TypeField == 'R')
                         {
                             card.GetComponent<MoveCard>().MoveToHand();
                             MoveToR();
                         }
-                        else if (card.GetComponent<CardDisplay>().card.TypeField == 'S')
+                        else if (card.GetComponent<CardDisplay>().cardData.TypeField == 'S')
                         {
                             card.GetComponent<MoveCard>().MoveToHand();
                             MoveToS();

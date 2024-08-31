@@ -54,6 +54,7 @@ public class ScriptOptions : MonoBehaviour
     }
     private void BackToStartMenu(ClickEvent evt)
     {
+       // this.gameObject.GetComponent<AudioSource>().Play();
         StartMenu.SetActive(true);
         gameObject.SetActive(false);
     }

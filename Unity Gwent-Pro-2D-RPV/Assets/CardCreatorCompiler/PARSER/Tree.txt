@@ -1,0 +1,22 @@
+HULK Grammar
+L=M;
+M= Card| Effect | Function(M) | Let | C
+C=while A | for A | A
+A= Y Z
+Z= or A | A | e
+Y= B N
+N= and Y| Y|e
+B= W E
+E= <B | >B | <=B | >=B | ==B | !=B | e
+W= F X
+X= +W | -W | @W | @@W |e 
+F= T P
+P= *F | /F |^F | % F | e
+U= Log| Sen| Cos| Tan| Cot| Sqrt| Sum| Dif| SumSumLeft| DifDifLeft| SumSumRight| DifDifRight| Not| e
+T= int | string | Function()| (M)
+
+K=params
+/*
+A= B Z| !B Z
+Z= and A | or A | e
+*/

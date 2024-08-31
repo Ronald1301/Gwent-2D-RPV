@@ -3,9 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
-public class Card : ScriptableObject
+public class CardData : ScriptableObject
 {
-    public Card(){}
+    public CardData() { }
+    public CardData(string cardName, TypeFaction faction, CardType type, string description, Sprite cardImageForehead, Sprite cardImageback, int startPower, int power, char typeField, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard, TypeEffects effects)
+    {
+        this.cardName = cardName;
+        this.faction = faction;
+        this.type = type;
+        this.description = description;
+        this.cardImageForehead = cardImageForehead;
+        this.cardImageback = cardImageback;
+        this.startPower = startPower;
+        this.power = power;
+        this.typeField = typeField;
+        this.typeUnitCard = typeUnitCard;
+        this.typeSpecialCard = typeSpecialCard;
+        this.effects = effects;
+    }
     [SerializeField] private string cardName;
     [SerializeField] private TypeFaction faction;
     [SerializeField] private CardType type;
@@ -21,6 +36,7 @@ public class Card : ScriptableObject
     [SerializeField] private SubTypeSpecialCard typeSpecialCard;
 
     [SerializeField] private TypeEffects effects;
+    public int owner;
 
     public bool stayintheField = false;
     public bool inTheField = false;
@@ -64,12 +80,12 @@ public class Card : ScriptableObject
     public enum TypeEffects
     { //Unit
         None,
-        Put_Increase, 
-        Put_Climate, 
+        Put_Increase,
+        Put_Climate,
         Delete_Card_with_Max_Power_on_the_field,
         Delete_Card_with_Min_Power_on_the_field, Draw_Card_from_Deck,
-        Clear_file, 
-        Average_Power_on_the_field, 
+        Clear_file,
+        Average_Power_on_the_field,
         Decreases_one_Point,
         Multiply_the_attack_of_the_card_by_the_number_of_identical_cards_on_the_field,
 

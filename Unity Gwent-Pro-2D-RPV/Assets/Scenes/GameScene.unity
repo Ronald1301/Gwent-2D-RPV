@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 7af2f3619dbf915448cab1d7c603313a, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &51205513
 BoxCollider2D:
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 0d49ee28f5cc1724484d2a77c3640fbe, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &61818380
 BoxCollider2D:
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: efc42255603059746b866e3332844ad5, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &76955628
 BoxCollider2D:
@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: c18b8d54016328a4e98aa5113380a1bf, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &85937691
 BoxCollider2D:
@@ -1145,7 +1145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: c7b175a739258e3458f9331952b0199d, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &154956102
 BoxCollider2D:
@@ -1337,7 +1337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 24b91f524e496c346a293de841fb2985, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &199045506
 BoxCollider2D:
@@ -1517,7 +1517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: ca5c2412593793e4887c2135a237dee5, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &230122666
 BoxCollider2D:
@@ -1810,7 +1810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: e7032e0e35b4d1f40b614146ca658f38, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &323234148
 BoxCollider2D:
@@ -1990,7 +1990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: c492853332cca4a4985b5c5c4d773653, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &335944697
 BoxCollider2D:
@@ -2153,7 +2153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &351418086
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2257,7 +2257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 8cc35f05bffb2d44d9fe85afca4f2937, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &355073586
 BoxCollider2D:
@@ -2437,7 +2437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 73bad3fb01859d54fb1041691a956bf7, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &359065064
 BoxCollider2D:
@@ -2714,7 +2714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: a028d715bcdb38a4cb85a051bad98b91, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &406956581
 BoxCollider2D:
@@ -2956,7 +2956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: f7bb29c81950ca444a3fa58862eac330, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &492728894
 BoxCollider2D:
@@ -3167,7 +3167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: c7a1290a31e992048826550df8fbba90, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &513708194
 BoxCollider2D:
@@ -3902,7 +3902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: b8fd78339f5f4624cb9dbe9ea4c5705d, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &636395572
 BoxCollider2D:
@@ -4262,7 +4262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: cfbdeed44a930a84ab356917e8458878, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &846816579
 BoxCollider2D:
@@ -4496,7 +4496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: e69ef7e1c080d0044acb2ec6b3c1390c, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &862470255
 BoxCollider2D:
@@ -5305,7 +5305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: aa620c3cadf12654881162e176eb76e3, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1132197402
 BoxCollider2D:
@@ -5753,7 +5753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: bff11ae62004b7d41828e27b079e4644, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1257399753
 BoxCollider2D:
@@ -5932,7 +5932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 9538ef87c78619b45ad51c4413461265, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1373424058
 BoxCollider2D:
@@ -6167,7 +6167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 34f50caae46acd847918bfe8432d5730, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1404860772
 BoxCollider2D:
@@ -6423,7 +6423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: a43b0204e88bf474e8039fdb78cbc767, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1425755584
 BoxCollider2D:
@@ -6709,7 +6709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 49b9300f6fd64904781920e5ffc0ec86, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1455967677
 BoxCollider2D:
@@ -6948,7 +6948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 2dc6f26689edc03469b7e026abcbf701, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1478632745
 BoxCollider2D:
@@ -7225,7 +7225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 5dc481e64f6212744931309ab0b3fbb9, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1527010254
 BoxCollider2D:
@@ -7456,7 +7456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 02abbb6ddae43db47a6f2608b70a43ae, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1550580628
 BoxCollider2D:
@@ -7636,7 +7636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 19fc55395e630e94d91766c02116b377, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1588835813
 BoxCollider2D:
@@ -8084,7 +8084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 8cf604d2ea789c2438976f8777fee184, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1722879438
 BoxCollider2D:
@@ -8264,7 +8264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 7d4fec6f5491ba64ead1a7960205aa94, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1735921018
 BoxCollider2D:
@@ -8659,7 +8659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 53445c91ba8b42940a8eea50eac2f0e9, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1826068337
 BoxCollider2D:
@@ -8914,7 +8914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: b79ed32fa2893f7438c235e0a330d754, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1831612537
 BoxCollider2D:
@@ -9125,7 +9125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 146de884785aff44a977dfe107d58900, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &1862588419
 BoxCollider2D:
@@ -9557,7 +9557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 79aa08050290eac4793433d0e107146f, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &2060472114
 BoxCollider2D:
@@ -9737,7 +9737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 80b7f1a72d2a3f5438dd664ddb5bcda6, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &2094541343
 BoxCollider2D:
@@ -9917,7 +9917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 2e10db30a09c8904bb6410a6fabc86bc, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &2113249690
 BoxCollider2D:
@@ -10159,7 +10159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 4e7c55ebabc940c4883e3ab841cae0e8, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &2140571875
 BoxCollider2D:
@@ -10339,7 +10339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 98f4f5538f860924fa493ef200f3bfd0, type: 2}
+  cardData: {fileID: 0}
   UI: {fileID: 1113927862}
 --- !u!61 &2146234728
 BoxCollider2D:

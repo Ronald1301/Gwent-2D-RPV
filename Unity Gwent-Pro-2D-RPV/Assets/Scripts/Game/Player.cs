@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+  public int ID;
   public Decks deck;
   public SubBoard board;
   public Hand hand;

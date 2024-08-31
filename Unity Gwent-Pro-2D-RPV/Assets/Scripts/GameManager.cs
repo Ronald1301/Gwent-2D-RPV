@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
             Changecards1 = true;
             player1.isPlaying = false;
             player2.isPlaying = true;
+            Bridge.UpdatePlayer( player2, player1);
             MainBoard.transform.Rotate(0, 0, 180);
             UIRuntime.ShowMessage("Player 2 Turn");
             //StartCoroutine(UIRuntime.GetComponent<ScriptUIRuntime>().WaitAndPrint(4.0f));
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour
             Changecards2 = true;
             player2.isPlaying = false;
             player1.isPlaying = true;
+            Bridge.UpdatePlayer(player1, player2);
             MainBoard.transform.Rotate(0, 0, 180);
             UIRuntime.ShowMessage("Player 1 Turn");
             //StartCoroutine(UIRuntime.GetComponent<ScriptUIRuntime>().WaitAndPrint(4.0f));
@@ -125,7 +127,7 @@ public class GameManager : MonoBehaviour
         player1.Points_for_round = player1.board.UpdatePoints();
         player2.Points_for_round = player2.board.UpdatePoints();
     }
-    public void UpdatePoints(Card card)
+    public void UpdatePoints(CardData card)
     {
         if (player1.isPlaying)
         {
@@ -175,6 +177,7 @@ public class GameManager : MonoBehaviour
 
             player1.isPlaying = true;
             player2.isPlaying = false;
+            Bridge.UpdatePlayer(player1, player2);
 
             player1.passTurn = false;
             player2.passTurn = false;
@@ -197,6 +200,7 @@ public class GameManager : MonoBehaviour
 
             player1.isPlaying = false;
             player2.isPlaying = true;
+            Bridge.UpdatePlayer(player2, player1);
 
             player1.passTurn = false;
             player2.passTurn = false;
@@ -256,7 +260,7 @@ public class GameManager : MonoBehaviour
         {
             if (k >= player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count) break;
 
-            if (!player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[k].GetComponent<CardDisplay>().card.stayintheField)
+            if (!player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[k].GetComponent<CardDisplay>().cardData.stayintheField)
             {
                 player1.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[k].GetComponent<MoveCard>().MoveToCemetery();
             }
@@ -267,7 +271,7 @@ public class GameManager : MonoBehaviour
         {
             if (k >= player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Count) break;
 
-            if (!player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[k].GetComponent<CardDisplay>().card.stayintheField)
+            if (!player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[k].GetComponent<CardDisplay>().cardData.stayintheField)
             {
                 player1.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[k].GetComponent<MoveCard>().MoveToCemetery();
             }
@@ -278,7 +282,7 @@ public class GameManager : MonoBehaviour
         {
             if (k >= player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Count) break;
 
-            if (!player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[k].GetComponent<CardDisplay>().card.stayintheField)
+            if (!player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[k].GetComponent<CardDisplay>().cardData.stayintheField)
             {
                 player1.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[k].GetComponent<MoveCard>().MoveToCemetery();
             }
@@ -336,7 +340,7 @@ public class GameManager : MonoBehaviour
         {
             if (k >= player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Count) break;
 
-            if (!player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[k].GetComponent<CardDisplay>().card.stayintheField)
+            if (!player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[k].GetComponent<CardDisplay>().cardData.stayintheField)
             {
                 player2.board.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee[k].GetComponent<MoveCard>().MoveToCemetery();
             }
@@ -347,7 +351,7 @@ public class GameManager : MonoBehaviour
         {
             if (k >= player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Count) break;
 
-            if (!player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[k].GetComponent<CardDisplay>().card.stayintheField)
+            if (!player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[k].GetComponent<CardDisplay>().cardData.stayintheField)
             {
                 player2.board.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged[k].GetComponent<MoveCard>().MoveToCemetery();
             }
@@ -358,7 +362,7 @@ public class GameManager : MonoBehaviour
         {
             if (k >= player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Count) break;
 
-            if (!player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[k].GetComponent<CardDisplay>().card.stayintheField)
+            if (!player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[k].GetComponent<CardDisplay>().cardData.stayintheField)
             {
                 player2.board.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege[k].GetComponent<MoveCard>().MoveToCemetery();
             }
@@ -484,9 +488,9 @@ public class GameManager : MonoBehaviour
             {
                 if (player1.hand.CardsInHand[i] != null)
                 {
-                    if (!player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField)
+                    if (!player1.hand.CardsInHand[i].GetComponent<CardDisplay>().cardData.inTheField)
                     {
-                        player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
+                        player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().cardData.CardImageForehead;
                     }
                 }
 
@@ -495,9 +499,9 @@ public class GameManager : MonoBehaviour
             {
                 if (player2.hand.CardsInHand[i] != null)
                 {
-                    if (!player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField)
+                    if (!player2.hand.CardsInHand[i].GetComponent<CardDisplay>().cardData.inTheField)
                     {
-                        player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
+                        player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().cardData.CardImageBack;
                     }
                 }
             }
@@ -508,9 +512,9 @@ public class GameManager : MonoBehaviour
             {
                 if (player1.hand.CardsInHand[i] != null)
                 {
-                    if (!player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField)
+                    if (!player1.hand.CardsInHand[i].GetComponent<CardDisplay>().cardData.inTheField)
                     {
-                        player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageBack;
+                        player1.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player1.hand.CardsInHand[i].GetComponent<CardDisplay>().cardData.CardImageBack;
                     }
                 }
             }
@@ -518,9 +522,9 @@ public class GameManager : MonoBehaviour
             {
                 if (player2.hand.CardsInHand[i] != null)
                 {
-                    if (!player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.inTheField)
+                    if (!player2.hand.CardsInHand[i].GetComponent<CardDisplay>().cardData.inTheField)
                     {
-                        player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().card.CardImageForehead;
+                        player2.hand.CardsInHand[i].GetComponent<CardDisplay>().GetComponent<SpriteRenderer>().sprite = player2.hand.CardsInHand[i].GetComponent<CardDisplay>().cardData.CardImageForehead;
                     }
                 }
             }
@@ -530,19 +534,19 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck.Count; i++)
         {
-            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.inTheField = false;
-            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.affectedByClimate = false;
-            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.affectedByIncrease = false;
-            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.stayintheField = false;
-            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.Power = GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.StartPower;
+            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.inTheField = false;
+            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.affectedByClimate = false;
+            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.affectedByIncrease = false;
+            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.stayintheField = false;
+            GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.Power = GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.StartPower;
         }
         for (int i = 0; i < GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck.Count; i++)
         {
-            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.inTheField = false;
-            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.affectedByClimate = false;
-            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.affectedByIncrease = false;
-            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.stayintheField = false;
-            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.Power = GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().card.StartPower;
+            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.inTheField = false;
+            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.affectedByClimate = false;
+            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.affectedByIncrease = false;
+            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.stayintheField = false;
+            GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.Power = GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck[i].GetComponent<CardDisplay>().cardData.StartPower;
         }
 
         /*

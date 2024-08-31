@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.UIElements;
-//using Gwent++;
+using Gwent;
 
 public class ScriptCardCreator : MonoBehaviour
 {
     UIDocument CardCreator;
     public GameObject StartMenu;
+    SaveLoadSystem saveLoadSystem;
 
-    private TextField code;
+    private TextField BoxCode;
     private Button compile;
-    private Button button;
     private Button import;
     private Button export;
     private Button back;
@@ -23,11 +23,10 @@ public class ScriptCardCreator : MonoBehaviour
         CardCreator = GetComponent<UIDocument>();
         VisualElement root = CardCreator.rootVisualElement;
 
-        code = root.Q<TextField>("Code");
+        BoxCode = root.Q<TextField>("Code");
 
         //References to the buttons
         compile = root.Q<Button>("Compile");
-        button = root.Q<Button>("Button");
         import = root.Q<Button>("Import");
         export = root.Q<Button>("Export");
         back = root.Q<Button>("Back");
@@ -38,25 +37,41 @@ public class ScriptCardCreator : MonoBehaviour
         export.RegisterCallback<ClickEvent>(ExportCode);
         back.RegisterCallback<ClickEvent>(BackToStartMenu);
 
+        saveLoadSystem = new SaveLoadSystem();
+        saveLoadSystem.DataLoaded += OnDataLoaded;
+        saveLoadSystem.LoadCode();
+
     }
 
     private void ExportCode(ClickEvent evt)
     {
-
+        // this.gameObject.GetComponent<AudioSource>().Play();
+        InfoCode infoCode = new InfoCode(BoxCode.value);
+        saveLoadSystem.InfoCode.code = infoCode.code;
+        saveLoadSystem.SaveCode();
     }
 
     private void ImportCode(ClickEvent evt)
     {
+        // this.gameObject.GetComponent<AudioSource>().Play();
+        saveLoadSystem.LoadCode();
+    }
 
+    private void OnDataLoaded()
+    {
+        BoxCode.value = saveLoadSystem.InfoCode.code;
     }
 
     private void CompileCode(ClickEvent evt)
     {
-        Debug.Log(code.text);
+        // this.gameObject.GetComponent<AudioSource>().Play();
+        Program program = new Program(BoxCode.value);
+        program.CompileCode();
     }
 
     private void BackToStartMenu(ClickEvent evt)
     {
+        // this.gameObject.GetComponent<AudioSource>().Play();
         StartMenu.SetActive(true);
         gameObject.SetActive(false);
     }

@@ -1,9 +1,17 @@
-namespace Gwent;
-public static class LexicalAnalyzer
+namespace Gwent{
+    
+}
+/*
+public static class LexerStack
 {
-    public static List<Token> Analyze(string input)
+    /// <summary>
+    ///Analiza la entra y la covierte en tokens
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns>Una Pila de tokens</returns>
+    public static Stack<Token> Analyze(string input)
     {
-        List<Token> tokens = [];
+        Stack<Token> tokens = [];
 
         string aux = "";
 
@@ -13,7 +21,7 @@ public static class LexicalAnalyzer
 
             else if ((input[i] == ' ' || input[i] == ';') && aux != "")
             {
-                tokens.Add(GetToken(aux));
+                tokens.Push(GetToken(aux));
                 aux = "";
                 if (i != input.Length - 1) continue;
             }
@@ -24,7 +32,7 @@ public static class LexicalAnalyzer
                 {
                     (int, string) number = GetNumber(i, input);
                     i = number.Item1 - 1;
-                    tokens.Add(new Token(Token.TokenType.Number_Literal, number.Item2));
+                    tokens.Push(new Token(Token.TokenType.Number_Literal, number.Item2));
                 }
                 else aux += input[i];
                 continue;
@@ -32,10 +40,10 @@ public static class LexicalAnalyzer
 
             else if (input[i] == '\"' || input[i] == '"')
             {
-                if (aux != "") tokens.Add(GetToken(aux));
+                if (aux != "") tokens.Push(GetToken(aux));
 
                 (int, string) string_result = GetString(i + 1, input);
-                tokens.Add(new Token(Token.TokenType.Chain_Literals, string_result.Item2));
+                tokens.Push(new Token(Token.TokenType.Chain_Literals, string_result.Item2));
                 i = string_result.Item1 - 1;
                 aux = "";
                 continue;
@@ -43,10 +51,13 @@ public static class LexicalAnalyzer
 
             else if (!char.IsLetter(input[i]))
             {
-                if (aux != "") tokens.Add(GetToken(aux));
+                if (aux != "") tokens.Push(GetToken(aux));
                 (int, string) symbol = GetOperator(i, input);
                 i = symbol.Item1;
-                tokens.Add(GetToken(symbol.Item2));
+               // if(aux!="/n")
+                {
+                tokens.Push(GetToken(symbol.Item2));
+                }
                 aux = "";
                 continue;
             }
@@ -109,3 +120,4 @@ public static class LexicalAnalyzer
         return (start, opera);
     }
 }
+*/

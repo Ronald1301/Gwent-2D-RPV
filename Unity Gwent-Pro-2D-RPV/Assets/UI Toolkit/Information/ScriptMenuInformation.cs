@@ -35,17 +35,20 @@ public class ScriptMenuInformation : MonoBehaviour
 
     private void ChangeLanguageSpanish(ClickEvent evt)
     {
+      //  this.gameObject.GetComponent<AudioSource>().Play();
         LanguageEnglish.style.display = DisplayStyle.None;
         LanguageSpanish.style.display = DisplayStyle.Flex;
     }
     private void ChangeLanguageEnglish(ClickEvent evt)
     {
+        //this.gameObject.GetComponent<AudioSource>().Play();
         LanguageSpanish.style.display = DisplayStyle.None;
         LanguageEnglish.style.display = DisplayStyle.Flex;
     }
 
     private void BackToStartMenu(ClickEvent evt)
     {
+        //this.gameObject.GetComponent<AudioSource>().Play();
         StartMenu.SetActive(true);
         gameObject.SetActive(false);
     }
