@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bottle of Rum
   m_EditorClassIdentifier: 
   cardName: Bottle of Rum
-  faction: 2
+  faction: 0
   type: 1
   description: ' Select a card from the field  to return to the hand and  be replaced
     by this card'

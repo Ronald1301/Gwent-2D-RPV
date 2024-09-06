@@ -1,13 +1,4 @@
-
-using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
-using System.Diagnostics;
 
 namespace Gwent
 {
@@ -37,6 +28,28 @@ namespace Gwent
                 {
                     return $"{iDExpression} {operators} {Argument
         */
+
+        public override void SetScope(Scope current)
+        {
+            Context = current;
+            current.datatype.Add(ID.token, Scope.DataType.Unknown);
+            ID.SetScope(current);
+            Argument.SetScope(current);
+        }
+
+        public override Scope.DataType CheckSemantic()
+        {
+            foreach (var item in Context!.datatype.Keys)
+            {
+                if (item.Value == ID.token.Value)
+                {
+                    Context.datatype[item] = ID.CheckSemantic();
+                    return Context.datatype[item];
+                }
+            }
+            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+            throw new("The variable is not declared");
+        }
         public override object Evaluate()
         {
             try
@@ -49,7 +62,7 @@ namespace Gwent
                         if (Context.Items.ContainsKey(ID))
                         {
                             Context.Items[ID] = result;
-                            if(operators == Operators.TwoPoint|| operators == Operators.Equal)
+                            if (operators == Operators.TwoPoint || operators == Operators.Equal)
                             {
                                 return result;
                             }
@@ -76,7 +89,7 @@ namespace Gwent
                             Operators.DivEqual =>
                                 Context.Items[ID] = Convert.ToDouble(Context.Items[ID]) / Convert.ToDouble(Argument.Evaluate()),
                             _ =>
-                                throw new System.Exception("Error en la asignación")
+                                throw new("Error en la asignación")
                         };
                     }
 
@@ -85,8 +98,8 @@ namespace Gwent
             }
             catch (System.Exception e)
             {
-                // throw new System.Exception("Error en la asignación");
-                throw new System.Exception(e.Message);
+                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                throw new(e.Message);
             }
         }
         /*
@@ -155,28 +168,5 @@ namespace Gwent
        throw new();
    }
 */
-
-
-
-        public override void SetScope(Scope current)
-        {
-            Context = current;
-            current.datatype.Add(ID.token, Scope.DataType.Unknown);
-            ID.SetScope(current);
-            Argument.SetScope(current);
-        }
-
-        public override Scope.DataType CheckSemantic()
-        {
-            foreach (var item in Context!.datatype.Keys)
-            {
-                if (item.Value == ID.token.Value)
-                {
-                    Context.datatype[item] = ID.CheckSemantic();
-                    return Context.datatype[item];
-                }
-            }
-            throw new();
-        }
     }
 }

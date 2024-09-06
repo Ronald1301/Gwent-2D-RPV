@@ -1,18 +1,13 @@
+//using UnityEngine;
 
-using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Gwent
 {
     public class WhileExpression : Expression
     {
-        public readonly Expression Conditional ;
-        public readonly Statement Body ;
+        public readonly Expression Conditional;
+        public readonly Statement Body;
         protected override Scope? Context { get; set; }
 
         public WhileExpression(BoolExpression conditional, Statement body)
@@ -32,7 +27,8 @@ namespace Gwent
             // Verificar que la expresión condicional sea de tipo booleano
             if (Conditional.CheckSemantic() != Scope.DataType.Boolean)
             {
-                Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The condition must be a boolean expression"));
+                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                throw new("The condition must be a boolean expression");
             }
 
             // Verificar que el cuerpo de la declaración sea semánticamente correcto

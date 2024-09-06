@@ -1,0 +1,1 @@
+effect{\"Name\":\"Damage\",\n\nParams: {\n\namount: Number\n\n}\n\nAction: (targets, context) => {\n\nfor target in targets {\n\ni = 0;\n\nwhile (i++ < amount) target.Power -= 1;\n\n};\n\n}\n}\n\n

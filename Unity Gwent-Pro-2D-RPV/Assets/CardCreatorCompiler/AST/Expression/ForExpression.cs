@@ -1,11 +1,6 @@
-
-using System.Runtime.InteropServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Gwent
 {
@@ -23,6 +18,7 @@ namespace Gwent
         {
             if (Condition.CheckSemantic() != Scope.DataType.Boolean)
             {
+                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
                 throw new Exception("Condition is not a boolean");
             }
             Body.CheckSemantic();
@@ -77,6 +73,7 @@ namespace Gwent
             }
             else
             {
+                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
                 throw new Exception("Collection is not a IEnumerable");
             }
         }
@@ -97,18 +94,22 @@ namespace Gwent
                 {
                     if (Context.Items.ContainsKey(Collection.ID) || Context.Items.ContainsKey(Item.ID))
                     {
+                        EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
                         throw new Exception("Item or Collection already exists in the current scope");
                     }
                     Context = Context.Father;
                 }
+                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
                 throw new Exception("Item or Collection already exists in the current scope");
             }
             if (Item.CheckSemantic() != Scope.DataType.String)
             {
+                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
                 throw new Exception("Item is not IDExpression");
             }
             if (Collection.CheckSemantic() != Scope.DataType.String)
             {
+                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
                 throw new Exception("Collection is not IDExpression");
             }
             return Scope.DataType.Boolean;

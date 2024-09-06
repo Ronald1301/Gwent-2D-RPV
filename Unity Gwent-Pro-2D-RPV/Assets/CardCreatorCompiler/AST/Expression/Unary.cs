@@ -1,11 +1,4 @@
-
-using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Gwent
 {
@@ -15,8 +8,8 @@ namespace Gwent
         {
             Log, Sen, Cos, Tan, Cot, Sqrt, Sum, Dif, SumSumLeft, DifDifLeft, SumSumRight, DifDifRight, Not
         }
-        public Expression argument ;
-        public readonly Operators operators ;
+        public Expression argument;
+        public readonly Operators operators;
         protected override Scope? Context { get; set; }
 
         public Unary(Expression argument, Unary.Operators operators)
@@ -124,11 +117,9 @@ namespace Gwent
             }
             catch (System.Exception e)
             {
-                Console.WriteLine(e.Message);
-                Error error = new TypeError(ErrorCode.Unknown, e.Message);
-                //App.Error(error.Text());
+                EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
+                throw new System.Exception(e.Message);
             }
-            return null!;
         }
 
         public override void SetScope(Scope current)
@@ -139,11 +130,13 @@ namespace Gwent
 
         public override Scope.DataType CheckSemantic()
         {
+
             if (operators == Operators.Not)
             {
                 if (argument.CheckSemantic() != Scope.DataType.Boolean)
                 {
-                    Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The condition must be a boolean expression"));
+                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                    throw new System.Exception("The argument is not a boolean");
                 }
                 return Scope.DataType.Boolean;
             }
@@ -151,7 +144,8 @@ namespace Gwent
             {
                 if (argument.CheckSemantic() != Scope.DataType.Number)
                 {
-                    Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The condition must be a number expression"));
+                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                    throw new System.Exception("The argument is not a number");
                 }
                 return Scope.DataType.Number;
             }

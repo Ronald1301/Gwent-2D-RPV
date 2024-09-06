@@ -1,11 +1,4 @@
-
-using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Gwent
 {
@@ -15,7 +8,7 @@ namespace Gwent
         {
             add, multi, dif, div, Pow, Mod, Concat, DoubleConcat,
         }
-        readonly Operators operators ;
+        readonly Operators operators;
         protected override Scope? Context { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public ArithmeticBinary(Expression left, Expression right, Operators operators) : base(left, right)
@@ -55,7 +48,7 @@ namespace Gwent
             }
             catch (System.Exception e)
             {
-                Additional.errors.Add(new TypeError(ErrorCode.SemanticError, e.Message));
+                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
                 throw new(e.Message);
             }
 
@@ -75,19 +68,19 @@ namespace Gwent
                     {
                         return Scope.DataType.Number;
                     }
-                    Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The expression is not of type number"));
-                    throw new();
+                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                    throw new("The expression is not of type number");
                 case Operators.Concat:
                 case Operators.DoubleConcat:
                     if (base.Left.CheckSemantic() == Scope.DataType.String && base.Right.CheckSemantic() == Scope.DataType.String)
                     {
                         return Scope.DataType.String;
                     }
-                    Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The expression is not of type string"));
-                    throw new();
+                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                    throw new("The expression is not of type string");
             }
-            Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The expression is not of type number"));
-            throw new();
+            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+            throw new("The expression is not of type number or string");
         }
         public override void SetScope(Scope current)
         {

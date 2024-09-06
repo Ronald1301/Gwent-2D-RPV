@@ -1,9 +1,4 @@
-using System.Runtime.InteropServices;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gwent
 {
@@ -14,6 +9,12 @@ namespace Gwent
             Father = father;
             Items = items;
             datatype = type;
+        }
+        public Scope(Scope father)
+        {
+            Father = father;
+            Items = new();
+            datatype = new();
         }
         public Scope? Father;
         public Dictionary<IDExpression, object> Items;

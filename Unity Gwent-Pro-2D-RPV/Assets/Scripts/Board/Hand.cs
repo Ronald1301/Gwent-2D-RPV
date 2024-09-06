@@ -11,14 +11,15 @@ public class Hand : MonoBehaviour
     // public bool[] Mask = new bool[15];
     //public GameObject[] HandPosition = new GameObject[15];
     public List<GameObject> CardsInDeck;
+    public List<GameObject> CardsPriority;
     public GameObject GameManager;
 
 
     void Start()
     {
 
-        if (this.gameObject.CompareTag("Hand1") && 
-        ((GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>()) 
+        if (this.gameObject.CompareTag("Hand1") &&
+        ((GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>())
         || (GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>())))
         {
             deck = GameObject.FindGameObjectWithTag("Deck Pirates");
@@ -80,7 +81,18 @@ public class Hand : MonoBehaviour
             if (CardsInDeck.Count > 0)
             {
                 int randomIndex = new System.Random().Next(1, CardsInDeck.Count);
-                GameObject drawCard = Instantiate(CardsInDeck[Convert.ToInt32(randomIndex)], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
+
+                GameObject drawCard;
+                if (CardsPriority.Count > 0)
+                {
+                    drawCard = Instantiate(CardsPriority[^1], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
+                    CardsPriority.RemoveAt(CardsPriority.Count - 1);
+                }
+                else
+                {
+                    drawCard = Instantiate(CardsInDeck[Convert.ToInt32(randomIndex)], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
+                }
+
                 drawCard.transform.localScale = new Vector3(0.4f, 0.6f, 0);
                 drawCard.transform.SetParent(transform, false);
                 if (CardsInHand.Count >= 10)
@@ -155,7 +167,7 @@ public class Hand : MonoBehaviour
                 //CardsInHand.Add(drawCard);
                 CardsInDeck.RemoveAt(indexCardDraw);
                 CardsInDeck.Add(card);
-                card.transform.SetParent(deck.transform,false);
+                card.transform.SetParent(deck.transform, false);
                 //Destroy(card);
 
             }

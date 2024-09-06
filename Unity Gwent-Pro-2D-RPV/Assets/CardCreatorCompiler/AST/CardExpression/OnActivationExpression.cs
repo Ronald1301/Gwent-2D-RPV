@@ -1,10 +1,4 @@
-using System.Runtime.InteropServices;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Gwent
 {
@@ -21,25 +15,15 @@ namespace Gwent
 
         protected override Scope? Context { get; set; }
 
-        public override object Evaluate()
-        {
-            foreach (var item in Body)
-            {
-                item.Evaluate();
-            }
-            return null!;
-        }
-
         public override void SetScope(Scope current)
         {
             Context = current;
-            Scope son = new Scope(current, new(),new());
+            Scope son = new Scope(current, new(), new());
             foreach (var item in Body)
             {
                 item.SetScope(son);
             }
         }
-
         public override Scope.DataType CheckSemantic()
         {
             foreach (var item in Body)
@@ -47,6 +31,16 @@ namespace Gwent
                 item.CheckSemantic();
             }
             return Scope.DataType.Void;
+        }
+        public override object Evaluate()
+        {
+            Queue<object> onActivation = new();
+            foreach (var item in Body)
+            {
+                onActivation.Enqueue(item.Evaluate());
+            }
+            return onActivation;
+            //devuelve una lista de efectos con selector y postaction
         }
     }
 }

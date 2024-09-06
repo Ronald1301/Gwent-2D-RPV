@@ -1,16 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Gwent;
-
+using UnityEngine.SceneManagement;
+using UnityEditor.PackageManager;
+using UnityEditor;
+using System;
 public class ScriptCardCreator : MonoBehaviour
 {
     UIDocument CardCreator;
-    public GameObject StartMenu;
-    SaveLoadSystem saveLoadSystem;
+    // [SerializeField] private GameObject StartMenu;
+
+    [SerializeField] private SaveLoadSystem saveLoadSystem;
 
     private TextField BoxCode;
     private TextField BoxResult;
@@ -39,44 +39,66 @@ public class ScriptCardCreator : MonoBehaviour
         export.RegisterCallback<ClickEvent>(ExportCode);
         back.RegisterCallback<ClickEvent>(BackToStartMenu);
 
-        saveLoadSystem = new SaveLoadSystem();
-        saveLoadSystem.DataLoaded += OnDataLoaded;
-        saveLoadSystem.LoadCode();
-
+        //saveLoadSystem.DataLoaded += OnDataLoaded;
     }
 
     private void ExportCode(ClickEvent evt)
     {
-        // this.gameObject.GetComponent<AudioSource>().Play();
-        InfoCode infoCode = new InfoCode(BoxCode.value);
-        saveLoadSystem.InfoCode.code = infoCode.code;
+        saveLoadSystem.infoCode.Code = BoxCode.value;
         saveLoadSystem.SaveCode();
     }
 
     private void ImportCode(ClickEvent evt)
     {
-        // this.gameObject.GetComponent<AudioSource>().Play();
         saveLoadSystem.LoadCode();
+        BoxCode.value = saveLoadSystem.infoCode.Code;
     }
 
     private void OnDataLoaded()
     {
-        BoxCode.value = saveLoadSystem.InfoCode.code;
+        BoxCode.value = saveLoadSystem.infoCode.Code;
     }
 
     private void CompileCode(ClickEvent evt)
     {
-        // this.gameObject.GetComponent<AudioSource>().Play();
-        Program program = new Program(BoxCode.value);
-        program.CompileCode();
-        BoxResult.value =program.PrintResult();
+        InfoCode infoCode = new InfoCode(BoxCode.value);
+
+        try
+        {
+             EngineCompiler.CompileCode(infoCode.Code);
+        }
+        catch (System.Exception e)
+        {
+            EngineCompiler.error.argument = e.Message;
+            PrintError(EngineCompiler.error);
+            return;
+        }
+       
+        BoxResult.value = EngineCompiler.PrintResult();
         BoxResult.style.visibility = Visibility.Visible;
     }
 
     private void BackToStartMenu(ClickEvent evt)
     {
-        // this.gameObject.GetComponent<AudioSource>().Play();
-        StartMenu.SetActive(true);
-        gameObject.SetActive(false);
+        SceneManager.LoadScene("StartMenuScene");
+        // StartMenu.SetActive(true);
+        //gameObject.SetActive(false);
+    }
+
+    public void UpdateJson()
+    {
+        saveLoadSystem.infoCode.Code = BoxCode.value;
+        string aux = saveLoadSystem.LoadJson();
+        saveLoadSystem.SaveJson(aux);
+    }
+    public void LoadJson()
+    {
+        saveLoadSystem.LoadCode();
+        BoxCode.value = saveLoadSystem.infoCode.Code;
+    }
+    public void PrintError(Gwent.Error error)
+    {
+        EditorUtility.DisplayDialog("Error", error.Text(), "Ok");
+
     }
 }

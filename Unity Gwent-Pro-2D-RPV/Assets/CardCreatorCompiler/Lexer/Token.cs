@@ -1,19 +1,11 @@
-using System.Globalization;
-using System.Runtime.InteropServices;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
 
 namespace Gwent
 {
   public class Token
   {
-    public TokenType Type { get; set; } 
-    public string Value { get; set; } 
+    public TokenType Type { get; set; }
+    public string Value { get; set; }
 
     public Token(TokenType type, string value)
     {
@@ -28,7 +20,7 @@ namespace Gwent
       Token_effect_Declaration, Token_Name, Token_Params, Token_Action, /*Token_targets, Token_Context,*/
       Token_TriggerPlayer, Token_Board, Token_HandOfPlayer, Token_FieldOfPlayer, Token_GraveyardOfPlayer, Token_DeckOfPlayer,
       Token_Find, Token_Push, Token_SendBottom, Token_Pop, Token_Remove, Token_Shuffle,
-      Token_Owner, Token_Hand, Token_Field, Token_Graveyard, Token_Deck,
+      Token_Owner, Token_Hand, Token_Field, Token_Graveyard, Token_Deck, Token_Add,
       //keywords Cards
       Token_card, Token_Type, Token_Faction, Token_Power, Token_Range, Token_OnActivation, Token_Effect,
       Token_Selector, Token_Source, Token_Single, Token_Predicate, Token_PostAction,
@@ -62,9 +54,10 @@ namespace Gwent
 
       Token_SpaceLine, Token_Lambda, Token_Concat, Token_DoubleConcat,
       Token_Parent,
-            Token_AndAnd,
-            Token_OrOr
-        }
+      Token_AndAnd,
+      Token_OrOr
+
+    }
 
     public static Dictionary<string, Token> AllTokens = new Dictionary<string, Token>
     {
@@ -88,6 +81,7 @@ namespace Gwent
       ["FieldOfPlayer"] = new Token(TokenType.Token_FieldOfPlayer, "FieldOfPlayer"),
       ["GraveyardOfPlayer"] = new Token(TokenType.Token_GraveyardOfPlayer, "GraveyardOfPlayer"),
       ["DeckOfPlayer"] = new Token(TokenType.Token_DeckOfPlayer, "DeckOfPlayer"),
+      ["Add"] = new Token(TokenType.Token_Add, "Add"),
       ["Find"] = new Token(TokenType.Token_Find, "Find"),
       ["Push"] = new Token(TokenType.Token_Push, "Push"),
       ["SendBottom"] = new Token(TokenType.Token_SendBottom, "SendBottom"),
@@ -164,7 +158,6 @@ namespace Gwent
       ["."] = new Token(TokenType.Point, "."),
       [":"] = new Token(TokenType.TwoPoint, ":"),
       [","] = new Token(TokenType.Comma, ","),
-      ["\n"] = new Token(TokenType.EndLine, "\n"),
       ["\0"] = new Token(TokenType.EndProgram, "\0"),
 
       //Booleans
@@ -181,18 +174,7 @@ namespace Gwent
       ["sqrt"] = new Token(TokenType.Token_Sqrt, "sqrt"),
       ["Pi"] = new Token(TokenType.Token_PI, "PI"),
 
-      //Others
-      [" "] = new Token(TokenType.WhiteSpace, " "),
-      ["\t"] = new Token(TokenType.WhiteSpace, "\t"),
-      ["\n"] = new Token(TokenType.WhiteSpace, "\n"),
-      ["\r"] = new Token(TokenType.WhiteSpace, "\r"),
-      ["\0"] = new Token(TokenType.WhiteSpace, "\0"),
-      ["\f"] = new Token(TokenType.WhiteSpace, "\f"),
-      ["\v"] = new Token(TokenType.WhiteSpace, "\v"),
-      ["\b"] = new Token(TokenType.WhiteSpace, "\b"),
-      ["\a"] = new Token(TokenType.WhiteSpace, "\a"),
-
-
+      //others
       ["=>"] = new Token(TokenType.Token_Lambda, "=>"),
       ["@"] = new Token(TokenType.Token_Concat, "@"),
       ["@@"] = new Token(TokenType.Token_DoubleConcat, "@@"),

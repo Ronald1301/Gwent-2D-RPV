@@ -1,10 +1,4 @@
-using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Gwent
 {
@@ -27,7 +21,8 @@ namespace Gwent
 
         public override object Evaluate()
         {
-            throw new NotImplementedException();
+            (string,bool,object?) result = (Source.Evaluate()?.ToString()!,Single,Predicate?.Evaluate());
+            return result;
         }
 
         public override void SetScope(Scope current)
@@ -42,17 +37,20 @@ namespace Gwent
         {
             if (Source.CheckSemantic() != Scope.DataType.String)
             {
+                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
                 throw new Exception("Source is not IDExpression");
             }
             if (Source.ToString() != "hand" || Source.ToString() != "deck" || Source.ToString() != "graveyard" || Source.ToString() != "parents" || Source.ToString() != "board"
             || Source.ToString() != "otherGraveyard" || Source.ToString() != "otherHand" || Source.ToString() != "otherDeck")
             {
+                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
                 throw new Exception("Source is not Hand, Deck, Graveyard, Banished or All");
             }
             if (Predicate is not null)
             {
                 if (Predicate.CheckSemantic() != Scope.DataType.Boolean)
                 {
+                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
                     throw new Exception("Predicate is not LambdaExpression");
                 }
             }

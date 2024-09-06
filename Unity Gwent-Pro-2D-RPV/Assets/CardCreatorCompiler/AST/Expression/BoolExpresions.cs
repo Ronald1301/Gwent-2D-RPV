@@ -1,11 +1,4 @@
-
-using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Gwent
 {
@@ -72,22 +65,32 @@ namespace Gwent
 
 
             }
-            bool x = Convert.ToBoolean(base.Left.Evaluate());
-            bool y = Convert.ToBoolean(base.Right.Evaluate());
 
-            return this.logic switch
+            try
             {
-                OperatorsLogic.And => (Convert.ToBoolean(x) == true) & (Convert.ToBoolean(y) == true),
-                OperatorsLogic.Or => (Convert.ToBoolean(x) == true) | (Convert.ToBoolean(y) == true),
-                OperatorsLogic.AndAnd => (Convert.ToBoolean(x) == true) && (Convert.ToBoolean(y) == true),
-                _ => (object)((Convert.ToBoolean(x) == true) || (Convert.ToBoolean(y) == true)),
+                bool x = Convert.ToBoolean(base.Left.Evaluate());
+                bool y = Convert.ToBoolean(base.Right.Evaluate());
 
-                /*
-                 OperatorsLogic.And => (Convert.ToBoolean(a) == true) && (Convert.ToBoolean(b) == true) ? true : false,
-                OperatorsLogic.Or => (object)((Convert.ToBoolean(a) == true) || (Convert.ToBoolean(b) == true) ? true : false),
-                OperatorsLogic.Not => (object)(Convert.ToBoolean(a) == true ? false : true),
-                */
-            };
+                return this.logic switch
+                {
+                    OperatorsLogic.And => (Convert.ToBoolean(x) == true) & (Convert.ToBoolean(y) == true),
+                    OperatorsLogic.Or => (Convert.ToBoolean(x) == true) | (Convert.ToBoolean(y) == true),
+                    OperatorsLogic.AndAnd => (Convert.ToBoolean(x) == true) && (Convert.ToBoolean(y) == true),
+                    _ => (object)((Convert.ToBoolean(x) == true) || (Convert.ToBoolean(y) == true)),
+
+                    /*
+                     OperatorsLogic.And => (Convert.ToBoolean(a) == true) && (Convert.ToBoolean(b) == true) ? true : false,
+                    OperatorsLogic.Or => (object)((Convert.ToBoolean(a) == true) || (Convert.ToBoolean(b) == true) ? true : false),
+                    OperatorsLogic.Not => (object)(Convert.ToBoolean(a) == true ? false : true),
+                    */
+                };
+            }
+            catch (System.Exception)
+            {
+                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                throw new("The variable is not declared");
+            }
+
         }
 
         public override void SetScope(Scope current)
@@ -110,16 +113,16 @@ namespace Gwent
                         {
                             return Scope.DataType.Boolean;
                         }
-                        Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The variable is not declared"));
-                        throw new();
+                        EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                        throw new("The variable is not declared");
                     case OperatorsComparison.DoubleEqual:
                     case OperatorsComparison.NoEqual:
                         if (base.Left.CheckSemantic() == base.Right.CheckSemantic())
                         {
                             return Scope.DataType.Boolean;
                         }
-                        Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The variable is not declared"));
-                        throw new();
+                        EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                        throw new("The variable is not declared");
                     default:
                         break;
                 }
@@ -131,13 +134,13 @@ namespace Gwent
                 {
                     return Scope.DataType.Boolean;
                 }
-                Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The variable is not declared"));
-                throw new();
+                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                throw new("The variable is not declared");
             }
 
             // Add a return statement here
-            Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The variable is not declared"));
-            throw new();
+            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+            throw new("The variable is not declared");
         }
     }
 }

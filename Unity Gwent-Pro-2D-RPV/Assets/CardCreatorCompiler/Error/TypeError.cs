@@ -1,11 +1,4 @@
-using System.Linq.Expressions;
-using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Gwent
 {
@@ -13,14 +6,20 @@ namespace Gwent
     {
         public ErrorCode Code { get; }
 
-        public string argument { get; }
+        public string argument { get; set;}
 
         public LocationError? Location { get; set; }
+        public TypeError(ErrorCode code)
+        {
+            this.Code = code;
+        }
+        /*
         public TypeError(ErrorCode code, string argument)
         {
             this.Code = code;
             this.argument = argument;
         }
+        */
         public TypeError(ErrorCode code, string argument, int line, int column)
         {
             this.Code = code;
@@ -50,6 +49,7 @@ namespace Gwent
         LexicalError,
         SyntacticError,
         SemanticError,
+        EvaluateError,
         Unknown,
     }
 }

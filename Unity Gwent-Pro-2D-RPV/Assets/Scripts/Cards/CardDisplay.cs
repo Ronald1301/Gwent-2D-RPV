@@ -57,21 +57,4 @@ public class CardDisplay : MonoBehaviour
     {
         UI.gameObject.SetActive(false);
     }
-
-
-    /*
-    public void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Destroy(gameObject);
-        }
-    }
-    */
-    /*
-    private void OnMouseUpAsButton()
-    {
-        Debug.Log("Click");
-    }
-    */
 }

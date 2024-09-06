@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Maelstrom
   m_EditorClassIdentifier: 
   cardName: Maelstrom
-  faction: 2
+  faction: 0
   type: 1
   description: Reduces the points to 0  of all cards placed in the  ranged attack
     rows  (own or the opponent's)

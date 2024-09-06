@@ -1,0 +1,76 @@
+VisualElement {
+}
+
+.Container {
+    width: initial;
+    height: initial;
+}
+
+.ImageCard {
+    background-image: none;
+}
+
+.Skeleton {
+    background-image: url('project://database/Assets/Images/StructCardNew.png?fileID=2800000&guid=406bd924ff972244a98b3a353c228c15&type=3#StructCardNew');
+    flex-wrap: wrap-reverse;
+}
+
+.Up {
+    height: 15%;
+    flex-direction: row;
+}
+
+.Logo {
+    width: 20%;
+    flex-shrink: 1;
+    display: none;
+}
+
+.Center {
+    flex-shrink: 0;
+    flex-grow: 0;
+    height: 53%;
+    justify-content: flex-end;
+    align-items: stretch;
+    align-self: stretch;
+}
+
+.CenterDown {
+    height: 5%;
+    flex-direction: row;
+    flex-shrink: 0;
+    justify-content: space-around;
+}
+
+.TextMenu {
+    -unity-font-style: bold-and-italic;
+    font-size: 40px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    text-overflow: ellipsis;
+    -unity-font-definition: url('project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Fonts/Roboto-Bold.ttf?fileID=12800000&guid=4beb055f07aaff244873dec698d0363e&type=3#Roboto-Bold');
+    color: rgb(0, 0, 0);
+    -unity-text-outline-width: 10px;
+    -unity-text-outline-color: rgb(255, 255, 255);
+    text-shadow: 5px 5px 0 rgb(255, 255, 255);
+    align-self: center;
+}
+
+.Down {
+    flex-shrink: 0;
+    height: 21%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.Right {
+    flex-shrink: 0;
+    width: 75%;
+    flex-grow: 1;
+}
+
+.Left {
+    width: 25%;
+    flex-shrink: 0;
+    align-self: center;
+}

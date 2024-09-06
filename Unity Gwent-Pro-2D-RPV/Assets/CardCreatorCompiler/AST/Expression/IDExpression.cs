@@ -1,11 +1,4 @@
-
-using System.Runtime.InteropServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+//using UnityEngine;
 
 namespace Gwent
 {
@@ -29,12 +22,6 @@ namespace Gwent
             this.Value = value;
             this.Type = type;
         }
-        /*
-        public override string ToString()
-        {
-            return token.Value;
-        }
-        */
         public override Scope.DataType CheckSemantic()
         {
             foreach (var item in Context!.datatype.Keys)
@@ -44,8 +31,8 @@ namespace Gwent
                     return Context.datatype[item];
                 }
             }
-            Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The variable is not declared"));
-            throw new();
+            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+            throw new("The variable is not declared");
         }
 
         public override object Evaluate()
@@ -58,7 +45,7 @@ namespace Gwent
                     return Context.datatype[item];
                 }
             }
-            Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The variable is not declared"));
+            Additional.error =new TypeError(ErrorCode.SemanticError, "The variable is not declared");
             throw new();
             */
 
@@ -69,8 +56,9 @@ namespace Gwent
                     return Context.Items[item];
                 }
             }
-            Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The variable is not declared"));
-            throw new();
+
+            EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
+            throw new("The variable is not declared");
 
             //return Context!.Items.First(x => x.Key.token.Value == token.Value);
             //return Context!.Items.TryGetValue(new IDExpression(token, Value), out var value) ? value : Value.Evaluate();
@@ -93,8 +81,8 @@ namespace Gwent
             }
             else
             {
-                Additional.errors.Add(new TypeError(ErrorCode.SemanticError, "The variable is not declared"));
-                throw new();
+                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+                throw new("The variable is not declared");
             }
         }
     }

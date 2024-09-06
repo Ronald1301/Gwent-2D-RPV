@@ -469,6 +469,44 @@ public class MoveCard : MonoBehaviour
         this.gameObject.GetComponent<CardDisplay>().cardData.Power = this.gameObject.GetComponent<CardDisplay>().cardData.StartPower;
     }
 
+    public void MoveToDeck()
+    {
+        subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsPriority.Add(this.gameObject);
+
+        if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().R.GetComponent<RangedZone>().ranged.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Contains(this.gameObject))
+        {
+            subBoard.GetComponent<SubBoard>().S.GetComponent<SiegeZone>().siege.Remove(this.gameObject);
+        }
+        else if (subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[0] == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[0] = null;
+        }
+        else if (subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[1] == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[1] = null;
+        }
+        else if (subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[2] == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[2] = null;
+        }
+        else if (subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate == this.gameObject)
+        {
+            subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate = GameObject.FindGameObjectWithTag("ClimateCard");
+        }
+        this.gameObject.transform.SetParent(subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInDeck[0].transform, false);
+    }
     //Card Lure
     public IEnumerator WaitForClick()
     {

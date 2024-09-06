@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: The Pirate Code
   m_EditorClassIdentifier: 
   cardName: The Pirate Code
-  faction: 2
+  faction: 0
   type: 1
   description: Destroy the activated weather card  on the opponent's field.
   cardImageForehead: {fileID: 21300000, guid: 83c8102425e1ed84c91a32edd7f8565b, type: 3}

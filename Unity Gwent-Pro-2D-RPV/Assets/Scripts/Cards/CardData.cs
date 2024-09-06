@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
 public class CardData : ScriptableObject
 {
-    public CardData() { }
-    public CardData(string cardName, TypeFaction faction, CardType type, string description, Sprite cardImageForehead, Sprite cardImageback, int startPower, int power, char typeField, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard, TypeEffects effects)
+//    public CardData() { }
+    public CardData(string cardName, string faction, CardType type, string description, Sprite cardImageForehead, Sprite cardImageback, int startPower, int power, char typeField, bool[] typeField2, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard, TypeEffects effects)
     {
         this.cardName = cardName;
         this.faction = faction;
@@ -17,12 +17,27 @@ public class CardData : ScriptableObject
         this.startPower = startPower;
         this.power = power;
         this.typeField = typeField;
+        this.typeField2 = typeField2;
         this.typeUnitCard = typeUnitCard;
         this.typeSpecialCard = typeSpecialCard;
         this.effects = effects;
     }
+
+    public CardData(string name, string faction, string description, string power, bool[] range, CardType type, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard)
+    {
+        this.cardName = name;
+        this.type = type;
+        this.typeUnitCard = typeUnitCard;
+        this.typeSpecialCard = typeSpecialCard;
+        this.startPower = int.Parse(power);
+        this.power = this.startPower;
+        this.faction = faction;
+        this.typeField2 = range;
+        //this.description =
+    }
+
     [SerializeField] private string cardName;
-    [SerializeField] private TypeFaction faction;
+    [SerializeField] private string faction;
     [SerializeField] private CardType type;
     [SerializeField] private string description;
     [SerializeField] private Sprite cardImageForehead;
@@ -31,12 +46,13 @@ public class CardData : ScriptableObject
     [SerializeField] private int startPower;
     [SerializeField] private int power;
     [SerializeField] private char typeField;
+    [SerializeField] private bool[] typeField2 = new bool[3];
     [SerializeField] private SubTypeUnitCard typeUnitCard;
 
     [SerializeField] private SubTypeSpecialCard typeSpecialCard;
 
     [SerializeField] private TypeEffects effects;
-    public int owner;
+    public int owner { get; set; }
 
     public bool stayintheField = false;
     public bool inTheField = false;
@@ -46,7 +62,7 @@ public class CardData : ScriptableObject
 
     //Card
     public string CardName => cardName;
-    public TypeFaction Faction { get => faction; }
+    public string Faction { get => faction; }
     public CardType Type { get => type; }
     public string Description { get => description; }
     public Sprite CardImageForehead { get => cardImageForehead; }
@@ -70,8 +86,8 @@ public class CardData : ScriptableObject
 
     public enum CardType
     { Unit, Special, Boss }
-    public enum TypeFaction
-    { Pirates, Resistance, Neutral }
+    // public enum TypeFaction
+    //{ Pirates, Resistance, Neutral }
     public enum SubTypeUnitCard
     { None, Gold, Silver }
     public enum SubTypeSpecialCard

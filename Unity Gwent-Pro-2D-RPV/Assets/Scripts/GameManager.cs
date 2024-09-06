@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
             Changecards1 = true;
             player1.isPlaying = false;
             player2.isPlaying = true;
-            Bridge.UpdatePlayer( player2, player1);
+            Bridge.UpdatePlayer( false);
             MainBoard.transform.Rotate(0, 0, 180);
             UIRuntime.ShowMessage("Player 2 Turn");
             //StartCoroutine(UIRuntime.GetComponent<ScriptUIRuntime>().WaitAndPrint(4.0f));
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
             Changecards2 = true;
             player2.isPlaying = false;
             player1.isPlaying = true;
-            Bridge.UpdatePlayer(player1, player2);
+            Bridge.UpdatePlayer(true);
             MainBoard.transform.Rotate(0, 0, 180);
             UIRuntime.ShowMessage("Player 1 Turn");
             //StartCoroutine(UIRuntime.GetComponent<ScriptUIRuntime>().WaitAndPrint(4.0f));
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
 
             player1.isPlaying = true;
             player2.isPlaying = false;
-            Bridge.UpdatePlayer(player1, player2);
+            Bridge.UpdatePlayer(true);
 
             player1.passTurn = false;
             player2.passTurn = false;
@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
 
             player1.isPlaying = false;
             player2.isPlaying = true;
-            Bridge.UpdatePlayer(player2, player1);
+            Bridge.UpdatePlayer(false);
 
             player1.passTurn = false;
             player2.passTurn = false;

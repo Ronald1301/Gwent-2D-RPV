@@ -36,6 +36,8 @@ TagManager:
   - Game
   - ClimateCard
   - Deck Player2
+  - SkeletoCard
+  - DataBase
   layers:
   - Default
   - TransparentFX

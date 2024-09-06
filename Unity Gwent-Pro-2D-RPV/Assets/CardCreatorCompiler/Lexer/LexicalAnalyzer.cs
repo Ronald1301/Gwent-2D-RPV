@@ -1,11 +1,7 @@
-using System.Runtime.InteropServices;
+//using UnityEngine;
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
 
 namespace Gwent
 {
@@ -17,7 +13,7 @@ namespace Gwent
             tokens = new();
         }
         readonly string Input;
-        readonly List<Token> tokens ;
+        readonly List<Token> tokens;
         string aux = "";
         /// <summary>
         ///Analiza la entra y la covierte en tokens
@@ -28,7 +24,7 @@ namespace Gwent
         {
             for (int i = 0; i < Input.Length; i++)
             {
-                if (Input[i] == ' ' && aux == "") continue;
+                if ((Input[i] == ' ' || Input[i] == '\t' || Input[i] == '\n' || Input[i] == '\r'|| Input[i] == '\0'|| Input[i] == '\f'|| Input[i] == '\v'|| Input[i] == '\b'|| Input[i] == '\a') && aux == "") continue;
 
                 else if ((Input[i] == ' ' || Input[i] == ';') && aux != "")
                 {

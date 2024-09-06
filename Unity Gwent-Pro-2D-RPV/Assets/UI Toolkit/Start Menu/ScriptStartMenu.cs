@@ -55,8 +55,9 @@ public class ScriptStartMenu : MonoBehaviour
     private void OpenCardCreator(ClickEvent evt)
     {
        // this.gameObject.GetComponent<AudioSource>().Play();
-        CardCreator.SetActive(true);
-        gameObject.SetActive(false);
+        SceneManager.LoadScene("CardCreatorScene");
+        //CardCreator.SetActive(true);
+        //gameObject.SetActive(false);
     }
 
     private void OpenOptions(ClickEvent evt)

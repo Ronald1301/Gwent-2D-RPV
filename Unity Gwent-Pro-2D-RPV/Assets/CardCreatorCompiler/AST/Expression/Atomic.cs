@@ -1,18 +1,11 @@
-using System.Data.Common;
-
-using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Gwent
 {
     public class Atomic : Expression
     {
         public Token token { get; set; }
+        public readonly Scope.DataType dataType;
 
         protected override Scope? Context { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -54,7 +47,8 @@ namespace Gwent
                token.Type == Token.TokenType.Token_LessOrEqual ||
                token.Type == Token.TokenType.Token_More ||
                token.Type == Token.TokenType.Token_MoreOrEqual) return Scope.DataType.Number;
-            throw new();
+            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
+            throw new("The variable is not declared");
         }
         public override object Evaluate()
         {

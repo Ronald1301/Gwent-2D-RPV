@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Aztec Gold
   m_EditorClassIdentifier: 
   cardName: Aztec Gold
-  faction: 2
+  faction: 0
   type: 1
   description: ' Increases all cards  in the melee  attack row by 2 points'
   cardImageForehead: {fileID: 21300000, guid: 1b7493cf53616874fbcdfbc8f869f24c, type: 3}

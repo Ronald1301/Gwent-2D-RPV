@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 7af2f3619dbf915448cab1d7c603313a, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &51205513
 BoxCollider2D:
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 0d49ee28f5cc1724484d2a77c3640fbe, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &61818380
 BoxCollider2D:
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: efc42255603059746b866e3332844ad5, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &76955628
 BoxCollider2D:
@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: c18b8d54016328a4e98aa5113380a1bf, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &85937691
 BoxCollider2D:
@@ -1037,13 +1037,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90560eb6eda9404fb58070a44d7f9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   deck: {fileID: 907380673}
   board: {fileID: 1428132040}
   hand: {fileID: 817236384}
   Points_for_game: 0
   Points_for_round: 0
   RoundsWon: 0
-  isPlaying: 1
+  isPlaying: 0
   PlayedACard: 0
   passTurn: 0
   youWin: 0
@@ -1145,7 +1146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: c7b175a739258e3458f9331952b0199d, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &154956102
 BoxCollider2D:
@@ -1337,7 +1338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 24b91f524e496c346a293de841fb2985, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &199045506
 BoxCollider2D:
@@ -1517,7 +1518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: ca5c2412593793e4887c2135a237dee5, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &230122666
 BoxCollider2D:
@@ -1810,7 +1811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: e7032e0e35b4d1f40b614146ca658f38, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &323234148
 BoxCollider2D:
@@ -1990,7 +1991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: c492853332cca4a4985b5c5c4d773653, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &335944697
 BoxCollider2D:
@@ -2153,7 +2154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &351418086
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2257,7 +2258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 8cc35f05bffb2d44d9fe85afca4f2937, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &355073586
 BoxCollider2D:
@@ -2437,7 +2438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 73bad3fb01859d54fb1041691a956bf7, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &359065064
 BoxCollider2D:
@@ -2714,7 +2715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: a028d715bcdb38a4cb85a051bad98b91, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &406956581
 BoxCollider2D:
@@ -2956,7 +2957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: f7bb29c81950ca444a3fa58862eac330, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &492728894
 BoxCollider2D:
@@ -3167,7 +3168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: c7a1290a31e992048826550df8fbba90, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &513708194
 BoxCollider2D:
@@ -3844,6 +3845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90560eb6eda9404fb58070a44d7f9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   deck: {fileID: 907380673}
   board: {fileID: 918103285}
   hand: {fileID: 1187814968}
@@ -3902,7 +3904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: b8fd78339f5f4624cb9dbe9ea4c5705d, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &636395572
 BoxCollider2D:
@@ -4262,7 +4264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: cfbdeed44a930a84ab356917e8458878, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &846816579
 BoxCollider2D:
@@ -4438,6 +4440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90560eb6eda9404fb58070a44d7f9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   deck: {fileID: 1692678853}
   board: {fileID: 1428132040}
   hand: {fileID: 817236384}
@@ -4496,7 +4499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: e69ef7e1c080d0044acb2ec6b3c1390c, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &862470255
 BoxCollider2D:
@@ -4703,6 +4706,8 @@ Transform:
   - {fileID: 351418087}
   - {fileID: 907380671}
   - {fileID: 1692678854}
+  - {fileID: 166591437849961396}
+  - {fileID: 2133946849}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &907380671 stripped
@@ -5305,7 +5310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: aa620c3cadf12654881162e176eb76e3, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1132197402
 BoxCollider2D:
@@ -5753,7 +5758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: bff11ae62004b7d41828e27b079e4644, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1257399753
 BoxCollider2D:
@@ -5932,7 +5937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 9538ef87c78619b45ad51c4413461265, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1373424058
 BoxCollider2D:
@@ -6167,7 +6172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 34f50caae46acd847918bfe8432d5730, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1404860772
 BoxCollider2D:
@@ -6423,7 +6428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: a43b0204e88bf474e8039fdb78cbc767, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1425755584
 BoxCollider2D:
@@ -6709,7 +6714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 49b9300f6fd64904781920e5ffc0ec86, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1455967677
 BoxCollider2D:
@@ -6948,7 +6953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 2dc6f26689edc03469b7e026abcbf701, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1478632745
 BoxCollider2D:
@@ -7225,7 +7230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 5dc481e64f6212744931309ab0b3fbb9, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1527010254
 BoxCollider2D:
@@ -7456,7 +7461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 02abbb6ddae43db47a6f2608b70a43ae, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1550580628
 BoxCollider2D:
@@ -7636,7 +7641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 19fc55395e630e94d91766c02116b377, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1588835813
 BoxCollider2D:
@@ -8084,7 +8089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 8cf604d2ea789c2438976f8777fee184, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1722879438
 BoxCollider2D:
@@ -8264,7 +8269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 7d4fec6f5491ba64ead1a7960205aa94, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1735921018
 BoxCollider2D:
@@ -8659,7 +8664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 53445c91ba8b42940a8eea50eac2f0e9, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1826068337
 BoxCollider2D:
@@ -8914,7 +8919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: b79ed32fa2893f7438c235e0a330d754, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1831612537
 BoxCollider2D:
@@ -9125,7 +9130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 146de884785aff44a977dfe107d58900, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &1862588419
 BoxCollider2D:
@@ -9332,6 +9337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90560eb6eda9404fb58070a44d7f9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   deck: {fileID: 1692678853}
   board: {fileID: 918103285}
   hand: {fileID: 1187814968}
@@ -9557,7 +9563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 79aa08050290eac4793433d0e107146f, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &2060472114
 BoxCollider2D:
@@ -9737,7 +9743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 80b7f1a72d2a3f5438dd664ddb5bcda6, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &2094541343
 BoxCollider2D:
@@ -9917,7 +9923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 2e10db30a09c8904bb6410a6fabc86bc, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &2113249690
 BoxCollider2D:
@@ -10126,6 +10132,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca289b0cbd2dd2f4499b5b9d824049dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2133946848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2133946849}
+  m_Layer: 0
+  m_Name: DataBase
+  m_TagString: DataBase
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2133946849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133946848}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.9934701, y: 1.3761724, z: 4848.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 863512125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2140571872
 GameObject:
   m_ObjectHideFlags: 0
@@ -10159,7 +10196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 4e7c55ebabc940c4883e3ab841cae0e8, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &2140571875
 BoxCollider2D:
@@ -10339,7 +10376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120b8af42e1cb4446b0c8111970fec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: 98f4f5538f860924fa493ef200f3bfd0, type: 2}
   UI: {fileID: 1113927862}
 --- !u!61 &2146234728
 BoxCollider2D:
@@ -10486,6 +10523,124 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca289b0cbd2dd2f4499b5b9d824049dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &166591437849961395
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 863512125}
+    m_Modifications:
+    - target: {fileID: 2481106860768200957, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 1113927862}
+    - target: {fileID: 4166207292305418931, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: UIRuntime
+      value: 
+      objectReference: {fileID: 1964604399}
+    - target: {fileID: 4166207292305418931, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: GameManager
+      value: 
+      objectReference: {fileID: 863512123}
+    - target: {fileID: 5554602093388825370, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_Name
+      value: SkeletonCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554602093388825370, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_TagString
+      value: SkeletoCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -64.47114
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 9.819716
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.3429017
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+--- !u!224 &166591437849961396 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6482485662177721451, guid: c52faefdea549cf4bbcec72a11f08a04, type: 3}
+  m_PrefabInstance: {fileID: 166591437849961395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1465029274870583980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10539,6 +10694,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 295105252857677652, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 426b41d3d53a3294e944af0e1efb38bd, type: 2}
+    - target: {fileID: 295105252857677652, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10586,6 +10745,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 415274896156039516, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: ad17b85fb4308634b921bfaddd75d577, type: 2}
     - target: {fileID: 415274896156039516, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -10671,6 +10834,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 969998611632082217, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 31fc29ec8da9e5244ae8fec1966974a3, type: 2}
+    - target: {fileID: 969998611632082217, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10703,6 +10870,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 1300536021229825384, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: af400e8e0eee4a54c825c64641f61796, type: 2}
+    - target: {fileID: 1300536021229825384, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10715,6 +10886,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 1303978565098222887, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: c071bc96f0b1c59469f2f2c9fb9ffb76, type: 2}
+    - target: {fileID: 1303978565098222887, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10726,6 +10901,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 1316861467433324266, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ebe73066a26a9444922d920dc6905f7, type: 2}
     - target: {fileID: 1316861467433324266, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -10755,6 +10934,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 1600972080434495040, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: b2e15fd6f802500458c5a1220ea0cafb, type: 2}
+    - target: {fileID: 1600972080434495040, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10766,6 +10949,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 1620960340832023503, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: dc44645116312884b9bef41cd4c8ce88, type: 2}
     - target: {fileID: 1620960340832023503, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -10799,6 +10986,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 1836171866108482098, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f77b834d6c38d448a4ff412e9582a52, type: 2}
+    - target: {fileID: 1836171866108482098, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10819,6 +11010,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 2052661498085015973, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: b2e958d28a30eba45abae26d6d614ca5, type: 2}
+    - target: {fileID: 2052661498085015973, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10867,6 +11062,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 2346107598355207402, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f6ca4ac8d1e80d45942a053ec5474b6, type: 2}
+    - target: {fileID: 2346107598355207402, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10879,6 +11078,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 2418483793656506906, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: b4848d391e387224db1f72bbd5d13129, type: 2}
+    - target: {fileID: 2418483793656506906, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10890,6 +11093,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 2462965413065922067, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ec06fb7c1a516a4fa35feac3dfe1ca1, type: 2}
     - target: {fileID: 2462965413065922067, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -10927,6 +11134,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 2634030936672132286, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 72aeffdd2a672094db0453704e50c79f, type: 2}
+    - target: {fileID: 2634030936672132286, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -10938,6 +11149,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 2654789322227115501, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c1b4eaf400726641a733e97fb72eea2, type: 2}
     - target: {fileID: 2654789322227115501, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -10970,6 +11185,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 2770733119340290823, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 93d05f34b59ecf04b85fe77c00aea6d0, type: 2}
     - target: {fileID: 2770733119340290823, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -11051,6 +11270,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 3191423238397627936, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 42af8538fb69f6f45856db91660f886f, type: 2}
+    - target: {fileID: 3191423238397627936, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -11062,6 +11285,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 3267388884642166170, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: c6c20fd532d749048a6049823039460f, type: 2}
     - target: {fileID: 3267388884642166170, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -11131,6 +11358,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 3769114301212734456, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1b1afbd34ac7fd14b88e7826fe1d5ef2, type: 2}
+    - target: {fileID: 3769114301212734456, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -11171,6 +11402,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 3940336835223401784, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 024f36f43f531894583490df76c0002d, type: 2}
+    - target: {fileID: 3940336835223401784, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -11182,6 +11417,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 3959099099197049770, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 66858a7ca91aad14586a7f9d07380b72, type: 2}
     - target: {fileID: 3959099099197049770, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -11198,6 +11437,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 3982773457671044263, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 8173ff0d141ad824da00b5a0f383e11a, type: 2}
     - target: {fileID: 3982773457671044263, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -11306,6 +11549,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 4410371150637666932, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3051de7cf45b9d7489e820da1e4fb026, type: 2}
     - target: {fileID: 4410371150637666932, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -11431,6 +11678,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 4998326009017870854, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 71cc9e675281bf248910997c975aec6e, type: 2}
+    - target: {fileID: 4998326009017870854, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -11454,6 +11705,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 5355681269141919218, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: c9718b79c5928e6419ba6475483d895d, type: 2}
     - target: {fileID: 5355681269141919218, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -11554,6 +11809,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 6042927502345384624, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 997138dec17b29641a7b3376b4919e61, type: 2}
     - target: {fileID: 6042927502345384624, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -11695,6 +11954,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 6419919080919515861, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 84c9e9fd279e2434fbcf66ea2149b1a5, type: 2}
+    - target: {fileID: 6419919080919515861, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -11754,6 +12017,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 6687936930838491618, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e971a60687110c428d4ed203ff0626e, type: 2}
     - target: {fileID: 6687936930838491618, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -11975,6 +12242,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 8426403632180424756, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: a3cfcfff8812c984197a530b6e8d59d8, type: 2}
+    - target: {fileID: 8426403632180424756, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -12015,6 +12286,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1113927862}
     - target: {fileID: 8654595760046401518, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 09233eacb70a1a94ba0ed431116e6e3c, type: 2}
+    - target: {fileID: 8654595760046401518, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
       objectReference: {fileID: 1113927862}
@@ -12030,6 +12305,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 8786426725543107833, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: af5ffc2b59e707e40ab044fe928d081d, type: 2}
     - target: {fileID: 8786426725543107833, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 
@@ -12074,6 +12353,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 1113927862}
+    - target: {fileID: 9031744072615403202, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 080c0f8f622905e4399d745256b8b994, type: 2}
     - target: {fileID: 9031744072615403202, guid: 7e8af3f3d7449be45b47414d7cf9f3ee, type: 3}
       propertyPath: gameObject
       value: 

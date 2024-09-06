@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Navigation Charts
   m_EditorClassIdentifier: 
   cardName: Navigation Charts
-  faction: 2
+  faction: 0
   type: 1
   description: Reduce points to 1 of all the cards placed in the siege rows  (own
     or opponent's)

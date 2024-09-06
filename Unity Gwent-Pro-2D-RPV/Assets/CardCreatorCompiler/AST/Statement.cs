@@ -1,11 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
 
 namespace Gwent
 {
@@ -21,7 +15,7 @@ namespace Gwent
         {
             //Context = scope;
             Expressions = new Queue<Expression>();
-          //  Children = [];
+            //  Children = [];
             foreach (var expression in expressions)
             {
                 Expressions.Enqueue(expression);
@@ -30,15 +24,6 @@ namespace Gwent
         public Statement()
         {
             Expressions = new Queue<Expression>();
-        }
-
-        public override object Evaluate()
-        {
-            foreach (var item in Expressions)
-            {
-                System.Console.WriteLine( item.Evaluate());
-            }
-            return 0;
         }
 
         public override void SetScope(Scope current)
@@ -54,12 +39,13 @@ namespace Gwent
         {
             foreach (var item in Expressions)
             {
-                if (item is Assignment || item is Unary || item is BinaryExpression || item is WhileExpression || item is SelectorExpression || item is ForExpression || item is DotExpression || item is ConditionalExpression)
+                if (item is Assignment || item is Unary || item is WhileExpression || item is ForExpression || item is DotExpression || item is ConditionalExpression)
                 {
                     if (item is Unary unary)
                     {
                         if (unary.operators != Unary.Operators.SumSumLeft || unary.operators != Unary.Operators.DifDifLeft || unary.operators != Unary.Operators.SumSumRight || unary.operators != Unary.Operators.DifDifRight)
                         {
+                            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
                             throw new Exception("Invalid statement");
                         }
                     }
@@ -67,6 +53,7 @@ namespace Gwent
                 }
                 else
                 {
+                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
                     throw new Exception("Invalid statement");
                 }
             }
@@ -78,5 +65,16 @@ namespace Gwent
             */
             return Scope.DataType.Void;
         }
+
+        public override object Evaluate()
+        {
+            foreach (var item in Expressions)
+            {
+                item.Evaluate();
+            }
+            return 0;
+        }
+
+
     }
 }

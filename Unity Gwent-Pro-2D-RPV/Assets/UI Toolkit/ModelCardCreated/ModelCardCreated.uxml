@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/UI%20Toolkit/ModelCardCreated/styleCardCreated.uss?fileID=7433441132597879392&amp;guid=844dea3fb6df7d0499432a364f2cfa52&amp;type=3#styleCardCreated" />
+    <ui:VisualElement name="Container" class="Container" style="flex-grow: 1;">
+        <ui:VisualElement name="ImageCard" class="ImageCard" style="flex-grow: 1;">
+            <ui:VisualElement name="Skeleton" class="Skeleton" style="flex-grow: 1;">
+                <ui:VisualElement name="Up" class="Up" style="flex-grow: 1;">
+                    <ui:VisualElement name="Logo" class="Logo" style="flex-grow: 1;" />
+                    <ui:Label text="Beluga" name="TextName" class="TextMenu" style="width: 80%; flex-grow: 1; align-self: center; justify-content: flex-start; align-items: auto; -unity-font-style: bold-and-italic; -unity-font-definition: url(&apos;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Roboto-Bold.ttf?fileID=12800000&amp;guid=4beb055f07aaff244873dec698d0363e&amp;type=3#Roboto-Bold&apos;); font-size: 55%; -unity-text-outline-color: rgb(217, 4, 4); text-shadow: 15px 15px 5px rgb(0, 0, 0); -unity-text-outline-width: 30px; color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Center" class="Center" style="flex-grow: 1;">
+                    <ui:Label text="Faction" name="TextFaction" class="TextFaction TextMenu" style="left: 30%; top: 1%;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="CenterDown" class="CenterDown" style="flex-grow: 1;">
+                    <ui:Label text="Description" name="Description" class="TextFaction TextMenu" style="right: auto;" />
+                    <ui:Label text="Type" name="TypeCard" class="TextMenu" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Down" class="Down" style="flex-grow: 1;">
+                    <ui:VisualElement name="Left" class="Left" style="flex-grow: 1;">
+                        <ui:Label text="10" name="TextPower" style="align-self: center; justify-content: center; align-items: center; -unity-font-style: bold; font-size: 100%; -unity-text-align: middle-center; color: rgb(255, 255, 255); -unity-text-outline-width: 6px; -unity-text-outline-color: rgb(193, 0, 0); text-shadow: 10px 10px 5px rgb(80, 80, 80); -unity-font-definition: url(&apos;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Electronic%20Highway%20Sign.TTF?fileID=12800000&amp;guid=8a2b9e2a607dd2143b58c44bc32410b4&amp;type=3#Electronic Highway Sign&apos;);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Right" class="Right" style="flex-grow: 1;">
+                        <ui:Label name="TextEffect" enable-rich-text="true" emoji-fallback-support="true" parse-escape-sequences="true" selectable="true" select-word-by-double-click="true" select-line-by-triple-click="true" display-tooltip-when-elided="true" text="Effect" style="-unity-font-style: bold-and-italic; color: rgb(255, 255, 255); font-size: 30px; -unity-text-align: middle-center; white-space: normal; text-overflow: clip; -unity-text-outline-color: rgb(182, 179, 179); -unity-text-outline-width: 10px; text-shadow: 3px 3px 1px rgb(203, 191, 191); flex-shrink: 1;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
