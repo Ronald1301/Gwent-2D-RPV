@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Gwent;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -27,15 +28,56 @@ public class Effects : MonoBehaviour
 
         //Boss effects
         [CardData.TypeEffects.StayintheField] = (GameObject gameObject) => StayintheField(),
+
+        [CardData.TypeEffects.effectCardCompiler] = (GameObject gameObject) => EffectCompiler(gameObject),
+
         [CardData.TypeEffects.None] = (GameObject gameObject) => None(),
     };
 
-    /*
-        public static Dictionary<> CreatedEffects = new()
-        {
+    private static void EffectCompiler(GameObject gameObject)
+    {
+        var nameEffects = gameObject.GetComponent<CardDisplay>().cardData.ListEffect;
 
-        };
-    */
+        foreach (var nameeffect in nameEffects)
+        {
+            if (EngineCompiler.effects.TryGetValue(nameeffect, out (EffectComplete, SelectorExpression) effect))
+            {
+                var resultSelector = effect.Item2.Evaluate();
+                if (resultSelector is (string, bool, object))
+                {
+                    var tuple = ((string, bool, object))resultSelector;
+
+                    var targets = Bridge.GetSource(Bridge.GetTriggerPlayer(), tuple.Item1);
+
+                    if (tuple.Item3 is Predicate<GameObject> predicate)
+                    {
+                        if (targets is not null)
+                        {
+                            targets = targets.FindAll(predicate);
+                            if (tuple.Item2)
+                            {
+                                List<GameObject> list = new();
+                                list.Add(targets[0]);
+                                targets = list;
+                            }
+                        }
+                    }
+                    foreach (var item in effect.Item1.ContextCard!.Items.Keys)
+                    {
+                        if (item.token.Value == effect.Item1.Body!.Params[0].token.Value)
+                        {
+                            effect.Item1.ContextCard.Items[item] = targets!;
+                        }
+                    }
+                    var action = (Action<GameObject[]>)effect.Item1.Body.Evaluate();
+                    action.Invoke(targets.ToArray());
+                }
+
+
+            }
+        }
+
+    }
 
     //Active Effects
     public static void ActivateEffect(GameObject gameObject)

@@ -106,7 +106,7 @@ namespace Gwent
                     Token.TokenType.Token_Push => Bridge.PushCard(list, typeDot, Arguments.Evaluate()),
                     Token.TokenType.Token_Remove => Bridge.RemoveCard(list, typeDot, Arguments.Evaluate()),
                     Token.TokenType.Token_SendBottom => Bridge.SendBottom(list, typeDot, Arguments.Evaluate()),
-                    Token.TokenType.Token_Find => Bridge.FindCards(list, Arguments.Evaluate()),
+                    Token.TokenType.Token_Find => Bridge.FindCards(list, (LambdaExpression)Arguments),
                     _ => throw new NotImplementedException(),
                 };
             }

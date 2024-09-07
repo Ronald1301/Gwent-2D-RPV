@@ -19,12 +19,6 @@ namespace Gwent
         public LambdaExpression? Predicate { get; set; }
         protected override Scope? Context { get; set; }
 
-        public override object Evaluate()
-        {
-            (string,bool,object?) result = (Source.Evaluate()?.ToString()!,Single,Predicate?.Evaluate());
-            return result;
-        }
-
         public override void SetScope(Scope current)
         {
             Context = current;
@@ -55,6 +49,11 @@ namespace Gwent
                 }
             }
             return Scope.DataType.String;
+        }
+        public override object Evaluate()
+        {
+            (string,bool,object?) result = (Source.Evaluate()?.ToString()!,Single,Predicate?.Evaluate());
+            return result;
         }
     }
 }

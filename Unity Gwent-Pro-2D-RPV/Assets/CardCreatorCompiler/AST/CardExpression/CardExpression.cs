@@ -133,7 +133,14 @@ namespace Gwent
                     throw new("Range is not valid");
                 }
             }
-            card.Ability = OnActivation.Evaluate() as Queue<object>;
+            var names = OnActivation.Evaluate() as Queue<List<string>>;
+            while (names!.Count > 0)
+            {
+                foreach (var item in names.Dequeue())
+                {
+                    card.NamesAbility.Enqueue(item);
+                }
+            }
             EngineCompiler.cards.Add(card.Name.ToString()!, card);
             return card!;
         }

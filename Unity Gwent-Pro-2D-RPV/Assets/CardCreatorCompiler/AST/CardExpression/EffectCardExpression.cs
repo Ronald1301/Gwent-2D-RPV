@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Gwent
@@ -103,14 +104,22 @@ namespace Gwent
         }
         public object Evaluate(bool IsPostAction, SelectorExpression selectorParent)
         {
+            List<string> NamesEffect = new();
             object name = Name.Evaluate();
-            if (!EngineCompiler.effects.ContainsKey(name.ToString()!))
+            if (!EngineCompiler.effectsSemi.ContainsKey(name.ToString()!))
             {
                 EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
                 throw new Exception("Effect not found");
             }
-            var effect = EngineCompiler.effects[name.ToString()!];
+            NamesEffect.Add(name.ToString());
+            var effect = EngineCompiler.effectsSemi[name.ToString()!];
+            effect.ContextCard = Context;
 
+            if (effect.Params!.Count != Params.Count)
+            {
+                EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
+                throw new Exception("Params not found");
+            }
             foreach (var item in Params)
             {
                 if (item is Assignment paramThis)
@@ -119,7 +128,7 @@ namespace Gwent
                     {
                         if (itemDeclaration is Assignment paramsEffect)
                         {
-                            if (paramThis.ID.token.Value.ToString() == paramsEffect.ID.token.Value.ToString())
+                            if (paramThis.ID.token.Value.ToString() == paramsEffect.ID.token.Value.ToString())//falta chekear tipo
                             {
                                 paramsEffect.Argument = paramThis.Argument;
                             }
@@ -133,47 +142,23 @@ namespace Gwent
                 }
             }
 
-            if (Selector is not null)
+            if (IsPostAction)
             {
-                if (selectorParent is not null && IsPostAction)
+                if (Selector is not null)
                 {
-                    if (Selector.Source.Evaluate().ToString() == "parent")
+                    if (selectorParent is not null)
                     {
-                        Selector.Source = selectorParent.Source;
-                    }
-                }
-
-                var resultSelector = Selector.Evaluate();
-                if (resultSelector is Tuple<string, bool, object> tuple)
-                {
-                    var targets = Bridge.GetSource(Bridge.GetTriggerPlayer(), tuple.Item1);
-                    if (tuple is not null)
-                    {
-                        if (tuple.Item3 is Predicate<(GameObject, CardData)> predicate)//object==gameobject
+                        if (Selector.Source.Evaluate().ToString() == "parent")
                         {
-                            if (targets is not null)
-                            {
-                                targets = targets.FindAll(predicate);
-                                if (tuple.Item2)
-                                {
-                                    List<(GameObject, CardData)> list = new();
-                                    list.Add((targets[0].Item1, targets[0].Item2));
-                                    targets = list;
-                                }
-                            }
-                        }
-                    }
-                    foreach (var item in Context!.Items.Keys)
-                    {
-                        if (item.token.Value == effect.Body!.Params[0].token.Value)
-                        {
-                            Context.Items[item] = targets!;
+                            Selector.Source = selectorParent.Source;
                         }
                     }
                 }
             }
-            PostAction?.Evaluate(Selector!);
-            return effect;
+            EngineCompiler.effects.Add(name.ToString()!, (effect, Selector));
+            List<string> namePos = new();
+            if (PostAction is not null) namePos = (List<string>)PostAction.Evaluate(Selector!);
+            return NamesEffect.Concat(namePos).ToList();
         }
     }
 }

@@ -78,9 +78,9 @@ namespace Gwent
                 }
             }
             effect.Params = Params!;
-            effect.scope = Context!;
+            effect.ContextEffect = Context!;
             effect.Body = Body!;
-            EngineCompiler.effects.Add(effect.Name.ToString()!, effect);
+            EngineCompiler.effectsSemi.Add(effect.Name.ToString()!, effect);
             return effect;
         }
 

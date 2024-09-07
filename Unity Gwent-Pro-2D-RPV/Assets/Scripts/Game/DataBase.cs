@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class DataBase : MonoBehaviour
 {
-    public static DataBase instance;
+    public  List<Sprite> frontImages;
+    public  List<Sprite> backImages;
     //public Dictionary<string, CardData> cards = new Dictionary<string, CardData>();
-    public Dictionary<string, List<GameObject>> Decks = new Dictionary<string, List<GameObject>>
-    {
-        ["Pirates"] = GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck,
-        ["Resistance"] = GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck
-    };
+    public Dictionary<string, List<GameObject>> Decks;
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
+        DontDestroyOnLoad(this);
+
+        frontImages = new List<Sprite>();
+        backImages = new List<Sprite>();
+        Decks = new Dictionary<string, List<GameObject>>();
+       //Decks.Add("Pirates", GameObject.FindGameObjectWithTag("Deck Pirates").GetComponent<Decks>().deck);
+       //Decks.Add("Resistance", GameObject.FindGameObjectWithTag("Deck Resistance").GetComponent<Decks>().deck);
     }
 }
+

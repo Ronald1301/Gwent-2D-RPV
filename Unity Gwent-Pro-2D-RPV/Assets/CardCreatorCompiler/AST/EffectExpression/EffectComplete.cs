@@ -8,14 +8,15 @@ namespace Gwent
         public List<Expression> Params { get; set; }
         public LambdaExpression Body { get; set; }
 
-        public Scope scope{get;set;}
+        public Scope ContextEffect{get;set;}
+        public Scope? ContextCard { get; set; }
 
         public EffectComplete(object name, List<Expression> Params, LambdaExpression body, Scope scope)
         {
             Name = name;
             this.Params = Params;
             Body = body;
-            this.scope = scope;
+            this.ContextEffect = scope;
         }
        
         public EffectComplete()
@@ -23,7 +24,7 @@ namespace Gwent
             Name = null!;
             Params = null!;
             Body = null!;
-            scope=null!;
+            ContextEffect=null!;
         }
 
     }

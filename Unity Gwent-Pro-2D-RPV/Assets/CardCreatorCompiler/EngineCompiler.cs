@@ -9,7 +9,8 @@ namespace Gwent
     {
         public static TypeError error;
         //public static List<DataCardComplete> cardCompletes = new();
-        public static Dictionary<string, EffectComplete> effects = new();
+        public static Dictionary<string, EffectComplete> effectsSemi = new();
+        public static Dictionary<string, (EffectComplete,SelectorExpression)> effects = new();
         public static Dictionary<string, DataCardComplete> cards = new();
 
         public static string PrintResult()

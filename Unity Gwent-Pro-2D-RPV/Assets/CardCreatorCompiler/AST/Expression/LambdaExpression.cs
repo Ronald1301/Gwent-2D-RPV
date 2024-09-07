@@ -76,7 +76,7 @@ namespace Gwent
             }
             else
             {
-                return new Action<object[]>(AuxEvaluate);
+                return new Action<GameObject[]>(AuxEvaluate);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Gwent
             Context.Items[iD] = card;
             return Convert.ToBoolean(Body.Evaluate());
         }
-        void AuxEvaluate(object[] parameters) ///lista de cartas
+        void AuxEvaluate(GameObject[] parameters) 
         {
             for (int i = 0; i < parameters.Length; i++)
             {

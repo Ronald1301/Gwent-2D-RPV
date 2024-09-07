@@ -75,6 +75,10 @@ public class ScriptCardCreator : MonoBehaviour
         }
        
         BoxResult.value = EngineCompiler.PrintResult();
+        foreach (var item in EngineCompiler.cards.Values)
+        {
+            Bridge.CreateCard(item);
+        }
         BoxResult.style.visibility = Visibility.Visible;
     }
 

@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
 public class CardData : ScriptableObject
 {
-//    public CardData() { }
+    
+    //    public CardData() { }
     public CardData(string cardName, string faction, CardType type, string description, Sprite cardImageForehead, Sprite cardImageback, int startPower, int power, char typeField, bool[] typeField2, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard, TypeEffects effects)
     {
         this.cardName = cardName;
@@ -23,7 +26,7 @@ public class CardData : ScriptableObject
         this.effects = effects;
     }
 
-    public CardData(string name, string faction, string description, string power, bool[] range, CardType type, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard)
+    public CardData(string name, string faction, string description, string power, bool[] range, CardType type, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard, Queue<string> ability,Sprite frontImage,Sprite backImage)
     {
         this.cardName = name;
         this.type = type;
@@ -33,7 +36,11 @@ public class CardData : ScriptableObject
         this.power = this.startPower;
         this.faction = faction;
         this.typeField2 = range;
-        //this.description =
+        this.description = description;
+        this.effects = TypeEffects.effectCardCompiler;
+        this.ListEffect = ability;
+        this.cardImageForehead = frontImage;
+        this.cardImageback = backImage;
     }
 
     [SerializeField] private string cardName;
@@ -52,6 +59,8 @@ public class CardData : ScriptableObject
     [SerializeField] private SubTypeSpecialCard typeSpecialCard;
 
     [SerializeField] private TypeEffects effects;
+
+    public Queue<string> ListEffect;
     public int owner { get; set; }
 
     public bool stayintheField = false;
@@ -107,7 +116,11 @@ public class CardData : ScriptableObject
 
         //Special
         Clearance, Climate, Increase, Lure,
+
+        //Boss
         StayintheField,
+
+        effectCardCompiler
 
     }
 }
