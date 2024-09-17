@@ -1,0 +1,41 @@
+x = 0;
+
+effect {
+Name: "DrawTwoCards",
+Action: (targets, context) => {
+while(x++ < 2)
+{
+topCard = context.Deck.Pop();
+context.Hand.Push(topCard);
+}
+}
+}
+
+effect {
+Name: "RebornReturn",
+Action: (targets, context)
+{
+card = targets.Pop();
+context.Hand.Push(card):
+}
+}
+
+
+card {
+Name:"Pikachu",
+Type:"Oro",
+Range: ["Siege"],
+Power: 4,
+Faction: "Pirates",,
+OnActivation: [
+{
+Effect: "DrawTwoCard" @"s"
+},
+{
+Effect: {Name:"RebornReturn"},
+Selector: {
+Source: "otherGraveyard"
+}
+}
+]
+}

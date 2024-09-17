@@ -1,0 +1,56 @@
+VisualElement {
+}
+
+.Box {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-self: stretch;
+    justify-content: space-evenly;
+    align-items: center;
+    width: initial;
+    height: 50%;
+    max-height: 50%;
+}
+
+.ButtonMenu {
+    width: 25%;
+    height: 40%;
+    border-top-width: 35px;
+    border-right-width: 35px;
+    border-bottom-width: 35px;
+    border-left-width: 35px;
+    border-top-left-radius: 20%;
+    border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+    border-left-color: rgb(75, 188, 190);
+    border-right-color: rgb(75, 188, 190);
+    border-top-color: rgb(75, 188, 190);
+    border-bottom-color: rgb(75, 188, 190);
+    -unity-font-style: bold-and-italic;
+    font-size: 200%;
+    -unity-font-definition: url('project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Fonts/Electronic%20Highway%20Sign.TTF?fileID=12800000&guid=8a2b9e2a607dd2143b58c44bc32410b4&type=3#Electronic Highway Sign');
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 202, 203);
+    opacity: 0.86;
+    transition-timing-function: ease-in-out-cubic;
+    transition-duration: 0.2s;
+}
+
+.ButtonMenu:hover {
+    scale: 1.4 1.4;
+    opacity: 1;
+}
+
+.ButtonMenu:active {
+    scale: 1.3 1.3;
+    opacity: 0.95;
+}
+
+.Container {
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}

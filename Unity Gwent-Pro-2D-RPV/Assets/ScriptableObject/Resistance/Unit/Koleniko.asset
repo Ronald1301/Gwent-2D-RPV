@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Koleniko
   m_EditorClassIdentifier: 
   cardName: Koleniko
-  faction: 1
+  faction: Resistance
   type: 0
   description: 
   cardImageForehead: {fileID: 21300000, guid: 9426f9c412f842b4cb48fc59fd4b8601, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 2
   power: 2
   typeField: 83
+  range: 2
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 0
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

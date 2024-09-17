@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: The Flying Dutchman
   m_EditorClassIdentifier: 
   cardName: The Flying Dutchman
-  faction: 1
+  faction: Resistance
   type: 1
   description: Reduces the points to 0  of all cards placed  in the melee attack
     rows  (own or the opponent's)
@@ -22,6 +22,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 77
+  range: 0
   typeUnitCard: 0
   typeSpecialCard: 1
   effects: 11

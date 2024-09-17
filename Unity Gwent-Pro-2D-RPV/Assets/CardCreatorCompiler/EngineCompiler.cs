@@ -1,18 +1,25 @@
-using UnityEngine;
+
 using System.Collections.Generic;
 using System;
-using UnityEditor;
+
 
 namespace Gwent
 {
     public static class EngineCompiler
     {
-        public static TypeError error;
+        public static Error error;
         //public static List<DataCardComplete> cardCompletes = new();
-        public static Dictionary<string, EffectComplete> effectsSemi = new();
-        public static Dictionary<string, (EffectComplete,SelectorExpression)> effects = new();
-        public static Dictionary<string, DataCardComplete> cards = new();
+        public static Dictionary<string, EffectComplete> effectsSemi;
+        public static Dictionary<(string, string), (EffectComplete, SelectorExpression)> effects;
+        public static Dictionary<string, DataCardComplete> cards;
 
+        public static void Initialize()
+        {
+            error = new Error(ErrorCode.NoExist, "");
+            effectsSemi = new Dictionary<string, EffectComplete>();
+            effects = new Dictionary<(string, string), (EffectComplete, SelectorExpression)>();
+            cards = new Dictionary<string, DataCardComplete>();
+        }
         public static string PrintResult()
         {
             string resultString = "";
@@ -37,14 +44,15 @@ namespace Gwent
             var tokensList = lexer.Analyze();
             var parser = new Parser(tokensList);
             var ast = parser.Parsing();
-            if (ast == null)
-            {
-                UnityEngine.Debug.Log("Error in parsing");
-                return;
-            }
             ast.SetScope(new(null!, new(), new()));
             ast.CheckSemantic();
-            System.Console.WriteLine(ast.Evaluate());
+            ast.Evaluate();
+        }
+
+        public static void CreateError(ErrorCode type, string text)
+        {
+            error = new Error(type, text);
+            throw new Exception("Error found");
         }
     }
 }

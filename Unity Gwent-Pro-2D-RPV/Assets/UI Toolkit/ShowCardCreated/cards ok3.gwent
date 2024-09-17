@@ -1,0 +1,62 @@
+
+                 card { 
+               Type: "Climate",
+                Name: "Rain",
+               Faction: "Resistance",
+                Power: 0,
+                Range: ["Ranged"],
+               OnActivation: [ ]
+            }
+
+            card { 
+               Type: "Increase",
+                Name: "Blade",
+               Faction: "Pirates",
+                Power: 0,
+                Range: ["Siege"],
+               OnActivation: [ ]
+            }
+
+            card { 
+               Type: "Lure",
+                Name: "Joker",
+               Faction: "Resistance",
+                Power: 0,
+                Range: [],
+               OnActivation: [ ]
+            }
+
+            card { 
+               Type: "Lure",
+                Name: "Teacher",
+               Faction: "Resistance",
+                Power: 0,
+                Range: [],
+               OnActivation: [ ]
+            }
+            card { 
+               Type: "Lure",
+                Name: "Student",
+               Faction: "Pirates",
+                Power: 0,
+                Range: [],
+               OnActivation: [ ]
+            }
+
+            card { 
+               Type: "Lure",
+                Name: "Lamborghini",
+               Faction: "Pirates",
+                Power: 0,
+                Range: [],
+               OnActivation: [ ]
+            }
+
+            card { 
+               Type: "Clearance",
+                Name: "Broom",
+               Faction: "Resistance",
+                Power: 4,
+                Range: ["Melee"],
+               OnActivation: [ ]
+            }

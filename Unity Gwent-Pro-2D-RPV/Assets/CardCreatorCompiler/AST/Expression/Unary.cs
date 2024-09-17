@@ -117,8 +117,8 @@ namespace Gwent
             }
             catch (System.Exception e)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
-                throw new System.Exception(e.Message);
+                EngineCompiler.CreateError(ErrorCode.EvaluateError, e.Message);
+                return null;
             }
         }
 
@@ -135,8 +135,7 @@ namespace Gwent
             {
                 if (argument.CheckSemantic() != Scope.DataType.Boolean)
                 {
-                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                    throw new System.Exception("The argument is not a boolean");
+                    EngineCompiler.CreateError(ErrorCode.SemanticError, "The argument is not a boolean");
                 }
                 return Scope.DataType.Boolean;
             }
@@ -144,8 +143,7 @@ namespace Gwent
             {
                 if (argument.CheckSemantic() != Scope.DataType.Number)
                 {
-                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                    throw new System.Exception("The argument is not a number");
+                    EngineCompiler.CreateError(ErrorCode.SemanticError, "The argument is not a number");
                 }
                 return Scope.DataType.Number;
             }

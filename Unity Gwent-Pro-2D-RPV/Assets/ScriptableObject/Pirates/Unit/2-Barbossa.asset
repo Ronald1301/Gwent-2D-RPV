@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2-Barbossa
   m_EditorClassIdentifier: 
   cardName: Captain Barbossa
-  faction: 0
+  faction: Pirates
   type: 0
   description: Eliminate the card with the  most power from the field  (your own
     or your opponent's)
@@ -22,8 +22,11 @@ MonoBehaviour:
   startPower: 10
   power: 10
   typeField: 82
+  range: 5
   typeUnitCard: 1
   typeSpecialCard: 0
   effects: 3
   stayintheField: 0
   inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

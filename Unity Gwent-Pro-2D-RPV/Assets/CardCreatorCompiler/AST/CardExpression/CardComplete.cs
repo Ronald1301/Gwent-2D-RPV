@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Gwent
 {
-    public class DataCardComplete
+    public  class DataCardComplete
     {
         public DataCardComplete(string name, string type, string power, Queue<List<string>> ability, string faction, bool[] range)
         {
@@ -28,15 +28,13 @@ namespace Gwent
             Name = null!;
             Type = null!;
             Power = null!;
-            NamesAbility = null!;
             Faction = null!;
-            Range = null!;
         }
         public string Name { get; set; }
         public string Type { get; set; }
         public string Power { get; set; }
         public string Faction { get; set; }
-        public bool[] Range { get; set; } = new bool[2];
+        public bool[] Range { get; set; } = new bool[3];
         public Queue<string>? NamesAbility { get; set; } = new();
     }
 }

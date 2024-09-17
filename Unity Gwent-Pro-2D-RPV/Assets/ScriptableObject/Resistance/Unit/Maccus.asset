@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Maccus
   m_EditorClassIdentifier: 
   cardName: Maccus
-  faction: 1
+  faction: Resistance
   type: 0
   description: Draw one card
   cardImageForehead: {fileID: 21300000, guid: 0a52f9f3fffba2942a6f1b323a992cee, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 3
   power: 3
   typeField: 77
+  range: 0
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 5
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

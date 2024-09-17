@@ -18,8 +18,7 @@ namespace Gwent
         {
             if (Condition.CheckSemantic() != Scope.DataType.Boolean)
             {
-                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Condition is not a boolean");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Condition is not boolean");
             }
             Body.CheckSemantic();
             return Scope.DataType.Void;
@@ -29,6 +28,7 @@ namespace Gwent
         {
             if (!Context!.Items.ContainsKey(Condition.Collection.ID))
             {
+                //Context.Items.Add(Condition.Collection.ID, Condition.Collection.Evaluate());
                 Context.Items.Add(Condition.Collection.ID, Condition.Item);
             }
             while (Convert.ToBoolean(Condition.Evaluate()))
@@ -40,16 +40,18 @@ namespace Gwent
 
         public override void SetScope(Scope current)
         {
-            Context = current;
-            Condition.SetScope(current);
-            Body.SetScope(current);
+            Scope son = new(current, new(), new());
+            Context = son;
+            Condition.SetScope(son);
+            Body.SetScope(son);
+
         }
     }
     public class InExpression : Expression
     {
-        public readonly Assignment Item ;
+        public readonly Assignment Item;
         public int Index = 0;
-        public readonly Assignment Collection ;
+        public readonly Assignment Collection;
         protected override Scope? Context { get; set; }
 
         public InExpression(Assignment item, Assignment collection)
@@ -73,17 +75,16 @@ namespace Gwent
             }
             else
             {
-                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Collection is not a IEnumerable");
+               EngineCompiler.CreateError(ErrorCode.EvaluateError, "Collection is not a collection");
+                return false;
             }
         }
 
         public override void SetScope(Scope current)
         {
             Context = current;
-            Scope son = new(current, new(), new());
-            Item.SetScope(son);
-            Collection.SetScope(son);
+            Item.SetScope(current);
+            Collection.SetScope(current);
         }
 
         public override Scope.DataType CheckSemantic()
@@ -94,23 +95,19 @@ namespace Gwent
                 {
                     if (Context.Items.ContainsKey(Collection.ID) || Context.Items.ContainsKey(Item.ID))
                     {
-                        EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
-                        throw new Exception("Item or Collection already exists in the current scope");
+                        EngineCompiler.CreateError(ErrorCode.SemanticError, "Item or Collection already exists in the current scope");
                     }
                     Context = Context.Father;
                 }
-                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Item or Collection already exists in the current scope");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Item or Collection already exists in the current scope");
             }
             if (Item.CheckSemantic() != Scope.DataType.String)
             {
-                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Item is not IDExpression");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Item is not IDExpression");
             }
             if (Collection.CheckSemantic() != Scope.DataType.String)
             {
-                EngineCompiler.error=new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Collection is not IDExpression");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Collection is not IDExpression");
             }
             return Scope.DataType.Boolean;
         }

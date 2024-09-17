@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2-Salazar
   m_EditorClassIdentifier: 
   cardName: Captain Salazar
-  faction: 1
+  faction: Resistance
   type: 0
   description: Destroy the card with  the least power in the opponent's field
   cardImageForehead: {fileID: 21300000, guid: 30776cd112d4f5742835fbeb083f3544, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 10
   power: 10
   typeField: 82
+  range: 6
   typeUnitCard: 1
   typeSpecialCard: 0
   effects: 4
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

@@ -24,6 +24,7 @@ public class BossZone : MonoBehaviour
         // Instantiate(card,card.position, Quaternion.identity);
 
         GameObject newcard = Instantiate(deck.GetComponent<Decks>().deck[0], new Vector3(0, 0, 0), Quaternion.identity);
+        //GameObject newcard = deck.GetComponent<Decks>().deck[0];
         newcard.transform.SetParent(this.transform, false);
         Boss = newcard;
         //Debug.Log("Listo");

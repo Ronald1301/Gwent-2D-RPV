@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Perl in the Bottle
   m_EditorClassIdentifier: 
   cardName: Perl in the Bottle
-  faction: 1
+  faction: Resistance
   type: 1
   description: Destroy the activated weather card  on the opponent's field.
   cardImageForehead: {fileID: 21300000, guid: 448caa72dbf71474ab4a739d6b1b1ba3, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 0
+  range: 0
   typeUnitCard: 0
   typeSpecialCard: 3
   effects: 10

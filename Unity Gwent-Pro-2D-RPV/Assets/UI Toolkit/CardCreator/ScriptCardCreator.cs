@@ -2,14 +2,19 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Gwent;
 using UnityEngine.SceneManagement;
-using UnityEditor.PackageManager;
 using UnityEditor;
-using System;
 public class ScriptCardCreator : MonoBehaviour
 {
     UIDocument CardCreator;
+
+    //public static ScriptCardCreator instance;
+
+
     // [SerializeField] private GameObject StartMenu;
 
+    [SerializeField] GameObject SceneStartMenu;
+    [SerializeField] GameObject SceneCardCreator;
+    [SerializeField] GameObject ShowCardCreated;
     [SerializeField] private SaveLoadSystem saveLoadSystem;
 
     private TextField BoxCode;
@@ -19,8 +24,17 @@ public class ScriptCardCreator : MonoBehaviour
     private Button export;
     private Button back;
 
+    private void Awake()
+    {
+        SceneStartMenu.SetActive(false);
+        SceneCardCreator.SetActive(true);
+
+    }
+
     private void OnEnable()
     {
+        //instance = this;
+
         CardCreator = GetComponent<UIDocument>();
         VisualElement root = CardCreator.rootVisualElement;
 
@@ -53,40 +67,33 @@ public class ScriptCardCreator : MonoBehaviour
         saveLoadSystem.LoadCode();
         BoxCode.value = saveLoadSystem.infoCode.Code;
     }
-
-    private void OnDataLoaded()
-    {
-        BoxCode.value = saveLoadSystem.infoCode.Code;
-    }
-
     private void CompileCode(ClickEvent evt)
     {
         InfoCode infoCode = new InfoCode(BoxCode.value);
-
         try
         {
-             EngineCompiler.CompileCode(infoCode.Code);
+            EngineCompiler.Initialize();
+            EngineCompiler.CompileCode(infoCode.Code);
         }
-        catch (System.Exception e)
+        catch (System.Exception )
         {
-            EngineCompiler.error.argument = e.Message;
             PrintError(EngineCompiler.error);
             return;
         }
-       
+
         BoxResult.value = EngineCompiler.PrintResult();
-        foreach (var item in EngineCompiler.cards.Values)
-        {
-            Bridge.CreateCard(item);
-        }
+        Bridge.CopyCardsAndEffects();
+        Bridge.CreateCardsTheDictionary();
+        ShowCardCreated.SetActive(true);
+        ShowCardCreated.GetComponent<ScriptShowCard>().Show();
+
         BoxResult.style.visibility = Visibility.Visible;
     }
 
     private void BackToStartMenu(ClickEvent evt)
     {
-        SceneManager.LoadScene("StartMenuScene");
-        // StartMenu.SetActive(true);
-        //gameObject.SetActive(false);
+        SceneStartMenu.SetActive(true);
+        SceneCardCreator.SetActive(false);
     }
 
     public void UpdateJson()
@@ -95,7 +102,7 @@ public class ScriptCardCreator : MonoBehaviour
         string aux = saveLoadSystem.LoadJson();
         saveLoadSystem.SaveJson(aux);
     }
-    public void LoadJson()
+    private void LoadJson()
     {
         saveLoadSystem.LoadCode();
         BoxCode.value = saveLoadSystem.infoCode.Code;
@@ -103,6 +110,11 @@ public class ScriptCardCreator : MonoBehaviour
     public void PrintError(Gwent.Error error)
     {
         EditorUtility.DisplayDialog("Error", error.Text(), "Ok");
+    }
 
+    public void LoanAndCompile()
+    {
+        LoadJson();
+        CompileCode(null);
     }
 }

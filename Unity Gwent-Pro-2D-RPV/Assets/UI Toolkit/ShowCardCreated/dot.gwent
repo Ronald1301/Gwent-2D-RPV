@@ -1,0 +1,1 @@
+context.Hand.Find((x)=>true)[5-4].Power;

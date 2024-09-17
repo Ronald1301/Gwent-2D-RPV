@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: One Shot Gun
   m_EditorClassIdentifier: 
   cardName: One Shot Gun
-  faction: 0
+  faction: Pirates
   type: 1
   description: ' Increase by 2 points all the cards in the row ranged attack'
   cardImageForehead: {fileID: 21300000, guid: efcf5cb18dbe79a4dbf4d12570fc843e, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 82
+  range: 1
   typeUnitCard: 0
   typeSpecialCard: 2
   effects: 12

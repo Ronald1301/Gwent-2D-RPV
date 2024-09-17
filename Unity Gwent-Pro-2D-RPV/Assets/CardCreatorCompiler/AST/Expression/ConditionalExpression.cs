@@ -28,15 +28,13 @@ namespace Gwent
         {
             if (Condition.CheckSemantic() != Scope.DataType.Boolean)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new("The condition must be a boolean expression");
+              EngineCompiler.CreateError(ErrorCode.SemanticError, "Condition is not boolean");
             }
             var trueType = TrueExpression.CheckSemantic();
             var falseType = FalseExpression.CheckSemantic();
             if (trueType != falseType)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new("The types of the expressions must be the same");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "True and False expressions must have the same type");
             }
             return Scope.DataType.Unknown;
         }

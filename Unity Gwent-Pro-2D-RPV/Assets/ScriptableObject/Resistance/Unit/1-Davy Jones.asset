@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1-Davy Jones
   m_EditorClassIdentifier: 
   cardName: Davy Jones
-  faction: 1
+  faction: Resistance
   type: 0
   description: Summon a random  weather card from your  hand to the field
   cardImageForehead: {fileID: 21300000, guid: c66427f47fbb3104c882eb3a2ffb5058, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   startPower: 10
   power: 10
   typeField: 77
+  range: 4
   typeUnitCard: 1
   typeSpecialCard: 0
   effects: 2

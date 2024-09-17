@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/UI%20Toolkit/ShowCardCreated/StyleShowCard.uss?fileID=7433441132597879392&amp;guid=70b65b015063e414ea0d090fb0c6f4cb&amp;type=3#StyleShowCard" />
+    <ui:VisualElement name="Container" class="Container" style="flex-grow: 1;">
+        <ui:VisualElement name="Up" class="Up" style="flex-grow: 1;" />
+        <ui:VisualElement name="Center" class="Center" style="flex-grow: 1;">
+            <ui:VisualElement name="Box" class="Box" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Down" class="Down" style="flex-grow: 1;">
+            <ui:Button text="OK" name="OK" class="ButtonBack ButtonOk" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

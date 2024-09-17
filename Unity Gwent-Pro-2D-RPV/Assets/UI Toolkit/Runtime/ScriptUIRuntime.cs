@@ -4,13 +4,18 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class ScriptUIRuntime : MonoBehaviour
 {
     UIDocument UIRuntime;
-    public GameObject GameManager;
-    public GameObject SelectDecks;
-    public GameObject UICardDescription;
+
+    [SerializeField] GameObject SceneStartMenu;
+    [SerializeField] GameObject SceneRuntime;
+    [SerializeField] GameObject SoundRuntime;
+    [SerializeField] GameObject GameManager;
+    [SerializeField] GameObject SelectDecks;
+    [SerializeField] GameObject UICardDescription;
 
     private Label currentRound;
     private Label playerTurn;
@@ -67,10 +72,7 @@ public class ScriptUIRuntime : MonoBehaviour
         reset.RegisterCallback<ClickEvent>(ResetGame);
         exit.RegisterCallback<ClickEvent>(ExitToStartMenu);
     }
-    private void ResetGame(ClickEvent evt)
-    {
-        SceneManager.LoadScene("GameScene");
-    }
+
     public void UIUpdate()
     {
         if (GameManager.GetComponent<GameManager>().startGame)
@@ -115,7 +117,7 @@ public class ScriptUIRuntime : MonoBehaviour
     {
         Round.style.visibility = Visibility.Hidden;
         Right.style.visibility = Visibility.Hidden;
-        reset.style.visibility = Visibility.Visible;
+        //reset.style.visibility = Visibility.Visible;
         Winner.style.display = DisplayStyle.Flex;
 
         GameManager.GetComponent<GameManager>().MainBoard.SetActive(false);
@@ -151,9 +153,23 @@ public class ScriptUIRuntime : MonoBehaviour
         }
         //GameManager.GetComponent<GameManager>().ChangeTurn();
     }
+    private void ResetGame(ClickEvent evt)
+    {
+        this.gameObject.SetActive(false);
+        GameManager.GetComponent<GameManager>().ResetGame();
+        UICardDescription.SetActive(false);
+        SelectDecks.SetActive(true);
+        GameManager.IsSceneBound();
+    }
     private void ExitToStartMenu(ClickEvent evt)
     {
-        SceneManager.LoadScene("StartMenuScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        /*
+        this.gameObject.SetActive(false);
+        SceneStartMenu.SetActive(true);
+        SoundRuntime.SetActive(false);
+        SceneRuntime.SetActive(false);
+        */
     }
     public IEnumerator WaitAndPrint(float waitTime)
     {

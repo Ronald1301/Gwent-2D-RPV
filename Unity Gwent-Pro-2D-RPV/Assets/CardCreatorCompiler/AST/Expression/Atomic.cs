@@ -9,9 +9,10 @@ namespace Gwent
 
         protected override Scope? Context { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Atomic(Token token)
+        public Atomic(Token token , Scope.DataType dataType= Scope.DataType.Unknown)
         {
             this.token = token;
+            this.dataType = dataType;
         }
         public override Scope.DataType CheckSemantic()
         {
@@ -46,9 +47,10 @@ namespace Gwent
                token.Type == Token.TokenType.Token_Less ||
                token.Type == Token.TokenType.Token_LessOrEqual ||
                token.Type == Token.TokenType.Token_More ||
-               token.Type == Token.TokenType.Token_MoreOrEqual) return Scope.DataType.Number;
-            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-            throw new("The variable is not declared");
+               token.Type == Token.TokenType.Token_MoreOrEqual) return Scope.DataType.Boolean;
+               
+            EngineCompiler.CreateError(ErrorCode.SemanticError, "The token is not valid");
+            return Scope.DataType.Unknown;
         }
         public override object Evaluate()
         {

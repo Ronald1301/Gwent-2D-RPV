@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Kraken
   m_EditorClassIdentifier: 
   cardName: The Kraken
-  faction: 1
+  faction: Resistance
   type: 1
   description: Destroy the activated weather card  on the opponent's field.
   cardImageForehead: {fileID: 21300000, guid: b090c7fceefa59e44a9aa09f934039de, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 0
+  range: 0
   typeUnitCard: 0
   typeSpecialCard: 3
   effects: 10

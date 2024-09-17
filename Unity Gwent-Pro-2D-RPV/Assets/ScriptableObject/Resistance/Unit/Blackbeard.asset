@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Blackbeard
   m_EditorClassIdentifier: 
   cardName: Captain Blackbeard
-  faction: 1
+  faction: Resistance
   type: 0
   description: Eliminate the card with the  most power from the field  (your own
     or your opponent's)
@@ -22,7 +22,11 @@ MonoBehaviour:
   startPower: 8
   power: 8
   typeField: 82
+  range: 1
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 3
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

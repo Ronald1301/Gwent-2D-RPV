@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Elizabeth Swann
   m_EditorClassIdentifier: 
   cardName: Elizabeth Swann
-  faction: 0
+  faction: Pirates
   type: 0
   description: Destroy all the cards in the row of the field with the  fewest units
     (not empty,  yours or your opponent)
@@ -22,8 +22,11 @@ MonoBehaviour:
   startPower: 8
   power: 8
   typeField: 83
+  range: 2
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 6
   stayintheField: 0
   inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

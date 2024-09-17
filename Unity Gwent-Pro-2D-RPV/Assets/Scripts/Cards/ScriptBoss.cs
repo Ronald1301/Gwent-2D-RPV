@@ -5,14 +5,19 @@ using UnityEngine;
 public class ScriptBoss : MonoBehaviour
 {
     public GameObject GameManager;
+
+    void Update()
+    {
+         if (GameManager == null) GameManager = GameObject.FindGameObjectWithTag("GameManager");
+    }
     void OnMouseDown()
     {
-        if (GameManager.GetComponent<GameManager>().player1.isPlaying && this.gameObject == GameManager.GetComponent<GameManager>().player2.board.Boss.GetComponent<BossZone>().Boss)
+        if (GameManager.GetComponent<GameManager>().player1.isPlaying && this.gameObject == GameManager.GetComponent<GameManager>().player2.subBoard.Boss.GetComponent<BossZone>().Boss)
         {
             GameObject.Find("UI Runtime").GetComponent<ScriptUIRuntime>().ShowMessage("You cannot activate the head of the opponent");
             return;
         }
-        else if (GameManager.GetComponent<GameManager>().player2.isPlaying && this.gameObject == GameManager.GetComponent<GameManager>().player1.board.Boss.GetComponent<BossZone>().Boss)
+        else if (GameManager.GetComponent<GameManager>().player2.isPlaying && this.gameObject == GameManager.GetComponent<GameManager>().player1.subBoard.Boss.GetComponent<BossZone>().Boss)
         {
             GameObject.Find("UI Runtime").GetComponent<ScriptUIRuntime>().ShowMessage("You cannot activate the head of the opponent");
             return;

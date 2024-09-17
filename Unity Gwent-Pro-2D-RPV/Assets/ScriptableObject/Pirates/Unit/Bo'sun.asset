@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bo'sun
   m_EditorClassIdentifier: 
   cardName: Bo'sun
-  faction: 0
+  faction: Pirates
   type: 0
   description: 
   cardImageForehead: {fileID: 21300000, guid: 41390cca48896644abb5fb4bfa6c1424, type: 3}
@@ -21,8 +21,11 @@ MonoBehaviour:
   startPower: 1
   power: 1
   typeField: 77
+  range: 0
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 0
   stayintheField: 0
   inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

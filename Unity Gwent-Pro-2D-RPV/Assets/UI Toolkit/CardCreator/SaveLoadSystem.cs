@@ -4,14 +4,33 @@ using UnityEngine;
 using Gwent;
 using UnityEditor;
 
-[Serializable]
+//[Serializable]
 
 public class SaveLoadSystem : MonoBehaviour
 {
     private const string NameJson = "infoCode.json";
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        /*
+        if (File.Exists(Path.Combine(Application.dataPath, NameJson)))
+        {
+            string json = File.ReadAllText(Path.Combine(Application.dataPath, NameJson));
+            infoCode = JsonUtility.FromJson<InfoCode>(json);
+        }
+        else
+        {
+            infoCode = new InfoCode();
+        }
+        */
+    }
+
+
+
+
     // public event Action<string> OnCodeChanged;
-   // public event Action DataLoaded;
+    // public event Action DataLoaded;
     [SerializeField] public InfoCode infoCode;
     //public InfoCode InfoCode => infoCode;
 
@@ -39,7 +58,7 @@ public class SaveLoadSystem : MonoBehaviour
                 Debug.Log("File saved in: " + path);
             }
         }
-        
+
     }
     public void LoadCode()
     {
@@ -53,7 +72,7 @@ public class SaveLoadSystem : MonoBehaviour
         else Debug.Log("Operation cancelled by user");
     }
 
-    [ContextMenu("SaveCode")]
+    [ContextMenu("SaveJSon")]
     public void SaveJson(string aux)
     {
         string json = JsonUtility.ToJson(infoCode);
@@ -63,7 +82,7 @@ public class SaveLoadSystem : MonoBehaviour
         Debug.Log("SaveCode: " + path);
     }
 
-    [ContextMenu("LoadCode")]
+    [ContextMenu("LoadJSon")]
     public string LoadJson()
     {
         string path = Path.Combine(Application.dataPath, NameJson);

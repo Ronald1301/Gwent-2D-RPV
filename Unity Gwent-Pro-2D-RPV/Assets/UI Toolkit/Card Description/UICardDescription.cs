@@ -89,7 +89,6 @@ public class UICardDescription : MonoBehaviour
         */
         {
 
-
             cardName.text = newcard.CardName;
             cardType.text = newcard.Type.ToString();
             cardFaction.text = newcard.Faction.ToString();
@@ -102,7 +101,11 @@ public class UICardDescription : MonoBehaviour
                 Symbol1.style.display = DisplayStyle.Flex;
                 SubType.text = newcard.TypeUnitCard.ToString();
                 Symbol2.style.display = DisplayStyle.Flex;
-                TypeField.text = newcard.TypeField.ToString();
+                if(newcard.TypeField==' ')
+                {
+                    TypeField.text = newcard.Range.ToString();
+                }
+                else TypeField.text = newcard.TypeField.ToString();
             }
             else if (newcard.Type == CardData.CardType.Special)
             {

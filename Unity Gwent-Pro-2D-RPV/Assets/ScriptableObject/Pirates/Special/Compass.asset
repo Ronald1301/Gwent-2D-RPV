@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Compass
   m_EditorClassIdentifier: 
   cardName: Compass
-  faction: 0
+  faction: Pirates
   type: 1
   description: ' Increase by 2 points all the cards in the row siege'
   cardImageForehead: {fileID: 21300000, guid: ab0645383b216ca428ab709b11e037ff, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 83
+  range: 2
   typeUnitCard: 0
   typeSpecialCard: 2
   effects: 12

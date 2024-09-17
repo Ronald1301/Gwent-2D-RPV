@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Astronomical Book
   m_EditorClassIdentifier: 
   cardName: Astronomical Book
-  faction: 0
+  faction: Pirates
   type: 1
   description: Destroy the activated weather card  on the opponent's field.
   cardImageForehead: {fileID: 21300000, guid: 02a33071c3e73a14a84bfc1714f18622, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 0
+  range: 0
   typeUnitCard: 0
   typeSpecialCard: 3
   effects: 10

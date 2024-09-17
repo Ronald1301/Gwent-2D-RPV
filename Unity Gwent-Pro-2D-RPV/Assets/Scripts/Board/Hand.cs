@@ -18,29 +18,14 @@ public class Hand : MonoBehaviour
     void Start()
     {
 
-        if (this.gameObject.CompareTag("Hand1") &&
-        ((GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>())
-        || (GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>())))
-        {
-            deck = GameObject.FindGameObjectWithTag("Deck Pirates");
-        }
-        else if (this.gameObject.CompareTag("Hand1") && ((GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player1 == GameObject.FindGameObjectWithTag("Player3").GetComponent<Player>())))
-        {
-            deck = GameObject.FindGameObjectWithTag("Deck Resistance");
-        }
-        else if (this.gameObject.CompareTag("Hand2") && ((GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player3").GetComponent<Player>())))
-        {
-            deck = GameObject.FindGameObjectWithTag("Deck Resistance");
-        }
-        else //if (this.gameObject.CompareTag("Hand2") && ((GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>()) || (GameManager.GetComponent<GameManager>().player2 == GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>())))
-        {
-            deck = GameObject.FindGameObjectWithTag("Deck Pirates");
-        }
+        deck = this.gameObject.CompareTag("Hand1") ? GameManager.GetComponent<GameManager>().player1.deck.gameObject : GameManager.GetComponent<GameManager>().player2.deck.gameObject;
 
         CardsInHand = new List<GameObject>();
-        //deck= GameObject.FindGameObjectWithTag("Deck Pirates");
         CardsInDeck = deck.GetComponent<Decks>().deck;
-        //CardsInDeck = new List<GameObject>();
+
+        DrawCard(10);
+
+        /*
         for (int i = 0; i < 10; i++)
         {
             System.Random index = new System.Random();
@@ -54,6 +39,7 @@ public class Hand : MonoBehaviour
             CardsInHand.Add(drawCard);
             CardsInDeck.RemoveAt(indexCard);
         }
+        */
     }
     /*
         public void DrawCard(int count)
@@ -91,6 +77,7 @@ public class Hand : MonoBehaviour
                 else
                 {
                     drawCard = Instantiate(CardsInDeck[Convert.ToInt32(randomIndex)], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
+                    //drawCard = Instantiate(CardsInDeck[CardsInDeck.Count - 1], new Vector3(i - 4.8f, 1, 0), Quaternion.identity);
                 }
 
                 drawCard.transform.localScale = new Vector3(0.4f, 0.6f, 0);
@@ -124,6 +111,7 @@ public class Hand : MonoBehaviour
                     CardsInHand.Add(drawCard);
                 }
                 CardsInDeck.RemoveAt(Convert.ToInt32(randomIndex));
+                //CardsInDeck.RemoveAt(CardsInDeck.Count - 1);
             }
             /*
             else

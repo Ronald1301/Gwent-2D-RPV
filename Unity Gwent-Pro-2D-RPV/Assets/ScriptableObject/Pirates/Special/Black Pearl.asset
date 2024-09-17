@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Black Pearl
   m_EditorClassIdentifier: 
   cardName: The Black Pearl
-  faction: 0
+  faction: Pirates
   type: 1
   description: Reduces the points to 0  of all cards placed  in the melee attack
     rows  (own or the opponent's)
@@ -22,6 +22,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 77
+  range: 0
   typeUnitCard: 0
   typeSpecialCard: 1
   effects: 11

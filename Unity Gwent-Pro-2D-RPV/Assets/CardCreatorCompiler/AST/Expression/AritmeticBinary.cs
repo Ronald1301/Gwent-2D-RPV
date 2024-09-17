@@ -48,8 +48,8 @@ namespace Gwent
             }
             catch (System.Exception e)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new(e.Message);
+                EngineCompiler.CreateError(ErrorCode.SemanticError, e.Message);
+                return null;
             }
 
         }
@@ -68,19 +68,19 @@ namespace Gwent
                     {
                         return Scope.DataType.Number;
                     }
-                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                    throw new("The expression is not of type number");
+                    EngineCompiler.CreateError(ErrorCode.SemanticError, "The expression is not of type number");
+                    break;
                 case Operators.Concat:
                 case Operators.DoubleConcat:
                     if (base.Left.CheckSemantic() == Scope.DataType.String && base.Right.CheckSemantic() == Scope.DataType.String)
                     {
                         return Scope.DataType.String;
                     }
-                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                    throw new("The expression is not of type string");
+                    EngineCompiler.CreateError(ErrorCode.SemanticError, "The expression is not of type string");
+                    break;
             }
-            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-            throw new("The expression is not of type number or string");
+            EngineCompiler.CreateError(ErrorCode.SemanticError, "The expression is not of type number or string");
+            return Scope.DataType.Void;
         }
         public override void SetScope(Scope current)
         {

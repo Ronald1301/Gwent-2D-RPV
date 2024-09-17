@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gibbs
   m_EditorClassIdentifier: 
   cardName: Joshamee Gibbs
-  faction: 0
+  faction: Pirates
   type: 0
   description: Summon a random  weather card from your  hand to the field
   cardImageForehead: {fileID: 21300000, guid: f87a51d489cc33149a45fe11c9668165, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   startPower: 6
   power: 6
   typeField: 83
+  range: 2
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 2

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Murtogg
   m_EditorClassIdentifier: 
   cardName: Murtogg
-  faction: 1
+  faction: Resistance
   type: 0
   description: 
   cardImageForehead: {fileID: 21300000, guid: f4fe2cadec0876242a3a4e92793ed28c, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 1
   power: 1
   typeField: 82
+  range: 1
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 0
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

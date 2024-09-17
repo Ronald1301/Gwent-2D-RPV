@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: The Key
   m_EditorClassIdentifier: 
   cardName: The Key
-  faction: 1
+  faction: Resistance
   type: 1
   description: ' Select a card from the field  to return to the hand and  be replaced
     by this card'
@@ -22,6 +22,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 0
+  range: 0
   typeUnitCard: 0
   typeSpecialCard: 4
   effects: 13

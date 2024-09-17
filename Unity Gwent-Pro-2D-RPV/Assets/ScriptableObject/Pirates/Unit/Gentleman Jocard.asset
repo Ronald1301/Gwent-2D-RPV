@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gentleman Jocard
   m_EditorClassIdentifier: 
   cardName: Gentleman Jocard
-  faction: 0
+  faction: Pirates
   type: 0
   description: 
   cardImageForehead: {fileID: 21300000, guid: 5de880bac3bbac64ba8ecf4b4e6383d9, type: 3}
@@ -21,8 +21,11 @@ MonoBehaviour:
   startPower: 2
   power: 2
   typeField: 77
+  range: 0
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 0
   stayintheField: 0
   inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

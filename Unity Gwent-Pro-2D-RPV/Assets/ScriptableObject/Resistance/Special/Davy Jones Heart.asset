@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Davy Jones Heart
   m_EditorClassIdentifier: 
   cardName: 'Davy Jones Heart '
-  faction: 1
+  faction: Resistance
   type: 1
   description: ' Increase by 2 points all the cards in the row ranged attack'
   cardImageForehead: {fileID: 21300000, guid: 040a165fdc536ec4a9c212ffaf405898, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 82
+  range: 1
   typeUnitCard: 0
   typeSpecialCard: 2
   effects: 12

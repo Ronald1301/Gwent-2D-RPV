@@ -9,9 +9,13 @@ using UnityEngine.SceneManagement;
 public class ScriptStartMenu : MonoBehaviour
 {
     UIDocument StartMenu;
-    public GameObject CardCreator;
+    [SerializeField] GameObject SceneStartMenu;
+    [SerializeField] GameObject SceneCardCreator;
+    [SerializeField] GameObject SceneRuntime;
     public GameObject Options;
     public GameObject Information;
+    public GameObject SoundMenu;
+
 
     private Button startGame;
     private Button cardCreator;
@@ -19,11 +23,16 @@ public class ScriptStartMenu : MonoBehaviour
     private Button information;
     private Button exitGame;
 
+
     void Awake()
     {
-        // SelectDecks.SetActive(false);
+        SceneStartMenu.SetActive(true);
+        SceneCardCreator.SetActive(false);
+        SceneRuntime.SetActive(false);
+
         Options.SetActive(false);
         Information.SetActive(false);
+        SoundMenu.SetActive(true);
     }
     private void OnEnable()
     {
@@ -48,21 +57,22 @@ public class ScriptStartMenu : MonoBehaviour
 
     private void StartGame(ClickEvent evt)
     {
-       // this.gameObject.GetComponent<AudioSource>().Play();
-        SceneManager.LoadScene("GameScene");
+        // this.gameObject.GetComponent<AudioSource>().Play();
+        SceneRuntime.SetActive(true);
+        SoundMenu.SetActive(false);
+        SceneStartMenu.SetActive(false);
     }
 
     private void OpenCardCreator(ClickEvent evt)
     {
-       // this.gameObject.GetComponent<AudioSource>().Play();
-        SceneManager.LoadScene("CardCreatorScene");
-        //CardCreator.SetActive(true);
-        //gameObject.SetActive(false);
+        // this.gameObject.GetComponent<AudioSource>().Play();
+        SceneCardCreator.SetActive(true);
+        SceneStartMenu.SetActive(false);
     }
 
     private void OpenOptions(ClickEvent evt)
     {
-       // this.gameObject.GetComponent<AudioSource>().Play();
+        // this.gameObject.GetComponent<AudioSource>().Play();
         Options.SetActive(true);
         gameObject.SetActive(false);
     }

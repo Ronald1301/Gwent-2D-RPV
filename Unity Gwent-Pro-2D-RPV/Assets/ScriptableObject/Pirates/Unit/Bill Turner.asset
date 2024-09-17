@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bill Turner
   m_EditorClassIdentifier: 
   cardName: Bill Turner
-  faction: 0
+  faction: Pirates
   type: 0
   description: Select a weather card  in your hand and  place it on the field
   cardImageForehead: {fileID: 21300000, guid: a7ee836e3b556274595c6ea0958d3a7b, type: 3}
@@ -21,8 +21,11 @@ MonoBehaviour:
   startPower: 3
   power: 3
   typeField: 77
+  range: 0
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 2
   stayintheField: 0
   inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

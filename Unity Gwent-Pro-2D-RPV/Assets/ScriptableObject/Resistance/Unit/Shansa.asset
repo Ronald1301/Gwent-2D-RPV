@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shansa
   m_EditorClassIdentifier: 
   cardName: Shansa
-  faction: 1
+  faction: Resistance
   type: 0
   description: 
   cardImageForehead: {fileID: 21300000, guid: fe444af6195d1174ba21e4bcda6440e3, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 3
   power: 3
   typeField: 83
+  range: 2
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 0
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

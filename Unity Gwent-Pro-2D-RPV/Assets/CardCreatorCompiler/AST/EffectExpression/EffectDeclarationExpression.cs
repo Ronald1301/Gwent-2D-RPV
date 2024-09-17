@@ -6,47 +6,52 @@ namespace Gwent
     public class EffectDeclarationExpression : Expression
     {
         public Expression? Name { get; set; }
-        public List<Expression>? Params { get; set; }
-        public LambdaExpression? Body { get; set; }
+        public List<Expression> Params { get; set; }
+        public LambdaExpression? BodyAction { get; set; }
 
         protected override Scope? Context { get; set; }
 
-        public EffectDeclarationExpression(Expression name = null!, List<Expression> Params = null!, LambdaExpression body = null!)
+        public EffectDeclarationExpression(Expression name , List<Expression> Params, LambdaExpression body )
         {
             Name = name;
             this.Params = Params;
-            Body = body;
+            BodyAction = body;
+        }
+
+        public EffectDeclarationExpression()
+        {
+            Name = null!;
+            Params = new();
+            BodyAction = null!;
         }
 
         public override void SetScope(Scope current)
         {
+            Context = current;
             Name!.SetScope(current);
-            Body!.SetScope(current);
-            if (Params is not null)
+             if (Params is not null)
             {
                 foreach (var item in Params)
                 {
                     item.SetScope(current);
                 }
             }
+            BodyAction!.SetScope(current);
         }
 
         public override Scope.DataType CheckSemantic()
         {
             if (Name is null)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Name is null");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Name is null");
             }
             if (Name.CheckSemantic() != Scope.DataType.String)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Name is not IDExpression");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Name is not string");
             }
-            if (Body is null)
+            if (BodyAction is null)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Body is null");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Body is null");
             }
             if (Params is not null)
             {
@@ -54,19 +59,18 @@ namespace Gwent
                 {
                     if (item.CheckSemantic() != Scope.DataType.String)
                     {
-                        EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                        throw new Exception("Param is not IDExpression");
+                        EngineCompiler.CreateError(ErrorCode.SemanticError, "Param is not string");
                     }
                 }
             }
-            if (Body is not null)
+            if (BodyAction is not null)
             {
-                Body.CheckSemantic();
+                BodyAction.CheckSemantic();
             }
             return Scope.DataType.Void;
         }
 
-        public override object Evaluate()//tengo q arreglarlo
+        public override object Evaluate()
         {
             EffectComplete effect = new();
             effect.Name = Name!.Evaluate();
@@ -79,7 +83,7 @@ namespace Gwent
             }
             effect.Params = Params!;
             effect.ContextEffect = Context!;
-            effect.Body = Body!;
+            effect.Body = BodyAction!;
             EngineCompiler.effectsSemi.Add(effect.Name.ToString()!, effect);
             return effect;
         }

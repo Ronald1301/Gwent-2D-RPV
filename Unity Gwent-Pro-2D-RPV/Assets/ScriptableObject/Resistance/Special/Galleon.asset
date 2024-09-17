@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Galleon
   m_EditorClassIdentifier: 
   cardName: Galleon
-  faction: 1
+  faction: Resistance
   type: 1
   description: Reduce points to 1 of all the cards placed in the siege rows  (own
     or opponent's)
@@ -22,6 +22,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 83
+  range: 2
   typeUnitCard: 0
   typeSpecialCard: 1
   effects: 11

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gillette
   m_EditorClassIdentifier: 
   cardName: Lieutenant Guillette
-  faction: 1
+  faction: Resistance
   type: 0
   description: 
   cardImageForehead: {fileID: 21300000, guid: c62f0fa0140942f42a5c555a3296bdd5, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 3
   power: 3
   typeField: 82
+  range: 1
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 0
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

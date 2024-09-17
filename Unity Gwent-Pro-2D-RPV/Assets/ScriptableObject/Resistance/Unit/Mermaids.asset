@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mermaids
   m_EditorClassIdentifier: 
   cardName: Mermaids
-  faction: 1
+  faction: Resistance
   type: 0
   description: Equalizes the power of  all cards on the field (own or rival's) to
     the average  power between them
@@ -22,7 +22,11 @@ MonoBehaviour:
   startPower: 2
   power: 2
   typeField: 83
+  range: 2
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 7
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

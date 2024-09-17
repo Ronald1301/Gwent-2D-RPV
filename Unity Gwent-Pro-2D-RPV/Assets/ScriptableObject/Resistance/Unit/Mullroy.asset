@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mullroy
   m_EditorClassIdentifier: 
   cardName: Mullroy
-  faction: 1
+  faction: Resistance
   type: 0
   description: 
   cardImageForehead: {fileID: 21300000, guid: db345d2bf1c62424f89c07c3b3370ef3, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 1
   power: 1
   typeField: 82
+  range: 1
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 0
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

@@ -27,8 +27,7 @@ namespace Gwent
             // Verificar que la expresión condicional sea de tipo booleano
             if (Conditional.CheckSemantic() != Scope.DataType.Boolean)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new("The condition must be a boolean expression");
+             EngineCompiler.CreateError(ErrorCode.SemanticError, "Condition is not boolean");
             }
 
             // Verificar que el cuerpo de la declaración sea semánticamente correcto

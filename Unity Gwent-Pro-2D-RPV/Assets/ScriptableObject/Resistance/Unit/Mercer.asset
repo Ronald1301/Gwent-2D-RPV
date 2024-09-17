@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mercer
   m_EditorClassIdentifier: 
   cardName: Mercer
-  faction: 1
+  faction: Resistance
   type: 0
   description: Destroy all the cards in the row of the field with the  fewest units
     (not empty,  yours or your opponent)
@@ -22,7 +22,11 @@ MonoBehaviour:
   startPower: 4
   power: 4
   typeField: 77
+  range: 0
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 6
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pintel
   m_EditorClassIdentifier: 
   cardName: Pintel
-  faction: 0
+  faction: Pirates
   type: 0
   description: Decreases an opponent's  card by 1 point
   cardImageForehead: {fileID: 21300000, guid: c3553120ed1d8174b85b6a6dc072b4ad, type: 3}
@@ -21,8 +21,11 @@ MonoBehaviour:
   startPower: 3
   power: 3
   typeField: 77
+  range: 0
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 8
   stayintheField: 0
   inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

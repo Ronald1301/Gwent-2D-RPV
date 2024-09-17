@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/UI%20Toolkit/SelectField/StyleSelectField.uss?fileID=7433441132597879392&amp;guid=bf911d71fc723e94591c77639fcb74eb&amp;type=3#StyleSelectField" />
+    <ui:VisualElement name="Container" class="Container" style="flex-grow: 1;">
+        <ui:VisualElement name="Box" class="Box" style="flex-grow: 1;">
+            <ui:Button text="Melee" name="M" class="ButtonMenu" style="display: flex;" />
+            <ui:Button text="Range" name="R" class="ButtonMenu" style="display: flex;" />
+            <ui:Button text="Siege" name="S" class="ButtonMenu" style="display: flex;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

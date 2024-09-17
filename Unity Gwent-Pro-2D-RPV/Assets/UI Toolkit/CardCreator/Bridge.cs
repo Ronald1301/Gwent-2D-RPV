@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Gwent;
 using System;
-using System.Security.Cryptography;
 
 public static class Bridge
 {
-    static GameObject DataBase = GameObject.Find("DataBase");
-    static GameObject StructCardNew = GameObject.Find("SkeletonCard");
+    static readonly GameObject dataBase = GameObject.Find("DataBase");
+    static readonly GameObject StructCardNew = GameObject.Find("SkeletonCard");
+
+    public static List<CardData> cardsDataCreated = new();
+
     static Player player1;
     static Player player2;
     static bool Playing;
@@ -18,10 +20,28 @@ public static class Bridge
         player2 = num2;
     }
     internal static void UpdatePlayer(bool playing) { Playing = playing; }
-
+    internal static void CopyCardsAndEffects()
+    {
+        foreach (var item in EngineCompiler.cards)
+        {
+            dataBase.GetComponent<DataBase>().dataBaseData.cardsCompiled.Add(item.Key, item.Value);
+        }
+        foreach (var item in EngineCompiler.effects)
+        {
+            dataBase.GetComponent<DataBase>().dataBaseData.effectsCompiled.Add(item.Key, item.Value);
+        }
+    }
+    public static void CreateCardsTheDictionary()
+    {
+        foreach (var item in dataBase.GetComponent<DataBase>().dataBaseData.cardsCompiled.Values)
+        {
+            CreateCard(item);
+        }
+    }
     internal static void CreateCard(DataCardComplete card)
     {
-        GameObject cardNew = GameObject.Instantiate(StructCardNew, StructCardNew.transform.position, Quaternion.identity);
+        GameObject cardNew = GameObject.Instantiate(StructCardNew, new Vector3(1, 4, -65), Quaternion.identity);
+
         string faction = card.Faction.ToString();
 
         var name = card.Name.ToString();
@@ -56,15 +76,80 @@ public static class Bridge
                 subTypeSpecialCard = CardData.SubTypeSpecialCard.Increase;
                 subTypeUnitCard = CardData.SubTypeUnitCard.None;
                 break;
+            case "Lure":
+            case "Señuelo":
+                type = CardData.CardType.Special;
+                subTypeSpecialCard = CardData.SubTypeSpecialCard.Lure;
+                subTypeUnitCard = CardData.SubTypeUnitCard.None;
+                break;
+            case "Despeje":
+            case "Clearance":
+                type = CardData.CardType.Special;
+                subTypeSpecialCard = CardData.SubTypeSpecialCard.Clearance;
+                subTypeUnitCard = CardData.SubTypeUnitCard.None;
+                break;
             case "Leader":
+            case "Jefe":
             default:
                 type = CardData.CardType.Boss;
                 subTypeSpecialCard = CardData.SubTypeSpecialCard.None;
                 subTypeUnitCard = CardData.SubTypeUnitCard.None;
                 break;
         }
+        if (type == CardData.CardType.Boss)
+        {
+            GameObject.DestroyImmediate(cardNew.GetComponent<MoveCard>());
+        }
+        else GameObject.DestroyImmediate(cardNew.GetComponent<ScriptBoss>());
+
         string power = card.Power.ToString();
-        bool[] range = card.Range;
+        string auxRange = "";
+        for (int i = 0; i < card.Range.Length; i++)
+        {
+            if (card.Range[i])
+            {
+                switch (i)
+                {
+                    case 0:
+                        auxRange += "M";
+                        break;
+                    case 1:
+                        auxRange += "R";
+                        break;
+                    case 2:
+                        auxRange += "S";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        CardData.EnumRange range;
+        switch (auxRange)
+        {
+            case "M":
+                range = CardData.EnumRange.M;
+                break;
+            case "R":
+                range = CardData.EnumRange.R;
+                break;
+            case "S":
+                range = CardData.EnumRange.S;
+                break;
+            case "MR":
+                range = CardData.EnumRange.MR;
+                break;
+            case "MS":
+                range = CardData.EnumRange.MS;
+                break;
+            case "RS":
+                range = CardData.EnumRange.RS;
+                break;
+            default:
+                range = CardData.EnumRange.MRS;
+                break;
+        }
+
         string description = "";
         foreach (var item in card.NamesAbility)
         {
@@ -72,24 +157,44 @@ public static class Bridge
         }
         var listEffect = card.NamesAbility;
 
-        var list1 = DataBase.GetComponent<DataBase>().frontImages;
-        var list2 = DataBase.GetComponent<DataBase>().backImages;
+        var list1 = dataBase.GetComponent<DataBase>().dataBaseData.frontImages;
+        var list2 = dataBase.GetComponent<DataBase>().dataBaseData.backImages;
         int IndexFront = new System.Random().Next(1, list1.Count);
         int IndexBack = new System.Random().Next(1, list2.Count);
 
         CardData cardData = new CardData(name, faction, description, power, range, type, subTypeUnitCard, subTypeSpecialCard, listEffect, list1[IndexFront], list2[IndexBack]);
 
-
-        // CardData cardData = ScriptableObject.CreateInstance<CardData>();//lo comentado es equivalente a esta linea
-
         cardNew.GetComponent<CardDisplay>().cardData = cardData;
 
-        if (DataBase.GetComponent<DataBase>().Decks.ContainsKey(faction))
+        bool add = false;
+        foreach (var item in dataBase.GetComponent<DataBase>().dataBaseData.Decks)
         {
-            DataBase.GetComponent<DataBase>().Decks[faction].Add(cardNew);
+            if (item.GetComponent<Decks>().Name == faction)
+            {
+                add = true;
+                // if(cardData.Type == CardData.CardType.Boss)
+                {
+                  //  item.GetComponent<Decks>().deck[0] = cardNew;
+                }
+                //else
+                item.GetComponent<Decks>().deck.Add(cardNew);
+               
+                cardNew.transform.SetParent(item.transform, false);
+                break;
+            }
         }
-        else DataBase.GetComponent<DataBase>().Decks.Add(faction, new List<GameObject> { cardNew });
+        if (!add)
+        {
+            // es neutral y dar la opcion de elegir donde guardarla
+            /*
+            GameObject original = Resources.Load<GameObject>("Prefab/Decks/Deck");
+            GameObject gameObjectDeck = GameObject.Instantiate(original, dataBase.transform, false);
+            gameObjectDeck.GetComponent<Decks>().deck.Add(cardNew);
+            break;
+            */
+        }
 
+      cardsDataCreated.Add(cardData);
     }
     internal static int GetTriggerPlayer() { return Playing ? 1 : 2; }
 
@@ -112,62 +217,86 @@ public static class Bridge
 
         if (Source == "board")
         {
-            cards = player1new.board.M.GetComponent<MeleeZone>().melee;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player1new, 1))
             {
-                result.Add(cards[i]);
+                cards = player1new.subBoard.M.GetComponent<MeleeZone>().melee;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
 
-            cards = player1new.board.R.GetComponent<RangedZone>().ranged;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player1new, 2))
             {
-                result.Add(cards[i]);
+                cards = player1new.subBoard.R.GetComponent<RangedZone>().ranged;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
 
-            cards = player1new.board.S.GetComponent<SiegeZone>().siege;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player1new, 3))
             {
-                result.Add(cards[i]);
+                cards = player1new.subBoard.S.GetComponent<SiegeZone>().siege;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
 
-            cards = player2new.board.M.GetComponent<MeleeZone>().melee;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player2new, 1))
             {
-                result.Add(cards[i]);
+
+                cards = player2new.subBoard.M.GetComponent<MeleeZone>().melee;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
 
-            cards = player2new.board.R.GetComponent<RangedZone>().ranged;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player2new, 2))
             {
-                result.Add(cards[i]);
+                cards = player2new.subBoard.R.GetComponent<RangedZone>().ranged;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
-
-            cards = player2new.board.S.GetComponent<SiegeZone>().siege;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player2new, 3))
             {
-                result.Add(cards[i]);
+                cards = player2new.subBoard.S.GetComponent<SiegeZone>().siege;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
         }
 
         else if (Source == "field")
         {
-
-            cards = player1new.board.M.GetComponent<MeleeZone>().melee;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player1new, 1))
             {
-                result.Add(cards[i]);
+                cards = player1new.subBoard.M.GetComponent<MeleeZone>().melee;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
-
-            cards = player1new.board.R.GetComponent<RangedZone>().ranged;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player1new, 2))
             {
-                result.Add(cards[i]);
+                cards = player1new.subBoard.R.GetComponent<RangedZone>().ranged;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
-
-            cards = player1new.board.S.GetComponent<SiegeZone>().siege;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player1new, 3))
             {
-                result.Add(cards[i]);
+                cards = player1new.subBoard.S.GetComponent<SiegeZone>().siege;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
         }
 
@@ -191,31 +320,41 @@ public static class Bridge
 
         else if (Source == "graveyard")
         {
-            cards = player1new.board.Cemetery.GetComponent<CemeteryZone>().Cemetery;
-            for (int i = 0; i < cards.Count; i++)
+            if (player1new.subBoard.Cemetery.GetComponent<CemeteryZone>().Cemetery.Count != 0)
             {
-                result.Add(cards[i]);
+                cards = player1new.subBoard.Cemetery.GetComponent<CemeteryZone>().Cemetery;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
         }
 
         else if (Source == "otherField")
         {
-            cards = player2new.board.M.GetComponent<MeleeZone>().melee;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player2new, 1))
             {
-                result.Add(cards[i]);
+                cards = player2new.subBoard.M.GetComponent<MeleeZone>().melee;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
-
-            cards = player2new.board.R.GetComponent<RangedZone>().ranged;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player2new, 2))
             {
-                result.Add(cards[i]);
+                cards = player2new.subBoard.R.GetComponent<RangedZone>().ranged;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
-
-            cards = player2new.board.S.GetComponent<SiegeZone>().siege;
-            for (int i = 0; i < cards.Count; i++)
+            if (!Effects.IsRowEmpty(player2new, 3))
             {
-                result.Add(cards[i]);
+                cards = player2new.subBoard.S.GetComponent<SiegeZone>().siege;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
         }
 
@@ -241,17 +380,18 @@ public static class Bridge
 
         else if (Source == "otherGraveyard")
         {
-            cards = player2new.board.Cemetery.GetComponent<CemeteryZone>().Cemetery;
-
-            for (int i = 0; i < cards.Count; i++)
+            if (player2new.subBoard.Cemetery.GetComponent<CemeteryZone>().Cemetery.Count != 0)
             {
-                result.Add(cards[i]);
+                cards = player2new.subBoard.Cemetery.GetComponent<CemeteryZone>().Cemetery;
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    result.Add(cards[i]);
+                }
             }
         }
 
         return result;
     }
-
     internal static List<GameObject> FindCards(List<GameObject> list, LambdaExpression lambda)
     {
         return list.FindAll((Predicate<GameObject>)lambda.Evaluate());
@@ -280,33 +420,37 @@ public static class Bridge
 
     internal static GameObject PopCard(List<GameObject> list, Token.TokenType typeDot)
     {
-        GameObject card = list[^1];//list.Count - 1
+        GameObject card = list[^1]; //list.Count - 1
         list.RemoveAt(0);
         return card;
     }
 
-    internal static GameObject PushCard(List<GameObject> list, Token.TokenType typeDot, object v)
+    internal static GameObject PushCard(List<GameObject> list, Token.TokenType typeDot, object v) //arreglar
     {
         if (v is GameObject card)
         {
             list.Add(card);
+
+            switch (typeDot)
+            {
+                //  default:
+            }
             return card;
-            //card.GetComponent<MoveCard>().MoveToDeck();
         }
         return null;
     }
 
-    internal static List<GameObject> RemoveCard(List<GameObject> list, Token.TokenType typeDot, object v)
+    internal static List<GameObject> RemoveCard(List<GameObject> list, Token.TokenType typeDot, object v)//arreglar
     {
         if (v is GameObject card)
         {
-            //list.Remove(card);
-            card.GetComponent<MoveCard>().MoveToCemetery();
+            list.Remove(card);
+           // card.GetComponent<MoveCard>().MoveToCemetery();
         }
         return list;
     }
 
-    internal static List<GameObject> SendBottom(List<GameObject> list, Token.TokenType typeDot, object v)
+    internal static List<GameObject> SendBottom(List<GameObject> list, Token.TokenType typeDot, object v)//arreglar
     {
         if (v is GameObject card)
         {
@@ -316,12 +460,11 @@ public static class Bridge
         return list;
     }
 
-    internal static List<GameObject> AddCard(List<GameObject> list, Token.TokenType typeDot, object v)
+    internal static List<GameObject> AddCard(List<GameObject> list, Token.TokenType typeDot, object v)//arreglar
     {
         if (v is GameObject card)
         {
             //list.Add(card);
-
             switch (typeDot)
             {
                 case Token.TokenType.Token_Hand:
@@ -334,10 +477,12 @@ public static class Bridge
                     card.GetComponent<MoveCard>().MoveToCemetery();
                     break;
 
+
                 default:
                     break;
             }
         }
         return list;
     }
+
 }

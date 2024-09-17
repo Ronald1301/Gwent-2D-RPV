@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
   public int ID;
   public Decks deck;
-  public SubBoard board;
+  public SubBoard subBoard;
   public Hand hand;
   public int Points_for_game;
   public int Points_for_round;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
   public Player(Decks decks, SubBoard board, Hand hand)
   {
     this.deck = decks;
-    this.board = board;
+    this.subBoard = board;
     this.hand = hand;
     Points_for_game = 0;
     Points_for_round = 0;

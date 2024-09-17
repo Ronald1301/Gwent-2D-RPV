@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: King Jeorge II
   m_EditorClassIdentifier: 
   cardName: King Jeorge II
-  faction: 1
+  faction: Resistance
   type: 0
   description: Draw one card
   cardImageForehead: {fileID: 21300000, guid: 9ed97e45b686c7c43bdb8f516f997d42, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 1
   power: 1
   typeField: 82
+  range: 1
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 5
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

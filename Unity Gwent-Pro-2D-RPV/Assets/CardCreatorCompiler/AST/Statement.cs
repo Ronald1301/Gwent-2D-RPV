@@ -45,16 +45,14 @@ namespace Gwent
                     {
                         if (unary.operators != Unary.Operators.SumSumLeft || unary.operators != Unary.Operators.DifDifLeft || unary.operators != Unary.Operators.SumSumRight || unary.operators != Unary.Operators.DifDifRight)
                         {
-                            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                            throw new Exception("Invalid statement");
+                            EngineCompiler.CreateError(ErrorCode.SemanticError, "Invalid unary operator");
                         }
                     }
                     item.CheckSemantic();
                 }
                 else
                 {
-                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                    throw new Exception("Invalid statement");
+                    EngineCompiler.CreateError(ErrorCode.SemanticError, "Invalid statement");
                 }
             }
             /*

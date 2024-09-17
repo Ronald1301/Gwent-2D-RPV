@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
+//using UnityEngine;
 
 namespace Gwent
 {
@@ -30,12 +32,15 @@ namespace Gwent
         }
         public override void SetScope(Scope current)
         {
-            Context = new(current, new(), new());
+            Scope son = new(current, new(), new());
+            Context = son;
             foreach (IDExpression item in Params)
             {
-                Context.Items.Add(item, null!);
+                son.datatype.Add(item.token, item.Type);
+                son.Items.Add(item, null!);
             }
-            Body.SetScope(Context);
+            Body.SetScope(son);
+
         }
         public override Scope.DataType CheckSemantic()
         {
@@ -43,8 +48,7 @@ namespace Gwent
             {
                 if (Context!.Items.ContainsKey(item))
                 {
-                    EngineCompiler.error =new TypeError(ErrorCode.SemanticError);
-                    throw new("The parameter is already defined");
+                   EngineCompiler.CreateError(ErrorCode.SemanticError, "The parameter is already defined");
                 }
                 Context!.Items.Add(item, null!);
             }
@@ -56,8 +60,7 @@ namespace Gwent
                 }
                 else
                 {
-                    EngineCompiler.error =new TypeError(ErrorCode.SemanticError);
-                    throw new("The body of the lambda is not a boolean");
+                    EngineCompiler.CreateError(ErrorCode.SemanticError, "The body of the lambda expression must return a boolean");
                 }
             }
             else
@@ -72,29 +75,36 @@ namespace Gwent
         {
             if (Type == DelegateType.Predicate)
             {
-                return new Predicate<GameObject>(AuxEvaluate);
+                //return new Predicate<object>(AuxEvaluate);
+                Predicate<GameObject> predicate = (id) => AuxEvaluate(id, Context);
+                return predicate;
             }
             else
             {
-                return new Action<GameObject[]>(AuxEvaluate);
+                // return new Action<object[]>(AuxEvaluate);
+                Action<GameObject[]> action = (id) => AuxEvaluate(id, Context);
+                return action;
             }
         }
 
-        bool AuxEvaluate(GameObject card)
+
+        //bool AuxEvaluate(object card)
+        bool AuxEvaluate(GameObject card, Scope current)
         {
-            var iD = Params[0] as IDExpression;
-            Context.Items[iD] = card;
+            var iD = Params[0];// as IDExpression;
+            current!.Items[iD] = card;
             return Convert.ToBoolean(Body.Evaluate());
         }
-        void AuxEvaluate(GameObject[] parameters) 
+        // void AuxEvaluate(object[] parameters) 
+        void AuxEvaluate(GameObject[] parameters, Scope current)
         {
             for (int i = 0; i < parameters.Length; i++)
             {
-                var iD = Params[i] as IDExpression;
-                Context.Items[iD] = parameters[i];
+                var iD = Params[i]; //as IDExpression;
+                current!.Items[iD] = parameters[i];
             }
             Body.Evaluate();
         }
-        
+
     }
 }

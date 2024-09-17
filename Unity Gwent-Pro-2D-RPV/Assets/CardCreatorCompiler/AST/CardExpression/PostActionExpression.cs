@@ -37,13 +37,11 @@ namespace Gwent
         {
             if (EffectPostAction.Name is null)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Name is null");
+              EngineCompiler.CreateError(ErrorCode.SemanticError, "Name is null");
             }
             if (EffectPostAction.Name.CheckSemantic() != Scope.DataType.String)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Name is not IDExpression");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Name is not string");
             }
             if (EffectPostAction.Selector is not null)
             {

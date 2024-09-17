@@ -7,9 +7,9 @@ using UnityEngine.Networking;
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
 public class CardData : ScriptableObject
 {
-    
+
     //    public CardData() { }
-    public CardData(string cardName, string faction, CardType type, string description, Sprite cardImageForehead, Sprite cardImageback, int startPower, int power, char typeField, bool[] typeField2, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard, TypeEffects effects)
+    public CardData(string cardName, string faction, CardType type, string description, Sprite cardImageForehead, Sprite cardImageback, int startPower, int power, char typeField, EnumRange range, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard, TypeEffects effects)
     {
         this.cardName = cardName;
         this.faction = faction;
@@ -20,27 +20,71 @@ public class CardData : ScriptableObject
         this.startPower = startPower;
         this.power = power;
         this.typeField = typeField;
-        this.typeField2 = typeField2;
+        this.range = range;
         this.typeUnitCard = typeUnitCard;
         this.typeSpecialCard = typeSpecialCard;
         this.effects = effects;
     }
 
-    public CardData(string name, string faction, string description, string power, bool[] range, CardType type, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard, Queue<string> ability,Sprite frontImage,Sprite backImage)
+    public CardData(string name, string faction, string description, string power, EnumRange range, CardType type, SubTypeUnitCard typeUnitCard, SubTypeSpecialCard typeSpecialCard, Queue<string> ability, Sprite frontImage, Sprite backImage)
     {
         this.cardName = name;
         this.type = type;
         this.typeUnitCard = typeUnitCard;
         this.typeSpecialCard = typeSpecialCard;
-        this.startPower = int.Parse(power);
-        this.power = this.startPower;
         this.faction = faction;
-        this.typeField2 = range;
-        this.description = description;
-        this.effects = TypeEffects.effectCardCompiler;
-        this.ListEffect = ability;
         this.cardImageForehead = frontImage;
         this.cardImageback = backImage;
+        this.description = description;
+        this.ListEffect = ability;
+        this.typeField = ' ';
+
+        switch (type)
+        {
+            case CardType.Unit:
+                this.startPower = int.Parse(power);
+                this.power = this.startPower;
+                this.range = range;
+                if (ability.Count == 0) this.effects = TypeEffects.None;
+                else this.effects = TypeEffects.effectCardCompiler;
+                break;
+
+            case CardType.Special:
+                switch (typeSpecialCard)
+                {
+                    case SubTypeSpecialCard.Climate:
+                        this.range = range;
+                        if (range == EnumRange.M || range == EnumRange.R)
+                        {
+                            this.description = "Reduces the points to 0  of all cards placed  in the " + range.ToString() + " rows  (own or the opponent's)";
+                        }
+                        else this.description = "Reduce points to 1 of all the cards placed in the " + range.ToString() + " rows  (own or opponent's)";
+                        this.effects = TypeEffects.Climate;
+                        break;
+                    case SubTypeSpecialCard.Increase:
+                        this.range = range;
+                        this.description = " Increases all cards  in the " + range.ToString() + " row by 2 points";
+                        this.effects = TypeEffects.Increase;
+                        break;
+                    case SubTypeSpecialCard.Clearance:
+                        this.description = "Destroy the activated weather card  on the opponent's field.";
+                        this.effects = TypeEffects.Clearance;
+                        break;
+                    case SubTypeSpecialCard.Lure:
+                        this.description = " Select a card from the field  to return to the hand and  be replaced by this card";
+                        this.effects = TypeEffects.None;
+                        break;
+                }
+                this.Power = 0;
+                this.startPower = 0;
+                break;
+            case CardType.Boss:
+                this.Power = 0;
+                this.startPower = 0;
+                if (ability.Count == 0) this.effects = TypeEffects.None;
+                else this.effects = TypeEffects.effectCardCompiler;
+                break;
+        }
     }
 
     [SerializeField] private string cardName;
@@ -53,7 +97,7 @@ public class CardData : ScriptableObject
     [SerializeField] private int startPower;
     [SerializeField] private int power;
     [SerializeField] private char typeField;
-    [SerializeField] private bool[] typeField2 = new bool[3];
+    [SerializeField] private EnumRange range;
     [SerializeField] private SubTypeUnitCard typeUnitCard;
 
     [SerializeField] private SubTypeSpecialCard typeSpecialCard;
@@ -85,6 +129,8 @@ public class CardData : ScriptableObject
     //public readonly char[] TypeField = { 'M', 'R', 'S' };
     // public readonly bool[] MRS = new bool[3];
     public char TypeField { get => typeField; }
+    public EnumRange Range { get => range; }
+
     public SubTypeUnitCard TypeUnitCard { get => typeUnitCard; }
 
     //SpecialCards
@@ -97,6 +143,9 @@ public class CardData : ScriptableObject
     { Unit, Special, Boss }
     // public enum TypeFaction
     //{ Pirates, Resistance, Neutral }
+
+    public enum EnumRange
+    { M, R, S, MR, MS, RS, MRS, Boss }
     public enum SubTypeUnitCard
     { None, Gold, Silver }
     public enum SubTypeSpecialCard

@@ -8,7 +8,9 @@ using UnityEngine.XR;
 public class Decks : MonoBehaviour
 {
     //[SerializeField] private Sprite ImageDeck;
+    public string Name{get=>deck[0].GetComponent<CardDisplay>().cardData.Faction;}
     public List<GameObject> deck;
+    //public List<GameObject> deckBoss;
     //public GameObject Hand;
     //public List<GameObject> Deck { get; set; }
 

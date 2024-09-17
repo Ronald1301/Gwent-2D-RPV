@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Gwent
 {
@@ -48,6 +47,7 @@ namespace Gwent
             PostAction = postAction;
         }
 
+        public bool IsEmpty = true;
         public Expression Name { get; set; }
         public List<Expression> Params { get; set; } = new();
         public SelectorExpression? Selector { get; set; } = null;
@@ -57,6 +57,7 @@ namespace Gwent
 
         public override void SetScope(Scope current)
         {
+            if (IsEmpty)return;
             Context = current;
             var son = new Scope(current, new(), new());
             Name.SetScope(son);
@@ -69,22 +70,20 @@ namespace Gwent
         }
         public override Scope.DataType CheckSemantic()
         {
+            if (IsEmpty) return Scope.DataType.Void;
             if (Name is null)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Name is null");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Name is null");
             }
             if (Name.CheckSemantic() != Scope.DataType.String)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new Exception("Name is not IDExpression");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "Name is not string");
             }
             foreach (var item in Params) //verificar si coincide el tipo de dato
             {
                 if (item.CheckSemantic() != Scope.DataType.String)
                 {
-                    EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                    throw new Exception("Param is not IDExpression");
+                   EngineCompiler.CreateError(ErrorCode.SemanticError, "Param is not string");
                 }
             }
             if (Selector is not null)
@@ -100,25 +99,26 @@ namespace Gwent
 
         public override object Evaluate()
         {
+            if (IsEmpty)return 0;
             return this.Evaluate(false, null!);
         }
         public object Evaluate(bool IsPostAction, SelectorExpression selectorParent)
         {
             List<string> NamesEffect = new();
+            NamesEffect.RemoveRange(0, NamesEffect.Count);
             object name = Name.Evaluate();
             if (!EngineCompiler.effectsSemi.ContainsKey(name.ToString()!))
             {
-                EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
-                throw new Exception("Effect not found");
+                EngineCompiler.CreateError(ErrorCode.EvaluateError, "Effect not found");
             }
-            NamesEffect.Add(name.ToString());
+            NamesEffect.Add(name.ToString()!);
             var effect = EngineCompiler.effectsSemi[name.ToString()!];
             effect.ContextCard = Context;
 
+
             if (effect.Params!.Count != Params.Count)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
-                throw new Exception("Params not found");
+                EngineCompiler.CreateError(ErrorCode.EvaluateError, "Params count not match");
             }
             foreach (var item in Params)
             {
@@ -128,14 +128,27 @@ namespace Gwent
                     {
                         if (itemDeclaration is Assignment paramsEffect)
                         {
-                            if (paramThis.ID.token.Value.ToString() == paramsEffect.ID.token.Value.ToString())//falta chekear tipo
+                            if (paramThis.dotExpression is null && paramsEffect.dotExpression is null)
                             {
-                                paramsEffect.Argument = paramThis.Argument;
+                                if (paramThis.ID!.token.Value.ToString() == paramsEffect.ID!.token.Value.ToString())//falta chekear tipo
+                                {
+                                    paramsEffect.Argument = paramThis.Argument;
+                                }
+                            }
+                            else if (paramThis.dotExpression is not null && paramsEffect.dotExpression is not null)
+                            {
+
                             }
                             else
                             {
-                                EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
-                                throw new Exception("Param not found");
+
+                                /*
+                                else
+                                {
+                                    EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
+                                    throw new Exception("Param not found");
+                                }
+                                */
                             }
                         }
                     }
@@ -155,7 +168,7 @@ namespace Gwent
                     }
                 }
             }
-            EngineCompiler.effects.Add(name.ToString()!, (effect, Selector));
+            EngineCompiler.effects.Add((name.ToString(), ""), (effect, Selector)!);
             List<string> namePos = new();
             if (PostAction is not null) namePos = (List<string>)PostAction.Evaluate(Selector!);
             return NamesEffect.Concat(namePos).ToList();

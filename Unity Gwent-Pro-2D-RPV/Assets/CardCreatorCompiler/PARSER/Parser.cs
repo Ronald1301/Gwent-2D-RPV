@@ -61,7 +61,12 @@ namespace Gwent
             {
                 return statement;
             }
-            EngineCompiler.error = new(ErrorCode.SyntacticError); throw new("Where is ; ?");
+            else
+            {
+                return L(statement);
+            }
+
+
         }
         private Expression M(Expression last = null!)
         {
@@ -75,12 +80,9 @@ namespace Gwent
                     {
                         return cardExpression;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is } ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is } ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Where is { ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is { ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_effect_Declaration)
@@ -89,16 +91,14 @@ namespace Gwent
                 {
                     index += 2;
                     var effectExpression = ParsingEffectDeclaration(last, new EffectDeclarationExpression());
-                    if (Tokens[index++].Type == Token.TokenType.Close_Key)
+                    if (Tokens[index].Type == Token.TokenType.Close_Key)
                     {
+                        index++;
                         return effectExpression;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is } ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is } ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is { ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is { ?");
             }
 
             return C(last);
@@ -121,16 +121,14 @@ namespace Gwent
                         }
                         else return effect;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-                    throw new(" Where is : ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Effect already has a name");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Effect already has a name");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Params)
             {
-                if (effect.Params is null)
+                if (effect.Params.Count == 0)
                 {
                     if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
                     {
@@ -138,32 +136,32 @@ namespace Gwent
                         {
                             index += 3;
                             effect.Params = ParsingParams(new List<Expression>(), new bool[] { false, false, true });
-                            if (Tokens[index].Type == Token.TokenType.Comma)
+                            if (Tokens[index++].Type == Token.TokenType.Close_Key)
                             {
-                                index++;
-                                return ParsingEffectDeclaration(last, effect);
+                                if (Tokens[index].Type == Token.TokenType.Comma)
+                                {
+                                    index++;
+                                    return ParsingEffectDeclaration(last, effect);
+                                }
+                                else return last;
                             }
-                            else return last;
+                            EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is } ?");
                         }
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new("Where is { ?");
+                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is { ?");
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is : ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Effect already has a params");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Effect already has a params");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Action)
             {
-                if (effect.Body is null)
+                if (effect.BodyAction is null)
                 {
                     if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
                     {
-                        effect.Body = ParsingLambda();
+                        index += 2;
+                        effect.BodyAction = ParsingLambda();
                         if (Tokens[index].Type == Token.TokenType.Comma)
                         {
                             index++;
@@ -172,11 +170,9 @@ namespace Gwent
                         else return effect;
 
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-                    throw new(" Where is : ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Effect already has a body");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Effect already has a body");
             }
 
             return effect;
@@ -198,11 +194,9 @@ namespace Gwent
                         }
                         else return card;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-                    throw new(" Where is : ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Card already has a name");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Card already has a name");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Type)
@@ -220,12 +214,9 @@ namespace Gwent
                         }
                         else return card;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is , ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is , ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Card already has a type");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Card already has a type");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Faction)
@@ -243,12 +234,9 @@ namespace Gwent
                         }
                         else return card;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is , ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is , ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Card already has a faction");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Card already has a faction");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Power)
@@ -266,23 +254,21 @@ namespace Gwent
                         }
                         else return card;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
 
-                    throw new(" Where is , ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is , ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new();
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Card already has a power");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Range)
             {
-                if (card.Range is null)
+                if (card.Range.Count == 0)
                 {
                     if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
                     {
-                        if (Tokens[index + 1].Type == Token.TokenType.Open_Block)
+                        if (Tokens[index + 2].Type == Token.TokenType.Open_Block)
                         {
-                            index += 2;
+                            index += 3;
                             card.Range = ParsingParams(new List<Expression>(), new bool[] { false, true, false });
                             if (Tokens[index].Type == Token.TokenType.Comma)
                             {
@@ -291,16 +277,11 @@ namespace Gwent
                             }
                             else return card;
                         }
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new(" Where is , ?");
+                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is [ ?");
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is : ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Card already has a range");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Card already has a range");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_OnActivation)
@@ -322,16 +303,11 @@ namespace Gwent
                             }
                             else return card;
                         }
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new(" Where is , ?");
+                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ] ?");
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is { ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is [ ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is : ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
             }
 
             return card;
@@ -342,25 +318,32 @@ namespace Gwent
             {
                 index++;
                 var effect = ParsingOnActivation(new EffectCardExpression());
-                if (Tokens[index].Type == Token.TokenType.Close_Key)
+                if (Tokens[index++].Type == Token.TokenType.Close_Key)
                 {
-                    index++;
                     onActivationExpression.Body.Enqueue(effect);
+                    if (Tokens[index].Type == Token.TokenType.Comma)
+                    {
+                        index++;
+                        return StatementParsingOnActivation(onActivationExpression);
+                    }
                     return onActivationExpression;
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is } ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is } ?");
+                return null;
             }
-
-            var result = ParsingOnActivation(new EffectCardExpression());
-            index++;
-            onActivationExpression.Body.Enqueue(result);
-            return onActivationExpression;
+            else
+            {
+                var result = ParsingOnActivation(new EffectCardExpression());
+                if (!result.IsEmpty && Tokens[index].Type != Token.TokenType.Close_Block) index++;
+                onActivationExpression.Body.Enqueue(result);
+                return onActivationExpression;
+            }
         }
         private EffectCardExpression ParsingOnActivation(EffectCardExpression effect)
         {
             if (Tokens[index].Type == Token.TokenType.Token_Effect)
             {
+                effect.IsEmpty = false;
                 if (effect.Name is null)
                 {
                     if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
@@ -378,22 +361,19 @@ namespace Gwent
                                 }
                                 else return effect;
                             }
-                            EngineCompiler.error = new(ErrorCode.SyntacticError);
 
-                            throw new(" Where is , ?");
+                            EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is , ?");
                         }
                         else
                         {
-                            effect.Name = C(null!);
+                            index += 2;
+                            effect.Name = A(null!);
                             return effect;
                         }
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is { ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is { ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Effect already has a name");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Effect already has a name");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Selector)
@@ -415,18 +395,13 @@ namespace Gwent
                                 }
                                 else return effect;
                             }
-                            EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                            throw new(" Where is , ?");
+                            EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is } ?");
                         }
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new(" Where is { ?");
+                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is { ?");
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is : ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Effect already has a selector");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_PostAction)
@@ -446,16 +421,11 @@ namespace Gwent
                             }
                             else return effect;
                         }
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new(" Where is , ?");
+                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is } ?");
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is { ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is { ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is : ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
             }
 
             return effect;
@@ -469,7 +439,7 @@ namespace Gwent
                     if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
                     {
                         index += 2;
-                        var nameExpression = C(null!);
+                        var nameExpression = A(null!);
                         effect.Name = nameExpression;
                         if (Tokens[index].Type == Token.TokenType.Comma)
                         {
@@ -479,17 +449,14 @@ namespace Gwent
                         }
                         else return;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is , ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Effect already has a name");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Effect already has a name");
             }
 
             if (Tokens[index].Type == Token.TokenType.Identifier)
             {
-                index++;
+                //index++;
                 var paramsExpression = ParsingParams(new List<Expression>(), new bool[] { false, false, true });
                 effect.Params = paramsExpression;
                 if (Tokens[index].Type == Token.TokenType.Comma)
@@ -510,7 +477,7 @@ namespace Gwent
                     if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
                     {
                         index += 2;
-                        var sourceExpression = C(null!);
+                        var sourceExpression = A(null!);
                         selector.Source = (Expression)sourceExpression;
                         if (Tokens[index].Type == Token.TokenType.Comma)
                         {
@@ -519,12 +486,9 @@ namespace Gwent
                         }
                         else return selector;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is , ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Selector already has a source");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Selector already has a source");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Single)
@@ -532,11 +496,12 @@ namespace Gwent
                 if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
                 {
                     index += 2;
-                    var singleExpression = T(null!);
+                    var singleExpression = A(null!);
+                    //selector.Single = singleExpression;
                     if (singleExpression is Atomic atomic)
                     {
                         if (atomic.token.Type == Token.TokenType.Token_True) selector.Single = true;
-                        else if (atomic.token.Type == Token.TokenType.Token_False) selector.Single = false;
+                        //else if (atomic.token.Type == Token.TokenType.Token_False) selector.Single = false;
                     }
                     if (Tokens[index].Type == Token.TokenType.Comma)
                     {
@@ -545,16 +510,16 @@ namespace Gwent
                     }
                     else return selector;
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is : ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Predicate)
             {
                 if (selector.Predicate is null)
                 {
-                    if (Tokens[index++].Type == Token.TokenType.TwoPoint)
+                    if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
                     {
+                        index += 2;
                         selector.Predicate = ParsingLambda();
                         if (Tokens[index].Type == Token.TokenType.Comma)
                         {
@@ -563,12 +528,9 @@ namespace Gwent
                         }
                         else return selector;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is , ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Selector already has a predicate");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "Selector already has a predicate");
             }
             return selector;
         }
@@ -590,12 +552,9 @@ namespace Gwent
                         }
                         else return postAction;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is , ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("PostAction already has a name");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "PostAction already has a name");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Selector)
@@ -608,7 +567,7 @@ namespace Gwent
                         {
                             index += 3;
                             postAction.EffectPostAction.Selector = ParsingSelector(new SelectorExpression());
-                            if (Tokens[index].Type == Token.TokenType.Close_Key)
+                            if (Tokens[index++].Type == Token.TokenType.Close_Key)
                             {
                                 if (Tokens[index].Type == Token.TokenType.Comma)
                                 {
@@ -617,20 +576,13 @@ namespace Gwent
                                 }
                                 else return postAction;
                             }
-                            EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                            throw new(" Where is , ?");
+                            EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is } ?");
                         }
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new(" Where is { ?");
+                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is { ?");
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is : ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("PostAction already has a selector");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "PostAction already has a selector");
             }
 
             if (postAction.EffectPostAction.Selector is null)
@@ -653,12 +605,9 @@ namespace Gwent
                         }
                         else return postAction;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is , ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is : ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("PostAction already has a postAction");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, "PostAction already has a postAction");
             }
 
             return postAction;
@@ -678,28 +627,35 @@ namespace Gwent
                     }
                 }
 
-                if (Tokens[index++].Type == Token.TokenType.Token_Lambda)
+                if (Tokens[index].Type == Token.TokenType.Token_Lambda)
                 {
-                    if (Tokens[index++].Type == Token.TokenType.Open_Key)
+                    Statement lambdaBody = new();
+                    if (Tokens[index + 1].Type == Token.TokenType.Open_Key)
                     {
-                        var lambdaBody = C(null!);
-                        if (Tokens[index++].Type == Token.TokenType.Close_Key)
+                        index += 2;
+                        while (Tokens[index].Type != Token.TokenType.Close_Key)
                         {
-                            return new LambdaExpression(paramsLambda, lambdaBody);
+                            var result_C = C(null!);
+                            if (Tokens[index].Type == Token.TokenType.PointAndComma)
+                            {
+                                index++;
+                                lambdaBody.Expressions.Enqueue(result_C);
+                            }
                         }
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new(" Where is } ?");
+                        index++;
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new("Where is { ?");
+                    else
+                    {
+                        index++;
+                        var result_C = C(null!);
+                        lambdaBody.Expressions.Enqueue(result_C);
+                    }
+                    return new LambdaExpression(paramsLambda, lambdaBody);
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Where is => ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is => ?");
             }
-            EngineCompiler.error = new(ErrorCode.SyntacticError); throw new();
-            throw new("Where is ( ?");
+            EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
+            return null!;
         }
         private Expression ParsingDotExpression(DotExpression dotExpression)//debo crearlas recursivas hacia la derecha
         {
@@ -707,22 +663,22 @@ namespace Gwent
             {
                 index++;
                 var result = W(null!);
-                if (Tokens[index + 1].Type == Token.TokenType.Close_Block)
+                if (Tokens[index].Type == Token.TokenType.Close_Block)
                 {
-                    if (Tokens[index + 1].Type == Token.TokenType.Point)
+                    index++;
+                    if (Tokens[index].Type == Token.TokenType.Point)
                     {
                         index++;
-                        return ParsingDotExpression(new DotExpression(dotExpression, Tokens[index - 1].Type, null!));
+                        return ParsingDotExpression(new DotExpression(dotExpression, Token.TokenType.Open_Block, null!));
                     }
                     else
                     {
-                        index++;
-                        dotExpression.Right = new DotCall(Tokens[index - 1].Type, result);
+                        dotExpression.Right = new DotCall(Token.TokenType.Open_Block, result);
+                        //return dotExpression;
                         return ParsingDotExpression(dotExpression);
                     }
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is } ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ] ?");
             }
 
             else if (IDPropitiatesDotExpression.Contains(Tokens[index].Type))
@@ -736,7 +692,7 @@ namespace Gwent
                 }
                 else
                 {
-                    return ParsingDotExpression(dotExpression);
+                    return dotExpression;
                 }
             }
 
@@ -773,9 +729,7 @@ namespace Gwent
                     }
                     else
                     {
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new("Where is the parameter ?");
+                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is the parameter ?");
                     }
 
                     if (Tokens[index].Type == Token.TokenType.Close_Paren)
@@ -804,12 +758,9 @@ namespace Gwent
                             return ParsingDotExpression(dotExpression);
                         }
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is ) ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is ( ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
             }
             return dotExpression;
         }
@@ -820,7 +771,6 @@ namespace Gwent
                 index++;
                 return ParsingParams(arg, options);
             }
-
             switch (options)
             {
                 case { } when options[0]: //Params del Action de effect Declaration  and params del predicate
@@ -831,22 +781,29 @@ namespace Gwent
                         index++;
                         return ParsingParams(arg, options);
                     }
-                    else if (options[0] && Tokens[index].Type == Token.TokenType.Close_Paren)
+                    else if (Tokens[index].Type == Token.TokenType.Close_Paren)
                     {
+                        index++;
                         return arg;
                     }
                     break;
 
                 case { } when options[1]: // Parsing el range de la card
-                    if (Tokens[index].Value.Equals("melee", StringComparison.CurrentCultureIgnoreCase) || Tokens[index].Value.Equals("range", StringComparison.CurrentCultureIgnoreCase) || Tokens[index].Value.Equals("siege", StringComparison.CurrentCultureIgnoreCase))
+                    if (Tokens[index].Value.Equals("Melee", StringComparison.CurrentCultureIgnoreCase) ||
+                     Tokens[index].Value.Equals("Ranged", StringComparison.CurrentCultureIgnoreCase) ||
+                      Tokens[index].Value.Equals("Siege", StringComparison.CurrentCultureIgnoreCase) ||
+                      Tokens[index].Value.Equals("M", StringComparison.CurrentCultureIgnoreCase) ||
+                      Tokens[index].Value.Equals("R", StringComparison.CurrentCultureIgnoreCase) ||
+                        Tokens[index].Value.Equals("S", StringComparison.CurrentCultureIgnoreCase))
                     {
                         var result = new Atomic(Tokens[index]);
                         arg.Add(result);
                         index++;
                         return ParsingParams(arg, options);
                     }
-                    else if (!options[1] && Tokens[index].Type == Token.TokenType.Close_Block)
+                    else if (Tokens[index].Type == Token.TokenType.Close_Block)
                     {
+                        index++;
                         return arg;
                     }
                     break;
@@ -858,7 +815,13 @@ namespace Gwent
                         if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
                         {
                             index += 2;
-                            if (Tokens[index].Type == Token.TokenType.Number || Tokens[index].Type == Token.TokenType.String || Tokens[index].Type == Token.TokenType.Boolean)
+                            if (Tokens[index].Type == Token.TokenType.Number ||
+                            Tokens[index].Type == Token.TokenType.String ||
+                            Tokens[index].Type == Token.TokenType.Boolean ||
+                            Tokens[index].Type == Token.TokenType.Number_Literal ||
+                             Tokens[index].Type == Token.TokenType.Chain_Literals ||
+                              Tokens[index].Type == Token.TokenType.Token_True ||
+                              Tokens[index].Type == Token.TokenType.Token_False)
                             {
                                 Assignment result = new(new IDExpression(Tokens[index - 2], Tokens[index].Type, null!), Assignment.Operators.Equal, new Atomic(Tokens[index]));
                                 arg.Add(result);
@@ -869,15 +832,14 @@ namespace Gwent
                                     {
                                         if (assignment.Argument is null)
                                         {
-                                            assignment.Argument = assignment.ID.Value = result.Argument;
-                                            assignment.ID.Type = result.ID.Type;
+                                            assignment.Argument = assignment.ID!.Value = result.Argument;
+                                            assignment.ID.Type = result.ID!.Type;
                                         }
                                     }
                                 }
                                 return ParsingParams(arg, options);
                             }
-                            EngineCompiler.error = new(ErrorCode.SyntacticError);
-                            throw new("Where is the value ?");
+                            EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is the value ?");
                         }
                         else if (Tokens[index + 1].Type == Token.TokenType.Comma)
                         {
@@ -887,17 +849,19 @@ namespace Gwent
                             return ParsingParams(arg, options);
                         }
                     }
-                    if (!options[2] && Tokens[index].Type == Token.TokenType.Close_Key)
+                    else if (Tokens[index].Type == Token.TokenType.Close_Key)
                     {
+                        //index++;
                         return arg;
                     }
                     break;
 
                 default: break;
             }
-            EngineCompiler.error = new(ErrorCode.SyntacticError);
-            throw new("Where is the parameter ?");
+            EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is the parameter ?");
+            return null;
         }
+
         private Expression C(Expression last)
         {
             if (Tokens[index].Type == Token.TokenType.Token_While)
@@ -924,11 +888,10 @@ namespace Gwent
                                 }
                                 else
                                 {
-                                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                                    throw new("Where is ; ?");
+                                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ; ?");
                                 }
                             }
+                            index++;
                         }
                         else
                         {
@@ -939,23 +902,17 @@ namespace Gwent
                             }
                             else
                             {
-                                EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                                throw new("Where is ; ?");
+                                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ; ?");
                             }
                         }
-                        index++;
                         return new WhileExpression(conditional!, statement);
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new("Where is ) ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Where is ( ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
             }
 
-            if (Tokens[index].Type == Token.TokenType.Token_For)
+            if (Tokens[index].Type == Token.TokenType.Token_for)
             {
                 if (Tokens[index + 1].Type == Token.TokenType.Identifier)
                 {
@@ -965,12 +922,12 @@ namespace Gwent
                     {
                         if (Tokens[index + 1].Type == Token.TokenType.Identifier)
                         {
-                            Assignment collection = new(new IDExpression(Tokens[index], null!), Assignment.Operators.Equal, last);// comprobar si es un IEnumerable
+                            Assignment collection = new(new IDExpression(Tokens[index + 1], null!), Assignment.Operators.Equal, last);// comprobar si es un IEnumerable
+                            Statement statement = new();
                             index += 2;
-                            if (Tokens[index++].Type == Token.TokenType.Open_Key)
+                            if (Tokens[index + 1].Type == Token.TokenType.Open_Key)
                             {
                                 index += 2;
-                                Statement statement = new();
                                 while (Tokens[index].Type != Token.TokenType.Close_Key)
                                 {
                                     var result_M = M();
@@ -981,28 +938,31 @@ namespace Gwent
                                     }
                                     else
                                     {
-                                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                                        throw new("Where is ; ?");
+                                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ; ?");
                                     }
                                 }
                                 index++;
-                                return new ForExpression(new InExpression(item, collection), statement);
                             }
-                            EngineCompiler.error = new(ErrorCode.SyntacticError);
+                            else
+                            {
+                                var result_M = M();
+                                if (Tokens[index].Type == Token.TokenType.PointAndComma)
+                                {
+                                    statement.Expressions.Enqueue(result_M);
+                                }
+                                else
+                                {
+                                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ; ?");
+                                }
+                            }
+                            return new ForExpression(new InExpression(item, collection), statement);
 
-                            throw new("Where is { ?");
                         }
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new("Where is the collection ?");
+                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is the collection ?");
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new("Where is in ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is in ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Where is the item ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is the item ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_If)
@@ -1014,10 +974,10 @@ namespace Gwent
                     var conditional = result_A as BoolExpression;
                     if (Tokens[index].Type == Token.TokenType.Close_Paren)
                     {
+                        Statement statement = new();
                         if (Tokens[index + 1].Type == Token.TokenType.Open_Key)
                         {
                             index += 2;
-                            Statement statement = new();
                             while (Tokens[index].Type != Token.TokenType.Close_Key)
                             {
                                 var result_M = M();
@@ -1028,20 +988,16 @@ namespace Gwent
                                 }
                                 else
                                 {
-                                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                                    throw new("Where is ; ?");
+                                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ; ?");
                                 }
                             }
-
                             index++;
-
                             if (Tokens[index].Type == Token.TokenType.Token_Else)
                             {
-                                if (Tokens[index + 2].Type == Token.TokenType.Open_Key)
+                                Statement statement_else = new();
+                                if (Tokens[index + 1].Type == Token.TokenType.Open_Key)
                                 {
-                                    index += 3;
-                                    Statement statement_else = new();
+                                    index += 2;
                                     while (Tokens[index].Type != Token.TokenType.Close_Key)
                                     {
                                         var result_M = M();
@@ -1052,31 +1008,46 @@ namespace Gwent
                                         }
                                         else
                                         {
-                                            EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                                            throw new("Where is ; ?");
+                                            EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ; ?");
                                         }
                                     }
                                     index++;
-                                    return new ConditionalExpression(conditional!, statement, statement_else);
                                 }
-                                EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                                throw new("Where is { ?");
+                                else
+                                {
+                                    var result_M = M();
+                                    if (Tokens[index].Type == Token.TokenType.PointAndComma)
+                                    {
+                                        statement.Expressions.Enqueue(result_M);
+                                    }
+                                    else
+                                    {
+                                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ; ?");
+                                    }
+                                }
+                                //index++;
+                                return new ConditionalExpression(conditional!, statement, statement_else);
+                            }
+                        }
+                        else
+                        {
+                            var result_M = M();
+                            if (Tokens[index].Type == Token.TokenType.PointAndComma)
+                            {
+                                statement.Expressions.Enqueue(result_M);
                             }
                             else
-                                return new ConditionalExpression(conditional!, statement, null!);
+                            {
+                                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ; ?");
+                            }
                         }
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
+                        //index++;
+                        return new ConditionalExpression(conditional!, statement, null!);
 
-                        throw new("Where is { ?");
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new("Where is ) ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new("Where is ( ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
             }
 
             return A(last);
@@ -1279,31 +1250,31 @@ namespace Gwent
         {
             if (Tokens[index].Type == Token.TokenType.Number_Literal)
             {
-                var atomic = new Atomic(Tokens[index++]);
+                var atomic = new Atomic(Tokens[index++], Scope.DataType.Number);
                 return atomic;
             }
 
             if (Tokens[index].Type == Token.TokenType.Chain_Literals)
             {
-                var atomic = new Atomic(Tokens[index++]);
+                var atomic = new Atomic(Tokens[index++], Scope.DataType.String);
                 return atomic;
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_False)
             {
-                var atomic = new Atomic(Tokens[index++]);
+                var atomic = new Atomic(Tokens[index++], Scope.DataType.Boolean);
                 return atomic;
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_True)
             {
-                var atomic = new Atomic(Tokens[index++]);
+                var atomic = new Atomic(Tokens[index++], Scope.DataType.Boolean);
                 return atomic;
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_PI)
             {
-                var atomic = new Atomic(Tokens[index++]);
+                var atomic = new Atomic(Tokens[index++], Scope.DataType.Number);
                 return atomic;
             }
 
@@ -1317,13 +1288,9 @@ namespace Gwent
                     {
                         return new Unary(result_W, Unary.Operators.Sen);
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is ) ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
                 }
-
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is ( ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Cos)
@@ -1336,13 +1303,9 @@ namespace Gwent
                     {
                         return new Unary(result_W, Unary.Operators.Sen);
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is ) ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
                 }
-
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is ( ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Tan)
@@ -1355,13 +1318,9 @@ namespace Gwent
                     {
                         return new Unary(result_W, Unary.Operators.Sen);
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is ) ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
                 }
-
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is ( ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Cot)
@@ -1374,12 +1333,9 @@ namespace Gwent
                     {
                         return new Unary(result_W, Unary.Operators.Sen);
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is ) ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is ( ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Sqrt)
@@ -1392,12 +1348,9 @@ namespace Gwent
                     {
                         return new Unary(result_W, Unary.Operators.Sen);
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is ) ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is ( ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Log)
@@ -1410,12 +1363,9 @@ namespace Gwent
                     {
                         return new Unary(result_W, Unary.Operators.Sen);
                     }
-                    EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                    throw new(" Where is ) ?");
+                    EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is ( ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ( ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Sum)
@@ -1438,8 +1388,7 @@ namespace Gwent
                 {
                     return new Unary(new IDExpression(Tokens[index], null!), Unary.Operators.SumSumLeft);
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is the identifier ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is the identifier ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_DifDif)
@@ -1449,8 +1398,7 @@ namespace Gwent
                 {
                     return new Unary(new IDExpression(Tokens[index], null!), Unary.Operators.DifDifLeft);
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is the identifier ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is the identifier ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Token_Not)
@@ -1468,8 +1416,7 @@ namespace Gwent
                 {
                     return result_M;
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is ) ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ) ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Open_Block)
@@ -1481,8 +1428,7 @@ namespace Gwent
                 {
                     return result_M;
                 }
-                EngineCompiler.error = new(ErrorCode.SyntacticError);
-                throw new(" Where is } ?");
+                EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ] ?");
             }
 
             if (Tokens[index].Type == Token.TokenType.Open_Key)
@@ -1499,9 +1445,7 @@ namespace Gwent
                     }
                     else
                     {
-                        EngineCompiler.error = new(ErrorCode.SyntacticError);
-
-                        throw new("Where is ; ?");
+                        EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is ; ?");
                     }
                 }
                 index++;
@@ -1511,59 +1455,9 @@ namespace Gwent
             if (Tokens[index].Type == Token.TokenType.Identifier)
             {
                 var id = new IDExpression(Tokens[index], null!);
-                if (Tokens[index + 1].Type == Token.TokenType.Token_SumSum)
-                {
-                    index += 2;
-                    return new Unary(id, Unary.Operators.SumSumRight);
-                }
-                if (Tokens[index + 1].Type == Token.TokenType.Token_DifDif)
-                {
-                    index += 2;
-                    return new Unary(id, Unary.Operators.DifDifRight);
-                }
-                if (Tokens[index + 1].Type == Token.TokenType.Token_Equal)
-                {
-                    index += 2;
-                    id.Value = W(last);
-                    return new Assignment(id, Assignment.Operators.Equal, id.Value);
-                }
-                if (Tokens[index + 1].Type == Token.TokenType.Token_SumEqual)
-                {
-                    index += 2;
-                    id.Value = W(last);
-                    return new Assignment(id, Assignment.Operators.SumEqual, id.Value);
-                }
-                if (Tokens[index + 1].Type == Token.TokenType.Token_DifEqual)
-                {
-                    index += 2;
-                    id.Value = W(last);
-                    return new Assignment(id, Assignment.Operators.DifEqual, id.Value);
-                }
-                if (Tokens[index + 1].Type == Token.TokenType.Token_MultiEqual)
-                {
-                    index += 2;
-                    id.Value = W(last);
-                    return new Assignment(id, Assignment.Operators.MulEqual, id.Value);
-                }
-                if (Tokens[index + 1].Type == Token.TokenType.Token_DivEqual)
-                {
-                    index += 2;
-                    id.Value = W(last);
-                    return new Assignment(id, Assignment.Operators.DivEqual, id.Value);
-                }
-                if (Tokens[index + 1].Type == Token.TokenType.TwoPoint)
-                {
-                    index += 2;
-                    id.Value = W(last);
-                    return new Assignment(id, Assignment.Operators.TwoPoint, id.Value);
-                }
-                if (Tokens[index + 1].Type == Token.TokenType.Point)
-                {
-                    index += 2;
-                    return ParsingDotExpression(new(id, Tokens[index - 2].Type, null!));
-                }
+                if (Tokens[index].Value == "context") id.Value = new Atomic(new Token(Token.TokenType.Chain_Literals, "context"), Scope.DataType.String);
                 index++;
-                return id;
+                return ParsingIdentifier(id, null!);
             }
 
             if (Tokens[index].Type == Token.TokenType.Close_Paren ||
@@ -1579,9 +1473,71 @@ namespace Gwent
             {
                 return last;
             }
-
-            EngineCompiler.error = new(ErrorCode.SyntacticError); 
-            throw new("Where is the value ?");
+            EngineCompiler.CreateError(ErrorCode.SyntacticError, " Where is the value ?");
+            return null;
         }
+
+        private Expression ParsingIdentifier(IDExpression id, Expression last)
+        {
+            if (Tokens[index].Type == Token.TokenType.Token_SumSum)
+            {
+                index++;
+                return new Unary(id, Unary.Operators.SumSumRight);
+            }
+            if (Tokens[index].Type == Token.TokenType.Token_DifDif)
+            {
+                index++;
+                return new Unary(id, Unary.Operators.DifDifRight);
+            }
+            if (Tokens[index].Type == Token.TokenType.Token_Equal)
+            {
+                index++;
+                id.Value = W(null!);//estaba last
+                return last is not null ? new Assignment((DotExpression)last, Assignment.Operators.Equal, id.Value)
+                : new Assignment(id, Assignment.Operators.Equal, id.Value);
+            }
+            if (Tokens[index].Type == Token.TokenType.Token_SumEqual)
+            {
+                index++;
+                id.Value = W(null!);//estaba last
+                return last is not null ? new Assignment((DotExpression)last, Assignment.Operators.Equal, id.Value)
+                 : new Assignment(id, Assignment.Operators.SumEqual, id.Value);
+            }
+            if (Tokens[index].Type == Token.TokenType.Token_DifEqual)
+            {
+                index++;
+                id.Value = W(null!);//estaba last
+                return last is not null ? new Assignment((DotExpression)last, Assignment.Operators.Equal, id.Value)
+                : new Assignment(id, Assignment.Operators.DifEqual, id.Value);
+            }
+            if (Tokens[index].Type == Token.TokenType.Token_MultiEqual)
+            {
+                index++;
+                id.Value = W(null!);//estaba last
+                return last is not null ? new Assignment((DotExpression)last, Assignment.Operators.Equal, id.Value)
+                : new Assignment(id, Assignment.Operators.MulEqual, id.Value);
+            }
+            if (Tokens[index].Type == Token.TokenType.Token_DivEqual)
+            {
+                index++;
+                id.Value = W(null!);//estaba last
+                return last is not null ? new Assignment((DotExpression)last, Assignment.Operators.Equal, id.Value)
+                : new Assignment(id, Assignment.Operators.DivEqual, id.Value);
+            }
+            if (Tokens[index].Type == Token.TokenType.TwoPoint)
+            {
+                index++;
+                id.Value = W(null!);
+                return new Assignment(id, Assignment.Operators.TwoPoint, id.Value);
+            }
+            if (Tokens[index].Type == Token.TokenType.Point)
+            {
+                index++;
+                var result = ParsingDotExpression(new(id, Tokens[index - 2].Type, null!));
+                return ParsingIdentifier(id, result);
+            }
+            return last is null ? id : last;
+        }
+
     }
 }

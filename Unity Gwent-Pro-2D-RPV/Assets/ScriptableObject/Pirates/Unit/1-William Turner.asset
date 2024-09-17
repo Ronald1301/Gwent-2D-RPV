@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1-William Turner
   m_EditorClassIdentifier: 
   cardName: William Turner
-  faction: 0
+  faction: Pirates
   type: 0
   description: Summon a random  weather card from your  hand to the field
   cardImageForehead: {fileID: 21300000, guid: afd079951da7f22499d5f3ea7c9a75d6, type: 3}
@@ -21,10 +21,11 @@ MonoBehaviour:
   startPower: 10
   power: 10
   typeField: 77
+  range: 3
   typeUnitCard: 1
   typeSpecialCard: 0
   effects: 1
   stayintheField: 0
-  inTheField: 0
+  inTheField: 1
   affectedByClimate: 0
   affectedByIncrease: 0

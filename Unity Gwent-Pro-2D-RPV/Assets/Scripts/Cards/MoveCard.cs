@@ -2,43 +2,56 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MoveCard : MonoBehaviour
 {
     GameObject subBoard;
     GameObject subBoard2;
     public GameObject GameManager;
+
+    private GameManager componentGameManager;
     public ScriptUIRuntime UIRuntime;
+    public GameObject UISelectField;
     private GameObject climateCard;
 
     private bool isClicked = false;
     private bool activeLure = false;
 
+    private bool IsMRS = false;
+
     void Start()
     {
+        //if (GameManager == null) GameManager = GameObject.FindGameObjectWithTag("GameManager");
+        if (UISelectField == null) UISelectField = GameObject.FindGameObjectWithTag("UI Select Field");
+        if (UIRuntime == null) UIRuntime = GameObject.FindGameObjectWithTag("UI Runtime").GetComponent<ScriptUIRuntime>();
+        componentGameManager = GameManager.GetComponent<GameManager>();
         climateCard = GameObject.FindGameObjectWithTag("ClimateCard");
+
+
         StartCoroutine(WaitForClick());
         //GameManager = GameObject.Find("GameManager");
         //UIRuntime = GameObject.FindGameObjectWithTag("UI Runtime").GetComponent<ScriptUIRuntime>();
 
-        if (GameManager.GetComponent<GameManager>().player1.hand.CardsInHand.Contains(this.gameObject))
+        if (componentGameManager.player1.hand.CardsInHand.Contains(this.gameObject))
         {
             // subBoard = GameObject.FindGameObjectWithTag("SubBoard1");
-            subBoard = GameManager.GetComponent<GameManager>().player1.board.gameObject;
-            subBoard2 = GameManager.GetComponent<GameManager>().player2.board.gameObject;
+            subBoard = componentGameManager.player1.subBoard.gameObject;
+            subBoard2 = componentGameManager.player2.subBoard.gameObject;
             //Debug.Log("SubBoard1");
         }
-        else if (GameManager.GetComponent<GameManager>().player2.hand.CardsInHand.Contains(this.gameObject))
+        else if (componentGameManager.player2.hand.CardsInHand.Contains(this.gameObject))
         {
             //subBoard = GameObject.FindGameObjectWithTag("SubBoard2");
-            subBoard = GameManager.GetComponent<GameManager>().player2.board.gameObject;
-            subBoard2 = GameManager.GetComponent<GameManager>().player1.board.gameObject;
+            subBoard = componentGameManager.player2.subBoard.gameObject;
+            subBoard2 = componentGameManager.player1.subBoard.gameObject;
             //Debug.Log("SubBoard2");
         }
         // subBoard = GameObject.FindGameObjectWithTag("SubBoard1");
     }
     void Update()
     {
+        if (GameManager == null) GameManager = GameObject.FindGameObjectWithTag("GameManager");
         if (Input.GetMouseButtonDown(1) && activeLure)
         {
             isClicked = true;
@@ -46,84 +59,18 @@ public class MoveCard : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if ((GameManager.GetComponent<GameManager>().player1.isPlaying &&
-        GameManager.GetComponent<GameManager>().player1.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject))
-            || (GameManager.GetComponent<GameManager>().player2.isPlaying &&
-            GameManager.GetComponent<GameManager>().player2.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject)))
+        if ((componentGameManager.player1.isPlaying &&
+        componentGameManager.player1.subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject))
+            || (componentGameManager.player2.isPlaying &&
+            componentGameManager.player2.subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Contains(this.gameObject)))
         {
             Move();
             //this.gameObject.GetComponent<CardDisplay>().card.inTheField = true;
 
-            if (this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
+            if (!IsMRS)
             {
-                //GameManager.GetComponent<GameManager>().UpdatePoints();
-                //GameManager.GetComponent<GameManager>().UpdatePoints(this.gameObject.GetComponent<CardDisplay>().card);
-                UIRuntime.UIUpdate();
-                Effects.ActivateEffect(gameObject);
-                UIRuntime.UIUpdate();
-                GameManager.GetComponent<GameManager>().ChangeTurn();
+                BeforeMoveCard();
             }
-
-            if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0 && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
-            {
-                GameManager.GetComponent<GameManager>().UpdatePoints();
-                UIRuntime.UIUpdate();
-                GameManager.GetComponent<GameManager>().ChangeTurn();
-
-                if (GameManager.GetComponent<GameManager>().player1.isPlaying && GameManager.GetComponent<GameManager>().player1.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0)
-                {
-                    GameManager.GetComponent<GameManager>().player1.passTurn = true;
-                }
-                if (GameManager.GetComponent<GameManager>().player2.isPlaying && GameManager.GetComponent<GameManager>().player2.board.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0)
-                {
-                    GameManager.GetComponent<GameManager>().player2.passTurn = true;
-                }
-            }
-            else
-            {
-                GameManager.GetComponent<GameManager>().UpdatePoints();
-                UIRuntime.UIUpdate();
-            }
-
-            /*
-            //Here I activate the effect of the card, 
-            //I add the points of the card if it has them to its corresponding player, 
-            //I update the UI and change the turn
-
-            UIRuntime.UIUpdate();
-            //Add points from the card to the player
-            // GameManager.GetComponent<GameManager>().UpdatePoints(this.gameObject.GetComponent<CardDisplay>().card);
-            GameManager.GetComponent<GameManager>().UpdatePoints();
-            //Activate card effect
-            Effects.ActivateEffect(gameObject);
-            //Update UI
-            UIRuntime.UIUpdate();
-            //Change Turn
-            GameManager.GetComponent<GameManager>().ChangeTurn();
-            */
-
-            /*
-           //Update points
-           GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
-           GameManager.GetComponent<GameManager>().player2.board.UpdatePoints();
-           //GameManager.GetComponent<GameManager>().UpdatePoints();
-            */
-
-            if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0 && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
-            {
-                GameManager.GetComponent<GameManager>().UpdatePoints();
-                UIRuntime.UIUpdate();
-                GameManager.GetComponent<GameManager>().ChangeTurn();
-            }
-
-            /*
-              if (GameManager.GetComponent<GameManager>().player1.PlayedACard || GameManager.GetComponent<GameManager>().player2.PlayedACard)
-              {
-                  GameManager.GetComponent<GameManager>().UpdatePoints();
-                  UIRuntime.UIUpdate();
-                  GameManager.GetComponent<GameManager>().ChangeTurn();
-              }
-            */
         }
     }
     public void Move()
@@ -133,21 +80,44 @@ public class MoveCard : MonoBehaviour
         //Move card to the corresponding zone
         if (GetComponent<CardDisplay>().cardData.Type == CardData.CardType.Unit)
         {
-            if (GetComponent<CardDisplay>().cardData.TypeField == 'M')
+            switch (GetComponent<CardDisplay>().cardData.Range)
             {
-                MoveToM();
-                Debug.Log("Move to M");
+                case CardData.EnumRange.M:
+                    MoveToM();
+                    break;
+                case CardData.EnumRange.R:
+                    MoveToR();
+                    break;
+                case CardData.EnumRange.S:
+                    MoveToS();
+                    break;
+                case CardData.EnumRange.MR:
+                case CardData.EnumRange.MS:
+                case CardData.EnumRange.RS:
+                case CardData.EnumRange.MRS:
+                    IsMRS = true;
+                    StartCoroutine(WaitForButtonClick());
+                    UISelectField.SetActive(true);
+                    UISelectField.GetComponent<ScriptSelectField>().LoadSelectField(GetComponent<CardDisplay>().cardData.Range);
+                    break;
             }
-            else if (GetComponent<CardDisplay>().cardData.TypeField == 'R')
-            {
-                MoveToR();
-                Debug.Log("Move to R");
-            }
-            else if (GetComponent<CardDisplay>().cardData.TypeField == 'S')
-            {
-                MoveToS();
-                Debug.Log("Move to S");
-            }
+            /*
+                        if (GetComponent<CardDisplay>().cardData.TypeField == 'M')
+                        {
+                            MoveToM();
+                            Debug.Log("Move to M");
+                        }
+                        else if (GetComponent<CardDisplay>().cardData.TypeField == 'R')
+                        {
+                            MoveToR();
+                            Debug.Log("Move to R");
+                        }
+                        else if (GetComponent<CardDisplay>().cardData.TypeField == 'S')
+                        {
+                            MoveToS();
+                            Debug.Log("Move to S");
+                        }
+            */
         }
         else
         {
@@ -157,24 +127,24 @@ public class MoveCard : MonoBehaviour
                 {
                     Effects.DisableEffectClimate(subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate);
                     subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(subBoard.GetComponent<SubBoard>().Climate.GetComponent<ClimateZone>().climate, subBoard.GetComponent<SubBoard>());
-                    //this.gameObject.transform.position = GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.transform.position;
+                    //this.gameObject.transform.position = componentFameManager.player1.board.Climate.GetComponent<ClimateZone>().climate.transform.position;
                 }
                 MoveToClimate();
                 Debug.Log("Move to Climate");
             }
             else if (gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard == CardData.SubTypeSpecialCard.Increase)
             {
-                if (/*subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[0] == null &&*/ GetComponent<CardDisplay>().cardData.TypeField == 'M')
+                if (GetComponent<CardDisplay>().cardData.Range == CardData.EnumRange.M || GetComponent<CardDisplay>().cardData.TypeField == 'M')
                 {
                     MoveToIncrease(0);
                     Debug.Log("Move to Increase en 0");
                 }
-                else if (/*subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[1] == null && */GetComponent<CardDisplay>().cardData.TypeField == 'R')
+                else if (GetComponent<CardDisplay>().cardData.Range == CardData.EnumRange.R || GetComponent<CardDisplay>().cardData.TypeField == 'R')
                 {
                     MoveToIncrease(1);
                     Debug.Log("Move to Increase en 1");
                 }
-                else if (/*subBoard.GetComponent<SubBoard>().Increase.GetComponent<IncreaseZone>().increase[2] == null &&*/ GetComponent<CardDisplay>().cardData.TypeField == 'S')
+                else if (GetComponent<CardDisplay>().cardData.Range == CardData.EnumRange.S || GetComponent<CardDisplay>().cardData.TypeField == 'S')
                 {
                     MoveToIncrease(2);
                     Debug.Log("Move to Increase en 2");
@@ -182,21 +152,21 @@ public class MoveCard : MonoBehaviour
             }
             else if (gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard == CardData.SubTypeSpecialCard.Clearance)
             {
-                if (subBoard == GameManager.GetComponent<GameManager>().player1.board.gameObject)
+                if (subBoard == componentGameManager.player1.subBoard.gameObject)
                 {
-                    if (GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
+                    if (componentGameManager.player2.subBoard.Climate.GetComponent<ClimateZone>().climate != climateCard)
                     {
-                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate);
-                        GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player2.board.Climate.GetComponent<ClimateZone>().climate, subBoard2.GetComponent<SubBoard>());
+                        Effects.DisableEffectClimate(componentGameManager.player2.subBoard.Climate.GetComponent<ClimateZone>().climate);
+                        componentGameManager.player2.subBoard.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(componentGameManager.player2.subBoard.Climate.GetComponent<ClimateZone>().climate, subBoard2.GetComponent<SubBoard>());
                         Debug.Log("Move to Cemetery card climate");
                     }
                 }
-                else /*if (subBoard == GameManager.GetComponent<GameManager>().player2.board.gameObject)*/
+                else /*if (subBoard == componentFameManager.player2.board.gameObject)*/
                 {
-                    if (GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate != climateCard)
+                    if (componentGameManager.player1.subBoard.Climate.GetComponent<ClimateZone>().climate != climateCard)
                     {
-                        Effects.DisableEffectClimate(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate);
-                        GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(GameManager.GetComponent<GameManager>().player1.board.Climate.GetComponent<ClimateZone>().climate, subBoard2.GetComponent<SubBoard>());
+                        Effects.DisableEffectClimate(componentGameManager.player1.subBoard.Climate.GetComponent<ClimateZone>().climate);
+                        componentGameManager.player1.subBoard.Climate.GetComponent<ClimateZone>().climate.GetComponent<MoveCard>().MoveToCemetery(componentGameManager.player1.subBoard.Climate.GetComponent<ClimateZone>().climate, subBoard2.GetComponent<SubBoard>());
                         Debug.Log("Move to Cemetery card climate");
                     }
                 }
@@ -227,78 +197,72 @@ public class MoveCard : MonoBehaviour
                         Debug.Log("Move to S card lure");
                     }
                     UIRuntime.UIUpdate();
-                    GameManager.GetComponent<GameManager>().ChangeTurn();
+                    componentGameManager.ChangeTurn();
                 }
                 else
                 {
                     activeLure = true;
                     StartCoroutine(WaitForClick());
                 }
-                /*
-                GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
-                GameManager.GetComponent<GameManager>().player2.board.UpdatePoints();
-                GameManager.GetComponent<GameManager>().UpdatePoints();
-                //Update UI
-                UIRuntime.UIUpdate();
-                GameManager.GetComponent<GameManager>().ChangeTurn();
-                */
             }
         }
 
         subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Remove(this.gameObject);
 
-        if (GameManager.GetComponent<GameManager>().player1.isPlaying && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
+        if (componentGameManager.player1.isPlaying && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
         {
-            GameManager.GetComponent<GameManager>().player1.PlayedACard = true;
+            componentGameManager.player1.PlayedACard = true;
         }
-        else if (GameManager.GetComponent<GameManager>().player2.isPlaying && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
+        else if (componentGameManager.player2.isPlaying && this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
         {
-            GameManager.GetComponent<GameManager>().player2.PlayedACard = true;
+            componentGameManager.player2.PlayedACard = true;
         }
 
         /*
                 if (subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0)
                 {
-                    GameManager.GetComponent<GameManager>().UpdatePoints();
+                    componentFameManager.UpdatePoints();
                     UIRuntime.UIUpdate();
-                    GameManager.GetComponent<GameManager>().ChangeTurn();
+                    componentFameManager.ChangeTurn();
                 }
                 else
                 {
-                    GameManager.GetComponent<GameManager>().UpdatePoints();
+                    componentFameManager.UpdatePoints();
                     UIRuntime.UIUpdate();
                 }
                 */
-
-        /*
-       //Here I activate the effect of the card, 
-       //I add the points of the card if it has them to its corresponding player, 
-       //I update the UI and change the turn
-       {
-           UIRuntime.UIUpdate();
-
-           //Add points from the card to the player
-           GameManager.GetComponent<GameManager>().UpdatePoints(this.gameObject.GetComponent<CardDisplay>().card);
-
-
-           //Activate card effect
-           Effects.ActivateEffect(gameObject);
-
-           GameManager.GetComponent<GameManager>().ChangeTurn();
-
-           //Change Turn
-           // GameManager.GetComponent<GameManager>().ChangeTurn();
-
-           //Update points
-           GameManager.GetComponent<GameManager>().player1.board.UpdatePoints();
-           GameManager.GetComponent<GameManager>().player2.board.UpdatePoints();
-           //GameManager.GetComponent<GameManager>().UpdatePoints();
-
-           //Update UI
-           UIRuntime.UIUpdate();
-       }
-       */
     }
+
+    private void BeforeMoveCard()
+    {
+
+        if (this.gameObject.GetComponent<CardDisplay>().cardData.TypeSpecialCard != CardData.SubTypeSpecialCard.Lure)
+        {
+            UIRuntime.UIUpdate();
+            Effects.ActivateEffect(gameObject);
+            UIRuntime.UIUpdate();
+            CheckHandEmpty();
+            componentGameManager.ChangeTurn();
+        }
+        else
+        {
+            componentGameManager.UpdatePoints();
+            UIRuntime.UIUpdate();
+        }
+    }
+
+    void CheckHandEmpty()
+    {
+        if (componentGameManager.player1.isPlaying && componentGameManager.player1.subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0)
+        {
+            componentGameManager.player1.passTurn = true;
+        }
+        if (componentGameManager.player2.isPlaying && componentGameManager.player2.subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsInHand.Count == 0)
+        {
+            componentGameManager.player2.passTurn = true;
+        }
+    }
+
     public void MoveToM()
     {
         subBoard.GetComponent<SubBoard>().M.GetComponent<MeleeZone>().melee.Add(this.gameObject);
@@ -468,7 +432,6 @@ public class MoveCard : MonoBehaviour
         this.gameObject.GetComponent<CardDisplay>().cardData.affectedByIncrease = false;
         this.gameObject.GetComponent<CardDisplay>().cardData.Power = this.gameObject.GetComponent<CardDisplay>().cardData.StartPower;
     }
-
     public void MoveToDeck()
     {
         subBoard.GetComponent<SubBoard>().Hand.GetComponent<Hand>().CardsPriority.Add(this.gameObject);
@@ -544,18 +507,21 @@ public class MoveCard : MonoBehaviour
                         isClicked = false;
                         activeLure = false;
 
-                        if (GameManager.GetComponent<GameManager>().player1.isPlaying)
+                        CheckHandEmpty();
+
+                        if (componentGameManager.player1.isPlaying)
                         {
-                            GameManager.GetComponent<GameManager>().player1.PlayedACard = true;
+                            componentGameManager.player1.PlayedACard = true;
                         }
-                        else if (GameManager.GetComponent<GameManager>().player2.isPlaying)
+                        else if (componentGameManager.player2.isPlaying)
                         {
-                            GameManager.GetComponent<GameManager>().player2.PlayedACard = true;
+                            componentGameManager.player2.PlayedACard = true;
                         }
 
-                        GameManager.GetComponent<GameManager>().UpdatePoints();
+                        componentGameManager.UpdatePoints();
                         UIRuntime.UIUpdate();
-                        GameManager.GetComponent<GameManager>().ChangeTurn();
+                        componentGameManager.ChangeTurn();
+
                     }
                 }
             }
@@ -572,4 +538,32 @@ public class MoveCard : MonoBehaviour
             return true;
         else return false;
     }
+    IEnumerator WaitForButtonClick()
+    {
+        yield return new WaitUntil(() => UISelectField.GetComponent<ScriptSelectField>().selected != '\0');
+        // Continue with the rest of the code here
+
+        if (UISelectField.GetComponent<ScriptSelectField>().selected == 'M')
+        {
+            MoveToM();
+        }
+        else if (UISelectField.GetComponent<ScriptSelectField>().selected == 'R')
+        {
+            MoveToR();
+        }
+        else if (UISelectField.GetComponent<ScriptSelectField>().selected == 'S')
+        {
+            MoveToS();
+        }
+
+        UISelectField.GetComponent<ScriptSelectField>().selected = '\0';
+        BeforeMoveCard();
+        /*
+        UIRuntime.UIUpdate();
+        Effects.ActivateEffect(gameObject);
+        UIRuntime.UIUpdate();
+        componentFameManager.ChangeTurn();
+        */
+    }
+
 }

@@ -34,10 +34,11 @@ namespace Gwent
         }
         public override object Evaluate()
         {
-            Queue<object> onActivation = new();
+            Queue<List<string>> onActivation = new();
             foreach (var item in Body)
             {
-                onActivation.Enqueue(item.Evaluate());
+                var listNameEffects= item.Evaluate() as List<string>;
+                onActivation.Enqueue(listNameEffects!);
             }
             return onActivation;
             //devuelve una lista de efectos con selector y postaction

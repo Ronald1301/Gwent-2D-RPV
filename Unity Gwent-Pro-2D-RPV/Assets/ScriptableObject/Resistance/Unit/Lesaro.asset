@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lesaro
   m_EditorClassIdentifier: 
   cardName: Lieutenant Lesaro
-  faction: 0
+  faction: Resistance
   type: 0
   description: Decreases an opponent's  card by 1 point
   cardImageForehead: {fileID: 21300000, guid: 42bf7277a41e00f4789ad3e6d7773408, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 3
   power: 3
   typeField: 82
+  range: 1
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 8
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

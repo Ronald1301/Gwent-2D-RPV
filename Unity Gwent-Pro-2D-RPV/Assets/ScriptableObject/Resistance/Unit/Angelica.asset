@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Angelica
   m_EditorClassIdentifier: 
   cardName: Angelica Teach
-  faction: 0
+  faction: Resistance
   type: 0
   description: Destroy the card with  the least power in the opponent's field
   cardImageForehead: {fileID: 21300000, guid: d312035a1f4a93d40a65f06a70d9260d, type: 3}
@@ -21,7 +21,11 @@ MonoBehaviour:
   startPower: 6
   power: 6
   typeField: 83
+  range: 2
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 4
   stayintheField: 0
+  inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

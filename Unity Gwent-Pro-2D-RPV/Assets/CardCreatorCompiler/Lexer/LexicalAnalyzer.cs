@@ -24,9 +24,14 @@ namespace Gwent
         {
             for (int i = 0; i < Input.Length; i++)
             {
-                if ((Input[i] == ' ' || Input[i] == '\t' || Input[i] == '\n' || Input[i] == '\r'|| Input[i] == '\0'|| Input[i] == '\f'|| Input[i] == '\v'|| Input[i] == '\b'|| Input[i] == '\a') && aux == "") continue;
+                if ((Input[i] == ' ' || Input[i] == '\t' || Input[i] == '\n' || Input[i] == '\r' || Input[i] == '\0' || Input[i] == '\f' || Input[i] == '\v' || Input[i] == '\b' || Input[i] == '\a') && aux == "")
+                {
 
-                else if ((Input[i] == ' ' || Input[i] == ';') && aux != "")
+                    continue;
+                }
+
+                //else if ((Input[i] == ' ' || Input[i] == ';') && aux != "")
+                else if (Input[i] == ' ' && aux != "")
                 {
                     tokens.Add(GetToken(aux));
                     aux = "";
@@ -71,6 +76,7 @@ namespace Gwent
                     aux += Input[i];
             }
             tokens.Add(new Token(Token.TokenType.EndProgram, "EOF"));
+            DeleteWhiteSpace(tokens);
             return tokens;
         }
 
@@ -94,6 +100,20 @@ namespace Gwent
                 {
                     number += input[index];
                 }
+                else if (input[index] == '.')
+                {
+                    number += input[index];
+                }
+                else if (input[index] == 'f')
+                {
+                    number += input[index];
+                    return number;
+                }
+                else if (char.IsLetter(input[index]))
+                {
+                    EngineCompiler.CreateError(ErrorCode.LexicalError, "Invalid token");
+                    return number;
+                }
                 else
                 {
                     return number;
@@ -114,6 +134,7 @@ namespace Gwent
                 str += input[index];
                 index++;
             }
+            EngineCompiler.CreateError(ErrorCode.LexicalError, "String not closed");
             return str;
         }
         private static string GetOperator(ref int index, string input)
@@ -129,6 +150,18 @@ namespace Gwent
                 }
             }
             return opera;
+        }
+
+        private static void DeleteWhiteSpace(List<Token> tokens)
+        {
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                if (tokens[i].Type == Token.TokenType.WhiteSpace)
+                {
+                    tokens.RemoveAt(i);
+                    i--;
+                }
+            }
         }
     }
 }

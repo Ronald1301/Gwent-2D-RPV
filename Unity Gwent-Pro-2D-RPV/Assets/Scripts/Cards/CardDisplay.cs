@@ -8,13 +8,14 @@ public class CardDisplay : MonoBehaviour
 {
     public CardData cardData;
     //[SerializeField] GameObject GameManager;
-    [SerializeField] UICardDescription UI;
+    public UICardDescription UI;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(UI is null)UI = GameObject.FindGameObjectWithTag("UI Card Description").GetComponent<UICardDescription>();
         GetComponent<SpriteRenderer>().sprite = cardData.CardImageForehead;
-        //UI = GameObject.FindGameObjectWithTag("UI Card Description");
+       // UI = GameObject.Find("UI Card Description").AddComponent<UICardDescription>();
     }
     void Update()
     {

@@ -9,7 +9,8 @@ namespace Gwent
             Equal, TwoPoint, SumEqual, DifEqual, MulEqual, DivEqual, UnknownWrapper
         }
 
-        public IDExpression ID;
+        public IDExpression? ID;
+        public DotExpression? dotExpression;
         public Operators operators;
         public Expression Argument;
         //public Token.TokenType Type { get; set; }
@@ -18,6 +19,12 @@ namespace Gwent
         public Assignment(IDExpression token, Operators opera, Expression argument = null!)// : base(token, argument)
         {
             ID = token;
+            operators = opera;
+            Argument = argument;
+        }
+        public Assignment(DotExpression dot, Operators opera, Expression argument = null!)// : base(token, argument)
+        {
+            dotExpression = dot;
             operators = opera;
             Argument = argument;
         }
@@ -32,74 +39,95 @@ namespace Gwent
         public override void SetScope(Scope current)
         {
             Context = current;
-            current.datatype.Add(ID.token, Scope.DataType.Unknown);
-            ID.SetScope(current);
-            Argument.SetScope(current);
+            if (dotExpression is not null) dotExpression.SetScope(current);
+            else
+            {
+                current.datatype.Add(ID!.token, ID.Type);
+                ID.SetScope(current);
+            }
+            if (Argument is not null) Argument.SetScope(current);
         }
 
         public override Scope.DataType CheckSemantic()
         {
             foreach (var item in Context!.datatype.Keys)
             {
-                if (item.Value == ID.token.Value)
+                if (item.Value == ID!.token.Value)
                 {
                     Context.datatype[item] = ID.CheckSemantic();
                     return Context.datatype[item];
                 }
             }
-            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-            throw new("The variable is not declared");
+            foreach (var item in Context!.Items.Keys)
+            {
+                if (item.token.Value == ID!.token.Value)
+                {
+                    return ID.CheckSemantic();
+                }
+            }
+            EngineCompiler.CreateError(ErrorCode.SemanticError, "Undeclared variable");
+            return Scope.DataType.Unknown;
         }
         public override object Evaluate()
         {
             try
             {
-                foreach (var item in Context!.datatype.Keys)
+                if (dotExpression is null)
                 {
-                    if (item.Value == ID.token.Value)
+                    foreach (var item in Context!.datatype.Keys)
                     {
-                        var result = Argument.Evaluate();
-                        if (Context.Items.ContainsKey(ID))
+                        if (item.Value == ID!.token.Value)
                         {
-                            Context.Items[ID] = result;
-                            if (operators == Operators.TwoPoint || operators == Operators.Equal)
+                            var result = Argument.Evaluate();
+                            if (Context.Items.ContainsKey(ID))
                             {
+                                Context.Items[ID] = result;
+                                if (operators == Operators.TwoPoint || operators == Operators.Equal)
+                                {
+                                    return result;
+                                }
+                            }
+                            else
+                            {
+                                Context.Items.Add(ID, result);
                                 return result;
                             }
                         }
-                        else
-                        {
-                            Context.Items.Add(ID, result);
-                            return result;
-                        }
                     }
-                }
-                foreach (var item in Context!.Items.Keys)
-                {
-                    if (item.token.Value == ID.token.Value)
+                    foreach (var item in Context!.Items.Keys)
                     {
-                        return this.operators switch
+                        if (item.token.Value == ID!.token.Value)
                         {
-                            Operators.SumEqual =>
-                                Context.Items[ID] = Convert.ToDouble(Context.Items[ID]) + Convert.ToDouble(Argument.Evaluate()),
-                            Operators.DifEqual =>
-                                Context.Items[ID] = Convert.ToDouble(Context.Items[ID]) - Convert.ToDouble(Argument.Evaluate()),
-                            Operators.MulEqual =>
-                                Context.Items[ID] = Convert.ToDouble(Context.Items[ID]) * Convert.ToDouble(Argument.Evaluate()),
-                            Operators.DivEqual =>
-                                Context.Items[ID] = Convert.ToDouble(Context.Items[ID]) / Convert.ToDouble(Argument.Evaluate()),
-                            _ =>
-                                throw new("Error en la asignación")
-                        };
-                    }
+                            return this.operators switch
+                            {
+                                Operators.SumEqual =>
+                                    Context.Items[ID] = Convert.ToDouble(Context.Items[ID]) + Convert.ToDouble(Argument.Evaluate()),
+                                Operators.DifEqual =>
+                                    Context.Items[ID] = Convert.ToDouble(Context.Items[ID]) - Convert.ToDouble(Argument.Evaluate()),
+                                Operators.MulEqual =>
+                                    Context.Items[ID] = Convert.ToDouble(Context.Items[ID]) * Convert.ToDouble(Argument.Evaluate()),
+                                Operators.DivEqual =>
+                                    Context.Items[ID] = Convert.ToDouble(Context.Items[ID]) / Convert.ToDouble(Argument.Evaluate()),
+                                _ =>
+                                    throw new("Error en la asignación")
+                            };
+                        }
 
+                    }
+                    throw new System.Exception("Error en la asignación");
                 }
-                throw new System.Exception("Error en la asignación");
+                else
+                {
+                    var valueDotExpression = dotExpression.Left.Evaluate();
+                    var typeDot = dotExpression.Type;
+                    return null!;
+                    //return dotExpression.Right.Evaluate(valueDotExpression, typeDot, Argument.Evaluate());
+                }
             }
             catch (System.Exception e)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new(e.Message);
+                EngineCompiler.CreateError(ErrorCode.SemanticError, e.Message);
+                return null!;
             }
         }
         /*

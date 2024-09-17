@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Sebasti\xE1n Armesto"
   m_EditorClassIdentifier: 
   cardName: "Sebasti\xE1n Armesto"
-  faction: 1
+  faction: Resistance
   type: 0
   description: Equalizes the power of  all cards on the field (own or rival's) to
     the average  power between them
@@ -22,6 +22,7 @@ MonoBehaviour:
   startPower: 3
   power: 3
   typeField: 77
+  range: 0
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 7

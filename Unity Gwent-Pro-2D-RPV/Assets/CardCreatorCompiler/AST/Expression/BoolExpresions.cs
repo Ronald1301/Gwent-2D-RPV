@@ -85,10 +85,12 @@ namespace Gwent
                     */
                 };
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new("The variable is not declared");
+                // EngineCompiler.CreateError(ErrorCode.EvaluateError, "The expression is not of type boolean");
+                EngineCompiler.CreateError(ErrorCode.EvaluateError, e.Message);
+                return null!;
+
             }
 
         }
@@ -113,16 +115,16 @@ namespace Gwent
                         {
                             return Scope.DataType.Boolean;
                         }
-                        EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                        throw new("The variable is not declared");
+                        EngineCompiler.CreateError(ErrorCode.SemanticError, "The expression is not of type number");
+                        break;
                     case OperatorsComparison.DoubleEqual:
                     case OperatorsComparison.NoEqual:
                         if (base.Left.CheckSemantic() == base.Right.CheckSemantic())
                         {
                             return Scope.DataType.Boolean;
                         }
-                        EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                        throw new("The variable is not declared");
+                        EngineCompiler.CreateError(ErrorCode.SemanticError, "The expression is not of type number");
+                        break;
                     default:
                         break;
                 }
@@ -134,13 +136,11 @@ namespace Gwent
                 {
                     return Scope.DataType.Boolean;
                 }
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new("The variable is not declared");
+                EngineCompiler.CreateError(ErrorCode.SemanticError, "The expression is not of type boolean");
             }
 
-            // Add a return statement here
-            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-            throw new("The variable is not declared");
+            EngineCompiler.CreateError(ErrorCode.SemanticError, "The expression is not of type boolean");
+            return Scope.DataType.Void;
         }
     }
 }

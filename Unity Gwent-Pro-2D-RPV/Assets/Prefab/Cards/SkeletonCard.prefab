@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2410682649813031850}
   m_Layer: 0
   m_Name: SkeletonCard
-  m_TagString: Untagged
+  m_TagString: SkeletoCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5554602093388825370}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.6906433}
+  m_LocalPosition: {x: 0, y: 0, z: -64.47114}
   m_LocalScale: {x: 0.06467, y: 0.04356, z: 0.69064}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 11.159, y: -3.574}
+  m_AnchoredPosition: {x: 9.819716, y: 3.3429017}
   m_SizeDelta: {x: 1.83, y: 11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &5878516632872319808
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
   UIRuntime: {fileID: 0}
+  UISelectField: {fileID: 0}
 --- !u!114 &2410682649813031850
 MonoBehaviour:
   m_ObjectHideFlags: 0

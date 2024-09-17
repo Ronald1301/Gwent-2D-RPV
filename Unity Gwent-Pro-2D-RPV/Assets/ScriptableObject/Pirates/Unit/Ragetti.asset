@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ragetti
   m_EditorClassIdentifier: 
   cardName: Ragetti
-  faction: 0
+  faction: Pirates
   type: 0
   description: Decreases an opponent's  card by 1 point
   cardImageForehead: {fileID: 21300000, guid: e2ae28cb5e04310408af3af5e6660352, type: 3}
@@ -21,8 +21,11 @@ MonoBehaviour:
   startPower: 3
   power: 3
   typeField: 82
+  range: 1
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 8
   stayintheField: 0
   inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

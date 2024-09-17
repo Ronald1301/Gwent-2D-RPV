@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Calypso
   m_EditorClassIdentifier: 
   cardName: Calypso
-  faction: 1
+  faction: Resistance
   type: 1
   description: Reduces the points to 0  of all cards placed in the  ranged attack
     rows  (own or the opponent's)
@@ -22,6 +22,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 82
+  range: 1
   typeUnitCard: 0
   typeSpecialCard: 1
   effects: 11

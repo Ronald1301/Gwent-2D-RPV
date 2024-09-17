@@ -6,7 +6,7 @@ namespace Gwent
     {
         public Token token;
         public Expression Value;
-        public Token.TokenType Type { get; set; }
+        public Scope.DataType Type { get; set; }
         protected override Scope? Context { get; set; }
         public Scope ContextPublic { get => Context!; }
 
@@ -14,13 +14,45 @@ namespace Gwent
         {
             this.token = token;
             this.Value = value;
-            this.Type = token.Type;
+            switch (token.Type)
+            {
+                case Token.TokenType.Number:
+                case Token.TokenType.Number_Literal:
+                    Type = Scope.DataType.Number;
+                    break;
+                case Token.TokenType.String:
+                    Type = Scope.DataType.String;
+                    break;
+                case Token.TokenType.Token_True:
+                case Token.TokenType.Token_False:
+                    Type = Scope.DataType.Boolean;
+                    break;
+                default:
+                    Type = Scope.DataType.Unknown;
+                    break;
+            }
         }
         public IDExpression(Token token, Token.TokenType type, Expression value)//, Expression value) : base(token, value
         {
             this.token = token;
             this.Value = value;
-            this.Type = type;
+            switch (type)
+            {
+                case Token.TokenType.Number:
+                case Token.TokenType.Number_Literal:
+                    Type = Scope.DataType.Number;
+                    break;
+                case Token.TokenType.String:
+                    Type = Scope.DataType.String;
+                    break;
+                case Token.TokenType.Token_True:
+                case Token.TokenType.Token_False:
+                    Type = Scope.DataType.Boolean;
+                    break;
+                default:
+                    Type = Scope.DataType.Unknown;
+                    break;
+            }
         }
         public override Scope.DataType CheckSemantic()
         {
@@ -31,8 +63,8 @@ namespace Gwent
                     return Context.datatype[item];
                 }
             }
-            EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-            throw new("The variable is not declared");
+          EngineCompiler.CreateError(ErrorCode.SemanticError, "The variable is not declared");
+            return Scope.DataType.Unknown;
         }
 
         public override object Evaluate()
@@ -57,9 +89,8 @@ namespace Gwent
                 }
             }
 
-            EngineCompiler.error = new TypeError(ErrorCode.EvaluateError);
-            throw new("The variable is not declared");
-
+           EngineCompiler.CreateError(ErrorCode.SemanticError, "The variable is not declared");
+            return null;
             //return Context!.Items.First(x => x.Key.token.Value == token.Value);
             //return Context!.Items.TryGetValue(new IDExpression(token, Value), out var value) ? value : Value.Evaluate();
         }
@@ -81,8 +112,7 @@ namespace Gwent
             }
             else
             {
-                EngineCompiler.error = new TypeError(ErrorCode.SemanticError);
-                throw new("The variable is not declared");
+               EngineCompiler.CreateError(ErrorCode.SemanticError, "The variable is not declared");
             }
         }
     }

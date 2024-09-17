@@ -26,7 +26,7 @@ namespace Gwent
       Token_Selector, Token_Source, Token_Single, Token_Predicate, Token_PostAction,
 
       //keywords Language
-      Token_Else, Token_In, Token_If, Token_Function, Token_Then, Token_While, Token_For,
+      Token_Else, Token_In, Token_If, Token_Function, Token_Then, Token_While, Token_for,
 
       Identifier,
 
@@ -89,7 +89,7 @@ namespace Gwent
       ["Remove"] = new Token(TokenType.Token_Remove, "Remove"),
       ["Shuffle"] = new Token(TokenType.Token_Shuffle, "Shuffle"),
 
-      ["owner"] = new Token(TokenType.Token_Owner, "owner"),
+      ["Owner"] = new Token(TokenType.Token_Owner, "Owner"),
 
 
       //Cards
@@ -112,7 +112,7 @@ namespace Gwent
       ["in"] = new Token(TokenType.Token_In, "in"),
       //["then"]= new Token(TokenType.Token_Then, "then"),
       ["while"] = new Token(TokenType.Token_While, "while"),
-      ["For"] = new Token(TokenType.Token_For, "For"),
+      ["for"] = new Token(TokenType.Token_for, "for"),
       ["function"] = new Token(TokenType.Token_Function, "function"),
 
 
@@ -159,6 +159,18 @@ namespace Gwent
       [":"] = new Token(TokenType.TwoPoint, ":"),
       [","] = new Token(TokenType.Comma, ","),
       ["\0"] = new Token(TokenType.EndProgram, "\0"),
+
+      //whiteSpaces
+      [" "] = new Token(TokenType.WhiteSpace, " "),
+      ["\t"] = new Token(TokenType.WhiteSpace, "\t"),
+      ["\n"] = new Token(TokenType.WhiteSpace, "\n"),
+      ["\r"] = new Token(TokenType.WhiteSpace, "\r"),
+      ["\0"] = new Token(TokenType.WhiteSpace, "\0"),
+      ["\f"] = new Token(TokenType.WhiteSpace, "\f"),
+      ["\v"] = new Token(TokenType.WhiteSpace, "\v"),
+      ["\b"] = new Token(TokenType.WhiteSpace, "\b"),
+      ["\a"] = new Token(TokenType.WhiteSpace, "\a"),
+      ["\t"] = new Token(TokenType.WhiteSpace, "\t"),
 
       //Booleans
       ["true"] = new Token(TokenType.Token_True, "true"),

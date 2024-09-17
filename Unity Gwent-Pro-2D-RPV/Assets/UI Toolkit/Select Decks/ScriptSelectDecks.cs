@@ -9,33 +9,28 @@ public class ScriptSelectDecks : MonoBehaviour
 {
     UIDocument SelectDecks;
     [SerializeField] GameObject GameManager;
+    [SerializeField] GameObject SceneStartMenu;
+    [SerializeField] GameObject SceneRuntime;
+    [SerializeField] GameObject SoundRuntime;
+
+    GameManager gameManager;
     public GameObject Game;
-    public GameObject UIRuntime;
+    [SerializeField] GameObject UIRuntime;
 
     private Button deck1;
     private Button deck2;
     private Button back;
-    /*
-    GameObject DeckPirates;
-    GameObject DeckResistance;
-    GameObject Board1;
-    GameObject Board2;
-    GameObject Hand1;
-    GameObject Hand2;
-    */
-    private void Start()
+
+    private void Awake()
     {
-        /*
-        GameManager = GameObject.FindGameObjectWithTag("GameManager");
-        DeckPirates = GameObject.FindGameObjectWithTag("Deck Pirates");
-        DeckResistance = GameObject.FindGameObjectWithTag("Deck Resistance");
-        Board1 = GameObject.FindGameObjectWithTag("SubBoard1");
-        Board2 = GameObject.FindGameObjectWithTag("SubBoard2");
-        Hand1 = GameObject.FindGameObjectWithTag("Hand1");
-        Hand2 = GameObject.FindGameObjectWithTag("Hand2");
-        Game = GameObject.FindGameObjectWithTag("GameController");
-        UIRuntime = GameObject.FindGameObjectWithTag("UIRuntime");
-        */
+        gameManager = GameManager.GetComponent<GameManager>();
+        //Game = GameObject.Find("Game");
+        //UIRuntime = GameObject.Find("UIRuntime");
+        //SoundRuntime = GameObject.Find("SoundRuntime");
+        GameManager.SetActive(true);
+        SoundRuntime.SetActive(true);
+        SceneStartMenu.SetActive(false);
+        SceneRuntime.SetActive(true);
     }
     private void OnEnable()
     {
@@ -54,38 +49,60 @@ public class ScriptSelectDecks : MonoBehaviour
     }
     private void OpenGameDeck1(ClickEvent evt)
     {
-        GameManager.GetComponent<GameManager>().player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
-        GameManager.GetComponent<GameManager>().player2 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>();
+        gameManager.player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
+        gameManager.player2 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>();
 
-        GameManager.GetComponent<GameManager>().player1.isPlaying = true;
-        GameManager.GetComponent<GameManager>().player2.isPlaying = false;
+        GameObject deck1 = GameObject.Find("Deck Pirates");
+        GameObject deck2 = GameObject.Find("Deck Resistance");
+
+        gameManager.player1.hand.deck = deck1;
+        gameManager.player1.deck = deck1.GetComponent<Decks>();
+        gameManager.player1.subBoard.Boss.GetComponent<BossZone>().deck = deck1;
+
+        gameManager.player2.hand.deck = deck2;
+        gameManager.player2.deck = deck2.GetComponent<Decks>();
+        gameManager.player2.subBoard.Boss.GetComponent<BossZone>().deck = deck2;
+
+        gameManager.player1.isPlaying = true;
+        gameManager.player2.isPlaying = false;
 
         Game.SetActive(true);
         UIRuntime.SetActive(true);
         gameObject.SetActive(false);
 
         UIRuntime.GetComponent<ScriptUIRuntime>().ShowMessage("Start Game");
-        GameManager.GetComponent<GameManager>().startGame = true;
+        gameManager.startGame = true;
     }
     private void OpenGameDeck2(ClickEvent evt)
     {
-        GameManager.GetComponent<GameManager>().player1 = GameObject.FindGameObjectWithTag("Player3").GetComponent<Player>();
-        GameManager.GetComponent<GameManager>().player2 = GameObject.FindGameObjectWithTag("Player4").GetComponent<Player>();
+        gameManager.player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
+        gameManager.player2 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>();
 
-        GameManager.GetComponent<GameManager>().player1.isPlaying = true;
-        GameManager.GetComponent<GameManager>().player2.isPlaying = false;
+        GameObject deck1 = GameObject.Find("Deck Resistance");
+        GameObject deck2 = GameObject.Find("Deck Pirates");
+
+        gameManager.player1.hand.deck = deck1;
+        gameManager.player1.deck = deck1.GetComponent<Decks>();
+        gameManager.player1.subBoard.Boss.GetComponent<BossZone>().deck = deck1;
+
+        gameManager.player2.hand.deck = deck2;
+        gameManager.player2.deck = deck2.GetComponent<Decks>();
+        gameManager.player2.subBoard.Boss.GetComponent<BossZone>().deck = deck2;
+
+        gameManager.player1.isPlaying = true;
+        gameManager.player2.isPlaying = false;
 
         Game.SetActive(true);
         UIRuntime.SetActive(true);
         gameObject.SetActive(false);
 
         UIRuntime.GetComponent<ScriptUIRuntime>().ShowMessage("Start Game");
-        GameManager.GetComponent<GameManager>().startGame = true;
+        gameManager.startGame = true;
     }
     private void BackToStartMenu(ClickEvent evt)
     {
-        SceneManager.LoadScene("StartMenuScene");
-        //StartMenu.SetActive(true);
-        //gameObject.SetActive(false);
+        SceneStartMenu.SetActive(true);
+        SoundRuntime.SetActive(false);
+        SceneRuntime.SetActive(false);
     }
 }

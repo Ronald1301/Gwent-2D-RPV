@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cotton
   m_EditorClassIdentifier: 
   cardName: Cotton
-  faction: 0
+  faction: Pirates
   type: 0
   description: Draw one card
   cardImageForehead: {fileID: 21300000, guid: 174c61fa5b46dbb43bdc4c42dd6f2093, type: 3}
@@ -21,8 +21,11 @@ MonoBehaviour:
   startPower: 3
   power: 3
   typeField: 83
+  range: 2
   typeUnitCard: 2
   typeSpecialCard: 0
   effects: 5
   stayintheField: 0
   inTheField: 0
+  affectedByClimate: 0
+  affectedByIncrease: 0

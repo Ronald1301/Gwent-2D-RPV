@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: The Sword of Triton
   m_EditorClassIdentifier: 
   cardName: The Sword of Triton
-  faction: 1
+  faction: Resistance
   type: 1
   description: ' Increases all cards  in the melee  attack row by 2 points'
   cardImageForehead: {fileID: 21300000, guid: 92a231273b3b5a94fa0f994aca9c8ad2, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   startPower: 0
   power: 0
   typeField: 77
+  range: 0
   typeUnitCard: 0
   typeSpecialCard: 2
   effects: 12
